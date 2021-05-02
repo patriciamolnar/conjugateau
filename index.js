@@ -1,13 +1,15 @@
-const express = require('express'); 
-const mongoose = require('mongoose'); 
-require('dotenv').config();
+const express = require('express');
 const db = require('./lib/db');
-const UserModel = require('./models/UserModel');
+const userRouter = require('./routes/UserRouter');
+const errorHandler = require('./errorHandler');
+const port = 5000;
+require('dotenv').config();
 
 const app = express();
 app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 
-const port = 5000;
+app.use('/user', userRouter);
 
 db.connect(process.env.DEVELOPMENT_DB_DSN).
     then(() => {
@@ -17,22 +19,7 @@ db.connect(process.env.DEVELOPMENT_DB_DSN).
             });
     }).catch((err) => {
         console.log(err);
-    });
-
-// Add user to DB
-app.post('/register', async (req, res, next) => {
-    try {
-        const user = new UserModel({
-            username: req.body.username, 
-            email: req.body.email, 
-            password: req.body.password
-        });
-        const savedUser = await user.save(); 
-        if(savedUser) {
-            return res.send({message: 'successfully added user'});
-        }
-        return next(new Error('Failed to save user'));
-    } catch(err) {
-        return next(err);
-    }
 });
+
+// error handling middleware
+app.use(errorHandler);

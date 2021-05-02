@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const emailValidator = require('email-validator');
+const validator = require('validator');
 const bcrypt = require('bcrypt');
 const SALT_ROUNDS = 12; 
 
@@ -8,25 +8,23 @@ const collectionName = 'users';
 const UserSchema = new mongoose.Schema({
     username: {
         type: String,
-        required: true, 
+        required: [true, 'Please enter a username.'], 
         trim: true,
-        index: { unique: true }, 
+        index: { unique: [true, 'The username is already taken.'] }, 
         minlength: 3,
+        validate: [validator.isAlphanumeric, 'Usernames can only contain letters and numbers.']
     }, 
     email: {
         type: String, 
-        required: true, 
+        required: [true, 'Please enter an email.'], 
         trim: true, 
         lowercase: true,
-        index: { unique: true },
-        validate: {
-            validator: emailValidator.validate, 
-            message: props => `${props.value} is not a valid email address`,
-        }
+        index: { unique: [true, 'The email is already taken.'] },
+        validate: [validator.isEmail, 'Please enter a valid email address.']
     }, 
     password: {
         type: String,
-        required: true, 
+        required: [true, 'Please enter a password.'], 
         minlength: 8, 
     }
 }, {
@@ -49,8 +47,17 @@ UserSchema.pre('save', async function preSave(next) {
 });
 
 // check if password is correct
-UserSchema.methods.comparePassword = async function comparePassword(candidate) {
-    return bcrypt.compare(candidate, this.password);
+UserSchema.methods.comparePassword = function(candidate, next) {
+    bcrypt.compare(candidate, this.password, (err, isMatch) => {
+        if(err) {
+            return next(err);
+        } else {
+            if(!isMatch) {
+                return next(null, isMatch);
+            }
+            return next(null, this);
+        }
+    });
 }
 
 module.exports = mongoose.model('User', UserSchema, collectionName);

@@ -18,7 +18,7 @@ function Registerform() {
     const registerUser = (e) => {
         e.preventDefault(); 
 
-        fetch('/register', {
+        fetch('/user/register', {
             method: "POST",
             headers: {
                 'Content-type': 'application/json'
