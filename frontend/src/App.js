@@ -14,9 +14,10 @@ import Header from './components/Header';
 
 function App() {
   const [data, setData] = useState(null);
-  const [tenses, setTenses] = useState([]);
+  const [selected, setSelected] = useState([]);
   const [practicing, setPracticing] = useState(false);
 
+  //load data on first render
   useEffect(() => {
     fetch('/data.json')
       .then(res => res.json())
@@ -24,11 +25,29 @@ function App() {
       .catch(e => console.log(e))
   }, []);
 
-  const updateOptions = (e) => {
-    setTenses([...tenses, e.target.name]);
+  //filter data based on tenses user wants to practice
+  const updateData = () => {
+    if(selected.length > 0) {
+      let filtered = data.map(obj => {
+        let rObj = {}
+        rObj['infinitive'] = obj.infinitive; 
+        rObj['en'] = obj.en;
+        rObj['tenses'] = obj['tenses'].filter(item => selected.includes(item['name']));
+        return rObj
+      }); 
+
+      setData(filtered);
+    } 
   }
 
+  //save tenses selected to state
+  const updateOptions = (e) => {
+    setSelected([...selected, e.target.name]);
+  }
+
+  //start game and filter data
   const startGame = () => {
+    updateData();
     setPracticing(true);
   }
 
@@ -60,7 +79,7 @@ function App() {
 
             <Switch>
               <Route exact path="/" render={(props) => {
-                return <Flashcard {...props} verbs={data} tenses={tenses} updateOptions={updateOptions} startGame={startGame} practicing={practicing}/>
+                return <Flashcard {...props} verbs={data} practicing={practicing} updateOptions={updateOptions} startGame={startGame} />
               }} />
               <Route path="/test" component={Test} />
               

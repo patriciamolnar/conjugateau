@@ -1,6 +1,7 @@
 import { Fragment } from 'react'
+import FlashcardQuiz from '../components/FlashcardQuiz';
 
-function Flashcard({ tenses, verbs, updateOptions, practicing, startGame }) {
+function Flashcard({ verbs, practicing, updateOptions, startGame }) {
     const tenseNames = [];
     verbs[0]['tenses'].forEach(x => tenseNames.push(x.name));
 
@@ -20,10 +21,11 @@ function Flashcard({ tenses, verbs, updateOptions, practicing, startGame }) {
             </Fragment>
             
         )
-    } else {
+    } else {    
         return(
             <Fragment>
                 <h2>Starting Quiz</h2>   
+                <FlashcardQuiz/>
             </Fragment>
         )
     }
