@@ -14,6 +14,8 @@ import Header from './components/Header';
 
 function App() {
   const [data, setData] = useState(null);
+  const [tenses, setTenses] = useState([]);
+  const [practicing, setPracticing] = useState(false);
 
   useEffect(() => {
     fetch('/data.json')
@@ -21,6 +23,14 @@ function App() {
       .then(setData)
       .catch(e => console.log(e))
   }, []);
+
+  const updateOptions = (e) => {
+    setTenses([...tenses, e.target.name]);
+  }
+
+  const startGame = () => {
+    setPracticing(true);
+  }
 
   if(data === null) {
     return(
@@ -50,7 +60,7 @@ function App() {
 
             <Switch>
               <Route exact path="/" render={(props) => {
-                return <Flashcard {...props} verbs="hi"/>
+                return <Flashcard {...props} verbs={data} tenses={tenses} updateOptions={updateOptions} startGame={startGame} practicing={practicing}/>
               }} />
               <Route path="/test" component={Test} />
               
