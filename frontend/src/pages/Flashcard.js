@@ -1,7 +1,7 @@
 import { Fragment, useState } from 'react'
 import FlashcardQuiz from '../components/FlashcardQuiz';
 
-function Flashcard({ verbs, practicing, updateOptions, startGame }) {
+function Flashcard({ verbs, practicing, updateOptions, startGame, finishPractice }) {
     const [number, setNumber] = useState(0);
 
     //if tenses have not been selected display select page.
@@ -31,12 +31,15 @@ function Flashcard({ verbs, practicing, updateOptions, startGame }) {
         const getNext = () => {
             if(number < (verbs.length - 1)) {
                 setNumber(number => number + 1);
-            } 
+            } else { //if all questions were practiced start again.
+                setNumber(0);
+            }
         }
 
         return(
             <Fragment>  
                 <FlashcardQuiz data={verbs[number]} getNext={getNext}/>
+                <button onClick={finishPractice}>Finish Practicing</button>
             </Fragment>
         )
     }

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-function FlashcardQuiz( {data, getNext} ) {
+function FlashcardQuiz({ data, getNext }) {
     const [hidden, setHidden] = useState(true);
 
 

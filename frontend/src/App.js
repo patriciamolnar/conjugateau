@@ -31,6 +31,10 @@ function App() {
     setPracticing(true);
   }
 
+  const finishPractice = () => {
+    setPracticing(false);
+  }
+
   return (
     <Fragment>
       <Router>
@@ -54,7 +58,7 @@ function App() {
 
           <Switch>
             <Route exact path="/" render={(props) => {
-              return <Flashcard {...props} verbs={data} practicing={practicing} updateOptions={updateOptions} startGame={startGame} />
+              return <Flashcard {...props} verbs={data} practicing={practicing} updateOptions={updateOptions} startGame={startGame} finishPractice={finishPractice}/>
             }} />
             <Route path="/test" component={Test} />
             
