@@ -2,10 +2,8 @@ import { Fragment } from 'react'
 import FlashcardQuiz from '../components/FlashcardQuiz';
 
 function Flashcard({ verbs, practicing, updateOptions, startGame }) {
-    const tenseNames = [];
-    verbs[0]['tenses'].forEach(x => tenseNames.push(x.name));
-
     if(!practicing) {
+        const tenseNames = ['present-indicative', 'imparfait'];
         return (
             <Fragment>
                 <p>Select tenses to practice:</p>
