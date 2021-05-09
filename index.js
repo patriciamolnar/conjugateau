@@ -1,15 +1,18 @@
+require('dotenv').config();
 const express = require('express');
+
 const db = require('./lib/db');
 const userRouter = require('./routes/UserRouter');
+const verbRouter = require('./routes/VerbRouter');
 const errorHandler = require('./errorHandler');
 const port = 5000;
-require('dotenv').config();
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 app.use('/user', userRouter);
+app.use('/verbs', verbRouter); 
 
 db.connect(process.env.DEVELOPMENT_DB_DSN).
     then(() => {

@@ -4,3 +4,5 @@ z.txt
 .env
 frontend/node_modules
 a/
+insert-data.js
+verbs.json
