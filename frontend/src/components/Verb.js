@@ -1,21 +1,40 @@
-import Table from './Table';
+import { filterData } from '../lib/functions';
 
 function Verb({data}) {
-    return(
-        <div>
-            <h3>{data.infinitive}</h3>
-            <p>{data.en}</p>
-            <p>{data.type}</p>
+    const tenses = filterData(data, 'tense');
+    
+    if(tenses) {
+        return(
             <div>
-                {data['tenses'].map(tense => {
-                    return (
-                        <Table infinite={data.infinite} name={tense.name} verbs={tense.verbs} />
-                    )
-                })}
+                <h3>{data[0].infinitive}</h3>
+                <p>{data[0].en}</p>
+                <p>{data[0].type}</p>
+                
+                <div>
+                    {tenses.map((arr, i) => {
+                        return (
+                            <div key={i.toString()}>
+                                {
+                                    arr.map((ele, i) => {
+                                        return (
+                                            <p key={ele._id}>
+                                                <p>{(i === 0) ? ele.tense : null}</p>
+                                                <span>{ele.pronoun}: </span>
+                                                <span>{ele.conjugation}</span>
+                                            </p>
+                                        )
+                                    })
+                                }
+                                <hr />
+                            </div>
+                        )
+                    })}
+                </div>
             </div>
-            <hr />
-        </div>
-    )
+        )
+    } else {
+        return <div>Loading...</div>
+    }
 }
 
 export default Verb; 

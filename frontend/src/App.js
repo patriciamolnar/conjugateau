@@ -62,7 +62,7 @@ function App() {
             }} />
             <Route path="/test" component={Test} />
             
-            <Route path="/verbs" render={(props) => <Verbs {...props} verbs={data} />} />
+            <Route path="/verbs" component={Verbs} />
 
             <Route path="/account" component={Account} />  
           </Switch>
