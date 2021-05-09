@@ -1,4 +1,4 @@
-import { Fragment, useState, useEffect } from 'react';
+import { Fragment, useState } from 'react';
 import {
   BrowserRouter as Router, 
   Switch, 
@@ -12,7 +12,7 @@ import Verbs from './pages/Verbs';
 import Account from './pages/Account';
 import Header from './components/Header';
 
-import { getAll, getByTense } from './lib/fetch';
+import { getByTense } from './lib/fetch';
 
 function App() {
   const [data, setData] = useState(null);

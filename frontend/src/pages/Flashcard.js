@@ -1,7 +1,10 @@
-import { Fragment } from 'react'
+import { Fragment, useState } from 'react'
 import FlashcardQuiz from '../components/FlashcardQuiz';
 
 function Flashcard({ verbs, practicing, updateOptions, startGame }) {
+    const [number, setNumber] = useState(0);
+
+    //if tenses have not been selected display select page.
     if(!practicing) {
         const tenseNames = ['present-indicative', 'imparfait'];
         return (
@@ -19,11 +22,21 @@ function Flashcard({ verbs, practicing, updateOptions, startGame }) {
             </Fragment>
             
         )
-    } else {    
+    } else if(verbs === null) { // wait for data to load 
+        return (
+            <div>Loading...</div>
+        )
+    } else { // start praciting
+
+        const getNext = () => {
+            if(number < (verbs.length - 1)) {
+                setNumber(number => number + 1);
+            } 
+        }
+
         return(
-            <Fragment>
-                <h2>Starting Quiz</h2>   
-                <FlashcardQuiz/>
+            <Fragment>  
+                <FlashcardQuiz data={verbs[number]} getNext={getNext}/>
             </Fragment>
         )
     }
