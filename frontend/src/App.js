@@ -32,6 +32,8 @@ function App() {
   }
 
   const finishPractice = () => {
+    setData(null);
+    setSelected([]);
     setPracticing(false);
   }
 

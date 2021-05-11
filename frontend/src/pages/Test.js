@@ -1,33 +1,22 @@
 import { Fragment, useState } from 'react'
 import TestQuiz from '../components/TestQuiz';
 
-import { tenseNames } from '../lib/constants';
+import TenseSelector from '../components/TenseSelector';
 
 function Test({ verbs, practicing, updateOptions, startGame, finishPractice }) {
     const [number, setNumber] = useState(0);
 
     //if tenses have not been selected display select page.
     if(!practicing) {
-        
         return (
-            <Fragment>
-                <p>Select tenses to practice:</p>
-                {tenseNames.map(name => {
-                    return( 
-                        <label htmlFor={name}>
-                            <input id={name} name={name} type="checkbox" onClick={(e) => updateOptions(e)}/>
-                            {name}
-                        </label>
-                    )
-                })}
-                <button onClick={startGame}>Start</button>
-            </Fragment>
-            
+            <TenseSelector updateOptions={updateOptions} startGame={startGame} />   
         )
+
     } else if(verbs === null) { // wait for data to load 
         return (
             <div>Loading...</div>
         )
+
     } else { // start praciting
 
         const getNext = () => {
@@ -41,7 +30,10 @@ function Test({ verbs, practicing, updateOptions, startGame, finishPractice }) {
         return(
             <Fragment>  
                 <TestQuiz data={verbs[number]} getNext={getNext}/>
-                <button onClick={finishPractice}>Finish Practicing</button>
+                <button onClick={() => {
+                    setNumber(0);
+                    finishPractice(); 
+                }}>Finish Practicing</button>
             </Fragment>
         )
     }
