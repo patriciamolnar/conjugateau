@@ -60,7 +60,10 @@ function App() {
             <Route exact path="/" render={(props) => {
               return <Flashcard {...props} verbs={data} practicing={practicing} updateOptions={updateOptions} startGame={startGame} finishPractice={finishPractice}/>
             }} />
-            <Route path="/test" component={Test} />
+            
+            <Route path="/test" render={(props) => {
+              return <Test {...props} verbs={data} practicing={practicing} updateOptions={updateOptions} startGame={startGame} finishPractice={finishPractice}/>
+            }} />
             
             <Route path="/verbs" component={Verbs} />
 

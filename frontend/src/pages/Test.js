@@ -1,5 +1,51 @@
-function Test() {
-    return <h1>Test</h1>
+import { Fragment, useState } from 'react'
+import TestQuiz from '../components/TestQuiz';
+
+import { tenseNames } from '../lib/constants';
+
+function Test({ verbs, practicing, updateOptions, startGame, finishPractice }) {
+    const [number, setNumber] = useState(0);
+
+    //if tenses have not been selected display select page.
+    if(!practicing) {
+        
+        return (
+            <Fragment>
+                <p>Select tenses to practice:</p>
+                {tenseNames.map(name => {
+                    return( 
+                        <label htmlFor={name}>
+                            <input id={name} name={name} type="checkbox" onClick={(e) => updateOptions(e)}/>
+                            {name}
+                        </label>
+                    )
+                })}
+                <button onClick={startGame}>Start</button>
+            </Fragment>
+            
+        )
+    } else if(verbs === null) { // wait for data to load 
+        return (
+            <div>Loading...</div>
+        )
+    } else { // start praciting
+
+        const getNext = () => {
+            if(number < (verbs.length - 1)) {
+                setNumber(number => number + 1);
+            } else { //if all questions were practiced start again.
+                setNumber(0);
+            }
+        }
+
+        return(
+            <Fragment>  
+                <TestQuiz data={verbs[number]} getNext={getNext}/>
+                <button onClick={finishPractice}>Finish Practicing</button>
+            </Fragment>
+        )
+    }
+    
 }
 
 export default Test;

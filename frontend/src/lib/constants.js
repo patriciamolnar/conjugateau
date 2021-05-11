@@ -1,0 +1,1 @@
+export const tenseNames = ['present-indicative', 'imparfait'];
