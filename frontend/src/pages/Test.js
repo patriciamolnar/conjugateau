@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react'
+import { useState } from 'react'
 import TestQuiz from '../components/TestQuiz';
 
 import TenseSelector from '../components/TenseSelector';
@@ -28,13 +28,13 @@ function Test({ verbs, practicing, updateOptions, startGame, finishPractice }) {
         }
 
         return(
-            <Fragment>  
+            <>  
                 <TestQuiz data={verbs[number]} getNext={getNext}/>
                 <button onClick={() => {
                     setNumber(0);
                     finishPractice(); 
                 }}>Finish Practicing</button>
-            </Fragment>
+            </>
         )
     }
     

@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Verb from '../components/Verb';
 import { getAll } from '../lib/fetch';
 import { filterData } from '../lib/functions';
@@ -22,12 +22,12 @@ function Verbs() {
 
  
     return (
-        <Fragment>
+        <>
             <h2>Verbs</h2>
             {infinitives ? 
             infinitives.map((arr, i) => <Verb key={i.toString()} data={arr}/>) :
             <div>Loading...</div>}
-        </Fragment>
+        </>
     )
 }
 

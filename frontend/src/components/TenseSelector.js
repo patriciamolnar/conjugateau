@@ -1,10 +1,8 @@
-import { Fragment } from 'react';
-
 function TenseSelector({ updateOptions, startGame }) {
     const tenseNames = ['present-indicative', 'imparfait'];
 
     return(
-        <Fragment>
+        <>
             <p>Select tenses to practice:</p>
             {tenseNames.map(name => {
                 return( 
@@ -15,7 +13,7 @@ function TenseSelector({ updateOptions, startGame }) {
                 )
             })}
             <button onClick={startGame}>Start</button>
-        </Fragment>
+        </>
     )
 }
 
