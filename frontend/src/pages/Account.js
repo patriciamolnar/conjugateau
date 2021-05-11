@@ -1,5 +1,12 @@
+import Registerform from '../components/Registerform'; 
+
 function Account() {
-    return <h1>Account</h1>
+    return (
+        <> 
+            <h2>Your Account</h2>
+            <Registerform />
+        </>
+    )
 }
 
 export default Account;
