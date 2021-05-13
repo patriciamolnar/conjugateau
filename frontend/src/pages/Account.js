@@ -1,10 +1,11 @@
+import Loginform from '../components/LoginForm';
 import Registerform from '../components/Registerform'; 
 
 function Account() {
     return (
         <> 
-            <h2>Your Account</h2>
             <Registerform />
+            <Loginform />
         </>
     )
 }
