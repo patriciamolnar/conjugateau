@@ -42,7 +42,7 @@ userRouter.post('/login', passport.authenticate('local', {session: false}), (req
 
 userRouter.get('/logout', (req, res) => {
     res.clearCookie('access_token');
-    res.json({user: {username: ''}, success: true});
+    res.json({user: {email: ''}, success: true});
 }); 
 
 module.exports = userRouter;

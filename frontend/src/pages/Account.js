@@ -1,4 +1,5 @@
 import Loginform from '../components/LoginForm';
+import Logout from '../components/Logout'; 
 import Profile from '../components/Profile';
 import Registerform from '../components/Registerform'; 
 
@@ -7,7 +8,8 @@ function Account() {
         <> 
             <Registerform />
             <Loginform />
-            <Profile />
+            <Logout />
+            {/* <Profile /> */}
         </>
     )
 }
