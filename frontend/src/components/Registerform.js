@@ -1,8 +1,7 @@
 import { useState } from 'react'; 
 
 function Registerform() {
-    const [user, setUser] = useState({
-        username: '', 
+    const [user, setUser] = useState({ 
         email: '',
         password: ''
     });
@@ -33,10 +32,6 @@ function Registerform() {
         <>
             <h1>Sign Up</h1>
             <form onSubmit={(e) => registerUser(e)}>
-                <label htmlFor="registerUsername">Username:</label>
-                <input type="text" id="registerUsername" name="username" 
-                    value={user.username}
-                    onChange={(e) => updateDetails(e)}/>
                 <label htmlFor="registerEmail">Email:</label>
                 <input type="email" id="registerEmail" name="email"
                     value={user.email}
