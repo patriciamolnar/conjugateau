@@ -15,9 +15,8 @@ const signToken = userID => {
 // Add user to DB
 userRouter.post('/register', async (req, res, next) => {
     try { //try to register user 
-        const { username, email, password } = req.body;
-        const user = new UserModel({
-            username, 
+        const { email, password } = req.body;
+        const user = new UserModel({ 
             email, 
             password
         });
@@ -33,11 +32,11 @@ userRouter.post('/register', async (req, res, next) => {
 
 userRouter.post('/login', passport.authenticate('local', {session: false}), (req, res) => {
     if(req.isAuthenticated()) {
-        const {_id, username} = req.user; 
+        const {_id, email} = req.user; 
         console.log(req.user);
         const token = signToken(_id);
         res.cookie('access_token', token, {httpOnly: true, sameSite: true}); 
-        res.status(200).json({isAuthenticated: true, user: {username}}); 
+        res.status(200).json({isAuthenticated: true, user: {email}}); 
     } 
 }); 
 

@@ -6,14 +6,6 @@ const SALT_ROUNDS = 12;
 const collectionName = 'users';
 
 const UserSchema = new mongoose.Schema({
-    username: {
-        type: String,
-        required: [true, 'Please enter a username.'], 
-        trim: true,
-        index: { unique: [true, 'The username is already taken.'] }, 
-        minlength: 3,
-        validate: [validator.isAlphanumeric, 'Usernames can only contain letters and numbers.']
-    }, 
     email: {
         type: String, 
         required: [true, 'Please enter an email.'], 

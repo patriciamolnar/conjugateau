@@ -29,13 +29,17 @@ passport.use(new JwtStrategy({
 }));
 
 //authenticate user login
-passport.use(new LocalStrategy((username, password, next) => {
-    UserModel.findOne({username}, (err, user) => {
+passport.use(new LocalStrategy({
+    usernameField: 'email',
+    passwordField: 'password'
+  }, 
+  (username, password, next) => {
+    UserModel.findOne({'email': username}, (err, user) => {
         if(err) { //something went wrong with DB
             return next(err); 
         }
         if(!user) { //no user found
-            return next(null, false, {message: 'Incorrect username or password.'})
+            return next(null, false, {message: 'Incorrect email or password.'})
         }
         //check if password is correct
         user.comparePassword(password, next);
