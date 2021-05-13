@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 function Profile() {
     const [user, setUser] = useState({ 
         name: '',
@@ -28,15 +30,15 @@ function Profile() {
 
     return(
         <>
-            <p>Your details</p>
+            <h2>Your details</h2>
             <form onSubmit={saveDetails}>
                 <label htmlFor="name">Name:</label>
                 <input type="text" id="name" name="name"
-                    value={user.name} autocomplete="name"
+                    value={user.name} autoComplete="name"
                     onChange={(e) => updateDetails(e)}/>
                 <label htmlFor="country">Country:</label>
                 <input type="text" id="country" name="country"
-                    value={user.location} autocomplete="country"
+                    value={user.location} autoComplete="country"
                     onChange={(e) => updateDetails(e)}/>
                 <button type="submit">Update</button>
             </form>
@@ -44,4 +46,4 @@ function Profile() {
     )
 }
 
-export default Profile
+export default Profile; 

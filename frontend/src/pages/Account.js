@@ -9,7 +9,7 @@ function Account() {
             <Registerform />
             <Loginform />
             <Logout />
-            {/* <Profile /> */}
+            <Profile />
         </>
     )
 }

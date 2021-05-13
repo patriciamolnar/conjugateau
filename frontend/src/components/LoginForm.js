@@ -30,15 +30,15 @@ function Loginform() {
 
     return(
         <>
-            <h1>Login</h1>
+            <h2>Login</h2>
             <form onSubmit={(e) => registerUser(e)}>
                 <label htmlFor="loginEmail">Email:</label>
                 <input type="email" id="loginEmail" name="email"
-                    value={user.email} autocomplete="email"
+                    value={user.email} autoComplete="email"
                     onChange={(e) => updateDetails(e)}/>
                 <label htmlFor="loginPassword">Password:</label>
                 <input type="password" id="loginPassword" name="password"
-                    value={user.password} autocomplete="current-password"
+                    value={user.password} autoComplete="current-password"
                     onChange={(e) => updateDetails(e)}/>
                 <button type="submit">Login</button>
             </form>
