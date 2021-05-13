@@ -34,11 +34,11 @@ function Registerform() {
             <form onSubmit={(e) => registerUser(e)}>
                 <label htmlFor="registerEmail">Email:</label>
                 <input type="email" id="registerEmail" name="email"
-                    value={user.email}
+                    value={user.email} autocomplete="email"
                     onChange={(e) => updateDetails(e)}/>
                 <label htmlFor="registerPassword">Password:</label>
                 <input type="password" id="registerPassword" name="password"
-                    value={user.password}
+                    value={user.password} autocomplete="new-password"
                     onChange={(e) => updateDetails(e)}/>
                 <button type="submit">Sign Up</button>
             </form>
