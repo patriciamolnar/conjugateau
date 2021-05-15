@@ -15,7 +15,7 @@ export const getByTense = (query, callback) => {
 }
 
 export const saveVerb = (verb) => {
-  fetch('/verbs/saved', {
+  fetch('/user/saved', {
     method: "PUT",
     headers: {
         'Content-type': 'application/json'

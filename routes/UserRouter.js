@@ -60,4 +60,35 @@ userRouter.get('/saved', passport.authenticate('jwt', { session: false }), async
     }
 });
 
+userRouter.put('/saved', passport.authenticate('jwt', { session: false }), async (req, res, next) => {
+    try { 
+        const verbId = req.body._id; 
+        const { _id } = req.user; 
+        User.findOne({_id}, function(err, doc) {
+            if(err) {
+                return next(err);
+            } 
+             
+            //if verbID already contained in 'saved', remove it
+            if(doc.saved.includes(verbId)) { 
+                User.updateOne({_id}, {$pull: { saved: verbId }}, function (err, doc) {
+                    if(err) {
+                        return next(err);
+                    } 
+                    return res.json({saved: 'true', status: 'removed'});
+                });
+            } else { //else add
+                User.updateOne({_id}, {$push: { saved: verbId }}, function (err, doc) {
+                    if(err) {
+                        return next(err);
+                    } 
+                    return res.json({saved: 'true', status: 'added'});
+                });
+            }
+        })
+    } catch(err) {
+        return next(err);
+    }
+});
+
 module.exports = userRouter;
