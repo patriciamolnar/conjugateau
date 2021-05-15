@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const cookies = require("cookie-parser");
 
 const db = require('./lib/db');
 const userRouter = require('./routes/UserRouter');
@@ -10,6 +11,7 @@ const port = 5000;
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+app.use(cookies());
 
 app.use('/user', userRouter);
 app.use('/verbs', verbRouter); 

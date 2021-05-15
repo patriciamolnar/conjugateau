@@ -1,3 +1,4 @@
+require('dotenv').config(); 
 const express = require('express');
 const userRouter = express.Router(); 
 const passport = require('passport');
@@ -9,7 +10,7 @@ const signToken = userID => {
     return JWT.sign({
         iss: 'Conjugateau',
         sub: userID
-    }, 'supersecret123', {expiresIn: '1h'});
+    }, process.env.JWT_KEY, {expiresIn: '1h'});
 }
 
 // Add user to DB
