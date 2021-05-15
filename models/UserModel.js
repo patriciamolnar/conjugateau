@@ -18,6 +18,9 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please enter a password.'], 
         minlength: 8, 
+    },
+    saved: {
+        type: [String]
     }
 }, {
     timestamps: true,
