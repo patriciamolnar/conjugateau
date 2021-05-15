@@ -1,8 +1,12 @@
-function Logout() {
+function Logout({ setLogin }) {
     const logoutUser = () => {
         fetch('/user/logout')
             .then((result) => result.json())
-            .then((info) => { console.log(info); })
+            .then((info) => {
+                if(info.success) {
+                    setLogin(false);
+                }
+            })
     }
 
     return(

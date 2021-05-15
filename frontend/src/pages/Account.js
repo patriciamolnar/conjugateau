@@ -3,13 +3,13 @@ import Logout from '../components/Logout';
 import Profile from '../components/Profile';
 import Registerform from '../components/Registerform'; 
 
-function Account() {
+function Account({ login, setLogin }) {
     return (
-        <> 
-            <Registerform />
-            <Loginform />
-            <Logout />
-            <Profile />
+        <>
+            {login ? 
+            (<><Logout setLogin={setLogin}/><Profile /></>) :
+            (<><Registerform /><Loginform setLogin={setLogin} /></>) 
+            }
         </>
     )
 }

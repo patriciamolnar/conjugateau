@@ -18,6 +18,7 @@ function App() {
   const [data, setData] = useState(null);
   const [selected, setSelected] = useState([]);
   const [practicing, setPracticing] = useState(false);
+  const [login, setLogin] = useState(false); 
 
   //save tenses selected to state
   const updateOptions = (e) => {
@@ -60,16 +61,18 @@ function App() {
 
           <Switch>
             <Route exact path="/" render={(props) => {
-              return <Flashcard {...props} verbs={data} practicing={practicing} updateOptions={updateOptions} startGame={startGame} finishPractice={finishPractice}/>
+              return <Flashcard {...props} verbs={data} practicing={practicing} updateOptions={updateOptions} startGame={startGame} finishPractice={finishPractice} login={login}/>
             }} />
             
             <Route path="/test" render={(props) => {
-              return <Test {...props} verbs={data} practicing={practicing} updateOptions={updateOptions} startGame={startGame} finishPractice={finishPractice}/>
+              return <Test {...props} verbs={data} practicing={practicing} updateOptions={updateOptions} startGame={startGame} finishPractice={finishPractice} login={login}/>
             }} />
             
             <Route path="/verbs" component={Verbs} />
 
-            <Route path="/account" component={Account} />  
+            <Route path="/account" render={(props) => {
+              return <Account {...props} login={login} setLogin={setLogin}/>
+            }} />  
           </Switch>
 
       </Router>

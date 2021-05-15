@@ -1,6 +1,6 @@
 import { useState } from 'react'; 
 
-function Loginform() {
+function Loginform({ setLogin }) {
     const [user, setUser] = useState({
         email: '',
         password: ''
@@ -25,7 +25,12 @@ function Loginform() {
             body: JSON.stringify(user)
             })
             .then((result) => result.json())
-            .then((info) => { console.log(info); })
+            .then(data => {
+                if(data.isAuthenticated) {
+                    setLogin(true);
+                } 
+            })
+            .catch(err => console.log(err))
     }
 
     return(
