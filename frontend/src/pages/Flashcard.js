@@ -2,7 +2,7 @@ import { useState } from 'react'
 import FlashcardQuiz from '../components/FlashcardQuiz';
 import TenseSelector from '../components/TenseSelector';
 
-function Flashcard({ verbs, practicing, updateOptions, startGame, finishPractice }) {
+function Flashcard({ verbs, practicing, updateOptions, startGame, finishPractice, login }) {
     const [number, setNumber] = useState(0);
 
     if(!practicing) { //if tenses have not been selected display select page.
@@ -27,7 +27,7 @@ function Flashcard({ verbs, practicing, updateOptions, startGame, finishPractice
 
         return(
             <>  
-                <FlashcardQuiz data={verbs[number]} getNext={getNext}/>
+                <FlashcardQuiz data={verbs[number]} getNext={getNext} login={login}/>
                 <button onClick={() => {
                     setNumber(0);
                     finishPractice(); 

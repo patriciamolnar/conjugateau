@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { saveVerb } from '../lib/fetch';
 
-function FlashcardQuiz({ data, getNext }) {
+function FlashcardQuiz({ data, getNext, login }) {
     const [hidden, setHidden] = useState(true);
 
     return(
         <div>
-            <button onClick={() => {saveVerb({_id: data._id})}}>*</button>
+            {login ? <button onClick={() => {saveVerb({_id: data._id})}}>*</button> : null}
             <p>{data.infinitive} <span>({data.en})</span></p>
             <p>{data.tense}</p>
             <p>{data.pronoun}</p>

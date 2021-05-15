@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import { saveVerb } from '../lib/fetch';
 
-function TestQuiz({ data, getNext }) {
+function TestQuiz({ data, getNext, login }) {
     const [answered, setAnswered] = useState(false);
     const [input, setInput] = useState('');
     const [correct, setCorrect] = useState(null);
@@ -16,6 +17,7 @@ function TestQuiz({ data, getNext }) {
     }
     return(
         <div>
+            {login ? <button onClick={() => {saveVerb({_id: data._id})}}>*</button> : null}
             <p>{data.infinitive} <span>({data.en})</span></p>
             <p>{data.tense}</p>
             <p>{data.pronoun}</p>
