@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcrypt');
+const ObjectId = mongoose.Schema.Types.ObjectId;
 const SALT_ROUNDS = 12; 
 
 const collectionName = 'users';
@@ -19,9 +20,7 @@ const UserSchema = new mongoose.Schema({
         required: [true, 'Please enter a password.'], 
         minlength: 8, 
     },
-    saved: {
-        type: [String]
-    }
+    saved: [{type: ObjectId, ref: 'Verb'}]
 }, {
     timestamps: true,
 });

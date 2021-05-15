@@ -4,7 +4,7 @@ const userRouter = express.Router();
 const passport = require('passport');
 const passportConfig = require('../passport');
 const JWT = require('jsonwebtoken');
-const UserModel = require('../models/UserModel');
+const User = require('../models/UserModel');
 
 const signToken = userID => {
     return JWT.sign({
@@ -17,7 +17,7 @@ const signToken = userID => {
 userRouter.post('/register', async (req, res, next) => {
     try { //try to register user 
         const { email, password } = req.body;
-        const user = new UserModel({ 
+        const user = new User({ 
             email, 
             password
         });
@@ -45,5 +45,19 @@ userRouter.get('/logout', passport.authenticate('jwt', { session: false }), (req
     res.clearCookie('access_token');
     res.json({user: {_id: ''}, success: true});
 }); 
+
+userRouter.get('/saved', passport.authenticate('jwt', { session: false }), async (req, res, next) => {
+    try {  
+        const { _id } = req.user; 
+        User.findOne({_id}).populate('saved').exec((err, doc) => {
+            if(err) {
+                return next(err);
+            }
+            return res.json(doc.saved);
+        });
+    } catch(err) {
+        return next(err);
+    }
+});
 
 module.exports = userRouter;

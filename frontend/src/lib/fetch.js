@@ -15,7 +15,7 @@ export const getByTense = (query, callback) => {
 }
 
 export const saveVerb = (verb) => {
-  fetch('/verbs/save', {
+  fetch('/verbs/saved', {
     method: "PUT",
     headers: {
         'Content-type': 'application/json'
@@ -24,4 +24,10 @@ export const saveVerb = (verb) => {
     })
     .then((result) => result.json())
     .then((info) => { console.log(info); })
+}
+
+export const getSavedVerbs = (callback) => {
+  fetch('/user/saved')
+      .then(res => res.json())
+      .then(data => callback(shuffle(data)));
 }

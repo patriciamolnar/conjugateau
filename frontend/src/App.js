@@ -16,6 +16,7 @@ import { getByTense } from './lib/fetch';
 
 function App() {
   const [data, setData] = useState(null);
+  const [starred, setStarred] = useState(null);
   const [selected, setSelected] = useState([]);
   const [practicing, setPracticing] = useState(false);
   const [login, setLogin] = useState(false); 
@@ -71,7 +72,7 @@ function App() {
             <Route path="/verbs" component={Verbs} />
 
             <Route path="/account" render={(props) => {
-              return <Account {...props} login={login} setLogin={setLogin}/>
+              return <Account {...props} login={login} setLogin={setLogin} setStarred={setStarred}/>
             }} />  
           </Switch>
 

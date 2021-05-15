@@ -53,7 +53,7 @@ verbRouter.get('/search/:infinitive', async (req, res, next) => {
     }
 });
 
-verbRouter.put('/save', passport.authenticate('jwt', { session: false }), async (req, res, next) => {
+verbRouter.put('/saved', passport.authenticate('jwt', { session: false }), async (req, res, next) => {
     try { 
         const verbID = req.body._id; 
         const { _id } = req.user; 
@@ -66,6 +66,6 @@ verbRouter.put('/save', passport.authenticate('jwt', { session: false }), async 
     } catch(err) {
         return next(err);
     }
-})
+});
 
 module.exports = verbRouter;

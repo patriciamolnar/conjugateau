@@ -1,6 +1,8 @@
 import { useState } from 'react'; 
 
-function Loginform({ setLogin }) {
+import { getSavedVerbs } from '../lib/fetch';
+
+function Loginform({ setLogin, setStarred }) {
     const [user, setUser] = useState({
         email: '',
         password: ''
@@ -28,6 +30,7 @@ function Loginform({ setLogin }) {
             .then(data => {
                 if(data.isAuthenticated) {
                     setLogin(true);
+                    getSavedVerbs(setStarred); 
                 } 
             })
             .catch(err => console.log(err))
