@@ -14,3 +14,14 @@ export const getByTense = (query, callback) => {
       .then(data => callback(shuffle(data)))
 }
 
+export const saveVerb = (verb) => {
+  fetch('/verbs/save', {
+    method: "PUT",
+    headers: {
+        'Content-type': 'application/json'
+    },
+    body: JSON.stringify(verb)
+    })
+    .then((result) => result.json())
+    .then((info) => { console.log(info); })
+}

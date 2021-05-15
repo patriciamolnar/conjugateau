@@ -53,9 +53,9 @@ verbRouter.get('/search/:infinitive', async (req, res, next) => {
     }
 });
 
-verbRouter.post('/:id', passport.authenticate('jwt', { session: false }), async (req, res, next) => {
+verbRouter.put('/save', passport.authenticate('jwt', { session: false }), async (req, res, next) => {
     try { 
-        const verbID = req.params.id; 
+        const verbID = req.body._id; 
         const { _id } = req.user; 
         User.updateOne({_id}, {$push: { saved: verbID }}, function (err, doc) {
             if(err) {
