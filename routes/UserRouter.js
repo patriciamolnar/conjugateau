@@ -37,13 +37,13 @@ userRouter.post('/login', passport.authenticate('local', {session: false}), (req
         console.log(req.user);
         const token = signToken(_id);
         res.cookie('access_token', token, {httpOnly: true, sameSite: true}); 
-        res.status(200).json({isAuthenticated: true, user: {email}}); 
+        res.status(200).json({isAuthenticated: true, user: {_id, email}}); 
     } 
 }); 
 
-userRouter.get('/logout', (req, res) => {
+userRouter.get('/logout', passport.authenticate('jwt', { session: false }), (req, res) => {
     res.clearCookie('access_token');
-    res.json({user: {email: ''}, success: true});
+    res.json({user: {_id: ''}, success: true});
 }); 
 
 module.exports = userRouter;
