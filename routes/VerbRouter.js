@@ -1,6 +1,8 @@
 const express = require('express');
 const verbRouter = express.Router();
 const Verb = require('../models/VerbModel'); 
+const User = require('../models/UserModel');
+const passport = require('passport');
 
 // Get all entries from verbs collection
 verbRouter.get('/', async (req, res, next) => {
@@ -50,5 +52,20 @@ verbRouter.get('/search/:infinitive', async (req, res, next) => {
         return next(err);
     }
 });
+
+verbRouter.post('/:id', passport.authenticate('jwt', { session: false }), async (req, res, next) => {
+    try { 
+        const verbID = req.params.id; 
+        const { _id } = req.user; 
+        User.updateOne({_id}, {$push: { saved: verbID }}, function (err, doc) {
+            if(err) {
+                return next(err);
+            } 
+            return res.json({saved: 'true'});
+        });
+    } catch(err) {
+        return next(err);
+    }
+})
 
 module.exports = verbRouter;
