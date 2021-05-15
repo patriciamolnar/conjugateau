@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import {
   BrowserRouter as Router, 
   Switch, 
@@ -12,7 +12,7 @@ import Verbs from './pages/Verbs';
 import Account from './pages/Account';
 import Header from './components/Header';
 
-import { getByTense } from './lib/fetch';
+import { getByTense, getSavedVerbs } from './lib/fetch';
 
 function App() {
   const [data, setData] = useState(null);
@@ -20,6 +20,19 @@ function App() {
   const [selected, setSelected] = useState([]);
   const [practicing, setPracticing] = useState(false);
   const [login, setLogin] = useState(false); 
+
+  useEffect(() => {
+    if(login) return; 
+
+    fetch('/user/auth')
+    .then(res => res.json())
+    .then(data => {
+      if(data.isAuthenticated) {
+        setLogin(true);
+        getSavedVerbs(setStarred);
+      }
+    })
+  }, []); 
 
   //save tenses selected to state
   const updateOptions = (e) => {

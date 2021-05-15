@@ -46,6 +46,12 @@ userRouter.get('/logout', passport.authenticate('jwt', { session: false }), (req
     res.json({user: {_id: ''}, success: true});
 }); 
 
+userRouter.get('/auth', passport.authenticate('jwt', { session: false }), (req, res, ) => {
+    const { _id } = req.user; 
+    return res.json({isAuthenticated: true, id: _id});
+});
+
+
 userRouter.get('/saved', passport.authenticate('jwt', { session: false }), async (req, res, next) => {
     try {  
         const { _id } = req.user; 
