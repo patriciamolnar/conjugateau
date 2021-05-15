@@ -3,7 +3,7 @@ import TestQuiz from '../components/TestQuiz';
 
 import TenseSelector from '../components/TenseSelector';
 
-function Test({ verbs, practicing, updateOptions, startGame, finishPractice, login, setStarred }) {
+function Test({ verbs, practicing, updateOptions, startGame, finishPractice, login, setStarred, starred }) {
     const [number, setNumber] = useState(0);
 
     //if tenses have not been selected display select page.
@@ -29,7 +29,7 @@ function Test({ verbs, practicing, updateOptions, startGame, finishPractice, log
 
         return(
             <>  
-                <TestQuiz data={verbs[number]} getNext={getNext} login={login} setStarred={setStarred}/>
+                <TestQuiz data={verbs[number]} getNext={getNext} login={login} setStarred={setStarred} starred={starred}/>
                 <button onClick={() => {
                     setNumber(0);
                     finishPractice(); 

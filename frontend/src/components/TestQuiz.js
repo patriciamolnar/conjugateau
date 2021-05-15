@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { saveVerb } from '../lib/fetch';
+import { getStyle } from '../lib/functions';
 
-function TestQuiz({ data, getNext, login, setStarred }) {
+function TestQuiz({ data, getNext, login, starred, setStarred }) {
     const [answered, setAnswered] = useState(false);
     const [input, setInput] = useState('');
     const [correct, setCorrect] = useState(null);
@@ -21,9 +22,15 @@ function TestQuiz({ data, getNext, login, setStarred }) {
         saveVerb({_id: id}, setStarred); 
     }
 
+    const style = getStyle(starred, data._id);
+
     return(
         <div>
-            {login ? <button onClick={() => {updateStarred(data._id)}}>*</button> : null}
+            {login ? 
+            <button 
+                onClick={() => {updateStarred(data._id)}} 
+                style={style}>*</button> 
+            : null}
             <p>{data.infinitive} <span>({data.en})</span></p>
             <p>{data.tense}</p>
             <p>{data.pronoun}</p>
