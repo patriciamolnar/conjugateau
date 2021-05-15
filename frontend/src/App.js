@@ -62,11 +62,11 @@ function App() {
 
           <Switch>
             <Route exact path="/" render={(props) => {
-              return <Flashcard {...props} verbs={data} practicing={practicing} updateOptions={updateOptions} startGame={startGame} finishPractice={finishPractice} login={login}/>
+              return <Flashcard {...props} verbs={data} practicing={practicing} updateOptions={updateOptions} startGame={startGame} finishPractice={finishPractice} login={login} setStarred={setStarred}/>
             }} />
             
             <Route path="/test" render={(props) => {
-              return <Test {...props} verbs={data} practicing={practicing} updateOptions={updateOptions} startGame={startGame} finishPractice={finishPractice} login={login}/>
+              return <Test {...props} verbs={data} practicing={practicing} updateOptions={updateOptions} startGame={startGame} finishPractice={finishPractice} login={login} setStarred={setStarred}/>
             }} />
             
             <Route path="/verbs" component={Verbs} />

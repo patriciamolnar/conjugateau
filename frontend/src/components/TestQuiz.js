@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { saveVerb } from '../lib/fetch';
 
-function TestQuiz({ data, getNext, login }) {
+function TestQuiz({ data, getNext, login, setStarred }) {
     const [answered, setAnswered] = useState(false);
     const [input, setInput] = useState('');
     const [correct, setCorrect] = useState(null);
@@ -15,9 +15,15 @@ function TestQuiz({ data, getNext, login }) {
             setCorrect(false);
         }
     }
+
+    //let users bookmark verbforms and update starred array
+    const updateStarred = (id) => {
+        saveVerb({_id: id}, setStarred); 
+    }
+
     return(
         <div>
-            {login ? <button onClick={() => {saveVerb({_id: data._id})}}>*</button> : null}
+            {login ? <button onClick={() => {updateStarred(data._id)}}>*</button> : null}
             <p>{data.infinitive} <span>({data.en})</span></p>
             <p>{data.tense}</p>
             <p>{data.pronoun}</p>
