@@ -84,55 +84,55 @@ function App() {
       <Router>
         <Header />
         <nav>
-            <ul>
-              <li>
-                <Link to="/">Flashcards</Link>
-              </li>
-              <li>
-                <Link to="/test">Test</Link>
-              </li>
-              <li>
-                <Link to="/verbs">Verbs</Link>
-              </li>
-              <li>
-                <Link to="/account">Account</Link>
-              </li>
-            </ul>
-          </nav>
+          <ul>
+            <li>
+              <Link to="/" onClick={finishPractice}>Flashcards</Link>
+            </li>
+            <li>
+              <Link to="/test" onClick={finishPractice}>Test</Link>
+            </li>
+            <li>
+              <Link to="/verbs" onClick={finishPractice}>Verbs</Link>
+            </li>
+            <li>
+              <Link to="/account" onClick={finishPractice}>Account</Link>
+            </li>
+          </ul>
+        </nav>
 
-          <Switch>
-            <Route exact path="/" render={(props) => {
-              return <Flashcard {...props} verbs={data} practicing={practicing} updateOptions={updateOptions} startGame={startGame} finishPractice={finishPractice} login={login} starred={starred} setStarred={setStarred}/>
-            }} />
+        <Switch>
+          <Route exact path="/" render={(props) => {
+            return <Flashcard {...props} verbs={data} practicing={practicing} updateOptions={updateOptions} startGame={startGame} finishPractice={finishPractice} login={login} starred={starred} setStarred={setStarred}/>
+          }} />
 
-            {/* Flashcards with only bookmarked verbs */}
-            <Route path="/starred" render={(props) => {
-              if(!login) {
-                return <Redirect to="/account" />
-              } else {
-                return <StarredFlashcard {...props} verbs={filterData} practicing={practicing} setPracticing={setPracticing} starred={starred} setStarred={setStarred} selected={selected} setSelected={setSelected} updateOptions={updateOptions} startGame={filterStarred} finishPractice={finishPractice} login={login}/>
-              } 
-            }} />
-            
-            <Route path="/test" render={(props) => {
-              return <Test {...props} verbs={data} practicing={practicing} updateOptions={updateOptions} startGame={startGame} finishPractice={finishPractice} login={login} starred={starred} setStarred={setStarred}/>
-            }} />
-            
-            {/*Test with only bookmarked verbs*/ }
-            <Route path="/starred-test" render={(props) => {
-              if(!login) {
-                return <Redirect to="/account" />
-              } else {
-                return <StarredTest {...props} verbs={filterData} practicing={practicing} setPracticing={setPracticing} starred={starred} setStarred={setStarred} selected={selected} setSelected={setSelected} updateOptions={updateOptions} startGame={filterStarred} finishPractice={finishPractice} login={login}/>
-              } 
-            }} />
+          {/* Flashcards with only bookmarked verbs */}
+          <Route path="/starred" render={(props) => {
+            if(!login) {
+              return <Redirect to="/account" />
+            } else {
+              return <StarredFlashcard {...props} verbs={filterData} practicing={practicing} setPracticing={setPracticing} starred={starred} setStarred={setStarred} selected={selected} setSelected={setSelected} updateOptions={updateOptions} startGame={filterStarred} finishPractice={finishPractice} login={login}/>
+            } 
+          }} />
+          
+          <Route path="/test" render={(props) => {
+            return <Test {...props} verbs={data} practicing={practicing} updateOptions={updateOptions} startGame={startGame} finishPractice={finishPractice} login={login} starred={starred} setStarred={setStarred}/>
+          }} />
+          
+          {/*Test with only bookmarked verbs*/ }
+          <Route path="/starred-test" render={(props) => {
+            if(!login) {
+              return <Redirect to="/account" />
+            } else {
+              return <StarredTest {...props} verbs={filterData} practicing={practicing} setPracticing={setPracticing} starred={starred} setStarred={setStarred} selected={selected} setSelected={setSelected} updateOptions={updateOptions} startGame={filterStarred} finishPractice={finishPractice} login={login}/>
+            } 
+          }} />
 
-            <Route path="/verbs" component={Verbs} />
+          <Route path="/verbs" component={Verbs} />
 
-            <Route path="/account" render={(props) => {
-              return <Account {...props} login={login} setLogin={setLogin} setStarred={setStarred}/>
-            }} />  
-          </Switch>
+          <Route path="/account" render={(props) => {
+            return <Account {...props} login={login} setLogin={setLogin} setStarred={setStarred}/>
+          }} />  
+        </Switch>
 
       </Router>
     </Fragment>
