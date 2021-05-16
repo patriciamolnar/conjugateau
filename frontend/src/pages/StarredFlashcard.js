@@ -58,6 +58,7 @@ function StarredFlashcard({ verbs, practicing, updateOptions, startGame, finishP
 
         return(
             <>  
+                <p>Practiced: {number}/{verbs.length}</p>
                 <FlashcardQuiz data={verbs[number]} getNext={getNext} login={login} starred={starred} setStarred={setStarred}/>
                 <button onClick={() => {
                     setNumber(0);

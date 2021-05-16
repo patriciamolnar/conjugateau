@@ -58,6 +58,7 @@ function StarredTest({ verbs, practicing, updateOptions, startGame, finishPracti
 
         return(
             <>  
+                <p>Practiced: {number}/{verbs.length}</p>
                 <TestQuiz data={verbs[number]} getNext={getNext} login={login} setStarred={setStarred} starred={starred}/>
                 <button onClick={() => {
                     setNumber(0);
