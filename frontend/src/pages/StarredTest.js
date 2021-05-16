@@ -14,7 +14,7 @@ function StarredTest({ verbs, practicing, updateOptions, startGame, finishPracti
         return (
             <>
                 <p>You have no saved words yet.</p>
-                <NavLink exact to="/" activeStyle={activeStyle}>Practice All Words</NavLink>
+                <NavLink exact to="/test" activeStyle={activeStyle}>Practice All Words</NavLink>
             </>
         )
     }
@@ -22,8 +22,8 @@ function StarredTest({ verbs, practicing, updateOptions, startGame, finishPracti
     if(!practicing) { //if tenses have not been selected display select page.
         return (
             <>  
-                <NavLink exact to="/" activeStyle={activeStyle}>Practice All Words</NavLink> | 
-                <NavLink to="/starred" activeStyle={activeStyle}>Practice Saved Words</NavLink>
+                <NavLink exact to="/test" activeStyle={activeStyle}>Practice All Words</NavLink> | 
+                <NavLink to="/starred-test" activeStyle={activeStyle}>Practice Saved Words</NavLink>
                 <TenseSelector updateOptions={updateOptions} startGame={startGame} />
             </>
         )
