@@ -92,10 +92,14 @@ function App() {
               return <Test {...props} verbs={data} practicing={practicing} updateOptions={updateOptions} startGame={startGame} finishPractice={finishPractice} login={login} starred={starred} setStarred={setStarred}/>
             }} />
             
-            {/*Test with only bookmarked verbs*/ 
-            <Route path="/starredtest" render={(props) => {
-              return <Test {...props} verbs={starred} practicing={practicing} updateOptions={updateOptions} startGame={startGame} finishPractice={finishPractice} login={login} />
-            }} />}
+            {/*Test with only bookmarked verbs*/ }
+            <Route path="/starred-test" render={(props) => {
+              if(!login) {
+                return <Redirect to="/account" />
+              } else {
+                return <Test {...props} verbs={starred} practicing={practicing} updateOptions={updateOptions} startGame={startGame} finishPractice={finishPractice} login={login} starred={starred} setStarred={setStarred}/>
+              } 
+            }} />
 
             <Route path="/verbs" component={Verbs} />
 

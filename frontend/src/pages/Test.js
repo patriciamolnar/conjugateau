@@ -1,15 +1,24 @@
-import { useState } from 'react'
-import TestQuiz from '../components/TestQuiz';
+import { useState } from 'react'; 
+import { NavLink } from 'react-router-dom';
 
+import TestQuiz from '../components/TestQuiz';
 import TenseSelector from '../components/TenseSelector';
 
 function Test({ verbs, practicing, updateOptions, startGame, finishPractice, login, setStarred, starred }) {
     const [number, setNumber] = useState(0);
 
+    const activeStyle = {
+        backgroundColor: 'magenta'
+    }
+
     //if tenses have not been selected display select page.
-    if(!practicing) {
+    if(!practicing) { //if tenses have not been selected display select page.
         return (
-            <TenseSelector updateOptions={updateOptions} startGame={startGame} />   
+            <>  
+                <NavLink exact to="/test" activeStyle={activeStyle}>Practice All Words</NavLink> | 
+                <NavLink to="/starred-test" activeStyle={activeStyle}>Practice Saved Words</NavLink>
+                <TenseSelector updateOptions={updateOptions} startGame={startGame} />
+            </>
         )
 
     } else if(verbs === null) { // wait for data to load 
