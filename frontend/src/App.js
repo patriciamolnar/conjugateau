@@ -19,11 +19,13 @@ import { getByTense, getSavedVerbs } from './lib/fetch';
 
 function App() {
   const [data, setData] = useState(null);
+  const [filterData, setFilterData] = useState(null);
   const [starred, setStarred] = useState(null);
   const [selected, setSelected] = useState([]);
   const [practicing, setPracticing] = useState(false);
   const [login, setLogin] = useState(false); 
 
+  //check if user is already logged in.
   useEffect(() => {
     if(login) return; 
 
@@ -36,6 +38,17 @@ function App() {
       }
     });
   }, [login]); 
+
+  //whenever user stars/unstars a word, update filteredData
+  useEffect(() => {
+    if(starred === null || selected.length === 0) return; 
+
+    let filtered = starred.filter(obj => {
+      return obj['tense'].includes(selected);
+    }); 
+    
+    setFilterData(filtered);
+  }, [starred, selected]);
 
   //save tenses selected to state
   const updateOptions = (e) => {
@@ -55,11 +68,12 @@ function App() {
       return obj['tense'].includes(selected);
     }); 
     
-      setData(filtered);
-      setPracticing(true);
+    setFilterData(filtered);
+    setPracticing(true);
 }
 
   const finishPractice = () => {
+    setFilterData(null);
     setData(null);
     setSelected([]);
     setPracticing(false);
@@ -96,7 +110,7 @@ function App() {
               if(!login) {
                 return <Redirect to="/account" />
               } else {
-                return <StarredFlashcard {...props} verbs={data} practicing={practicing} setPracticing={setPracticing} starred={starred} setStarred={setStarred} selected={selected} setSelected={setSelected} updateOptions={updateOptions} startGame={filterStarred} finishPractice={finishPractice} login={login}/>
+                return <StarredFlashcard {...props} verbs={filterData} practicing={practicing} setPracticing={setPracticing} starred={starred} setStarred={setStarred} selected={selected} setSelected={setSelected} updateOptions={updateOptions} startGame={filterStarred} finishPractice={finishPractice} login={login}/>
               } 
             }} />
             
@@ -109,7 +123,7 @@ function App() {
               if(!login) {
                 return <Redirect to="/account" />
               } else {
-                return <StarredTest {...props} verbs={data} practicing={practicing} setPracticing={setPracticing} starred={starred} setStarred={setStarred} selected={selected} setSelected={setSelected} updateOptions={updateOptions} startGame={filterStarred} finishPractice={finishPractice} login={login}/>
+                return <StarredTest {...props} verbs={filterData} practicing={practicing} setPracticing={setPracticing} starred={starred} setStarred={setStarred} selected={selected} setSelected={setSelected} updateOptions={updateOptions} startGame={filterStarred} finishPractice={finishPractice} login={login}/>
               } 
             }} />
 
