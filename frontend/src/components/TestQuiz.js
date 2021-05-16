@@ -22,7 +22,10 @@ function TestQuiz({ data, getNext, login, starred, setStarred }) {
         saveVerb({_id: id}, setStarred); 
     }
 
-    const style = getStyle(starred, data._id);
+    let style = null; 
+    if(login && starred !== null) {
+        style = getStyle(starred, data._id);
+    }
 
     return(
         <div>
