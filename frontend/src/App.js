@@ -8,6 +8,7 @@ import {
 } from 'react-router-dom';
 
 import Flashcard from './pages/Flashcard';
+import StarredFlashcard from './pages/StarredFlashcard';
 import Test from './pages/Test';
 import Verbs from './pages/Verbs';
 import Account from './pages/Account';
@@ -33,19 +34,29 @@ function App() {
         getSavedVerbs(setStarred);
       }
     });
-  }, []); 
+  }, [login]); 
 
   //save tenses selected to state
   const updateOptions = (e) => {
     setSelected([...selected, e.target.name]);
   }
 
-  //start game and filter data
+  //start game and filter data based on tenses selected
   const startGame = () => {
     const queryStr = selected.join('+');
     getByTense(queryStr, setData);
     setPracticing(true);
   }
+
+  //start game and filter starred verbs based on tenses selected 
+  const filterStarred = () => {
+    let filtered = starred.filter(obj => {
+      return obj['tense'].includes(selected);
+    }); 
+    
+      setData(filtered);
+      setPracticing(true);
+}
 
   const finishPractice = () => {
     setData(null);
@@ -84,7 +95,7 @@ function App() {
               if(!login) {
                 return <Redirect to="/account" />
               } else {
-                return <Flashcard {...props} verbs={starred} practicing={practicing} updateOptions={updateOptions} startGame={startGame} finishPractice={finishPractice} login={login} starred={starred} setStarred={setStarred}/>
+                return <StarredFlashcard {...props} verbs={data} practicing={practicing} setPracticing={setPracticing} starred={starred} setStarred={setStarred} selected={selected} setSelected={setSelected} updateOptions={updateOptions} startGame={filterStarred} finishPractice={finishPractice} login={login}/>
               } 
             }} />
             
@@ -97,7 +108,7 @@ function App() {
               if(!login) {
                 return <Redirect to="/account" />
               } else {
-                return <Test {...props} verbs={starred} practicing={practicing} updateOptions={updateOptions} startGame={startGame} finishPractice={finishPractice} login={login} starred={starred} setStarred={setStarred}/>
+                return <Test {...props} verbs={starred} practicing={practicing} updateOptions={updateOptions} startGame={startGame} finishPractice={finishPractice} login={login} starred={starred} setStarred={setStarred} />
               } 
             }} />
 
