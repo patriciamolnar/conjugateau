@@ -39,7 +39,7 @@ function TestQuiz({ data, getNext, login, starred, setStarred }) {
             <p>{data.pronoun}</p>
             
             <form onSubmit={(e) => validateAnswer(e)}>
-                <input type="text" onChange={(e) => setInput(e.target.value)} disabled={answered}/>
+                <input type="text" value={input} onChange={(e) => setInput(e.target.value)} disabled={answered} />
                 {answered ? null : <button>Check Answer</button>}
             </form>
             
