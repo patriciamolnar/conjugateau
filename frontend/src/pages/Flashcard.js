@@ -1,13 +1,22 @@
-import { useState } from 'react'
+import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import FlashcardQuiz from '../components/FlashcardQuiz';
 import TenseSelector from '../components/TenseSelector';
 
 function Flashcard({ verbs, practicing, updateOptions, startGame, finishPractice, login, starred, setStarred }) {
     const [number, setNumber] = useState(0);
 
+    const activeStyle = {
+        backgroundColor: 'magenta'
+    }
+
     if(!practicing) { //if tenses have not been selected display select page.
         return (
-            <TenseSelector updateOptions={updateOptions} startGame={startGame} />
+            <>  
+                <NavLink exact to="/" activeStyle={activeStyle}>Practice All Words</NavLink> | 
+                <NavLink to="/starred" activeStyle={activeStyle}>Practice Saved Words</NavLink>
+                <TenseSelector updateOptions={updateOptions} startGame={startGame} />
+            </>
         )
 
     } else if(verbs === null) { // wait for data to load 
@@ -15,7 +24,7 @@ function Flashcard({ verbs, practicing, updateOptions, startGame, finishPractice
             <div>Loading...</div>
         )
 
-    } else { // start praciting
+    } else if(login) { // start praciting
 
         const getNext = () => {
             if(number < (verbs.length - 1)) {
