@@ -3,7 +3,7 @@ import Verb from '../components/Verb';
 import { getAll } from '../lib/fetch';
 import { filterData } from '../lib/functions';
 
-function Verbs() {
+function Verbs({ login, starred, setStarred }) {
     const [info, setInfo] = useState(null);
     const [infinitives, setInfinitives] = useState(null);
     
@@ -25,7 +25,7 @@ function Verbs() {
         <>
             <h2>Verbs</h2>
             {infinitives ? 
-            infinitives.map((arr, i) => <Verb key={i.toString()} data={arr}/>) :
+            infinitives.map((arr, i) => <Verb key={i.toString()} data={arr} login={login} starred={starred} setStarred={setStarred}/>) :
             <div>Loading...</div>}
         </>
     )

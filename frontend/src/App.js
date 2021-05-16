@@ -127,7 +127,9 @@ function App() {
             } 
           }} />
 
-          <Route path="/verbs" component={Verbs} />
+          <Route path="/verbs" render={(props) => {
+            return <Verbs {...props} login={login} starred={starred} setStarred={setStarred} />
+          }} />
 
           <Route path="/account" render={(props) => {
             return <Account {...props} login={login} setLogin={setLogin} setStarred={setStarred}/>

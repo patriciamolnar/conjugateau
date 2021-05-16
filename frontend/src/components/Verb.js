@@ -1,7 +1,12 @@
-import { filterData } from '../lib/functions';
+import { filterData, getStyle } from '../lib/functions';
+import { saveVerb } from '../lib/fetch';
 
-function Verb({data}) {
+function Verb({data, login, starred, setStarred}) {
     const tenses = filterData(data, 'tense');
+
+    const updateStarred = (id) => {
+        saveVerb({_id: id}, setStarred); 
+    }
     
     if(tenses) {
         return(
@@ -16,12 +21,21 @@ function Verb({data}) {
                             <div key={i.toString()}>
                                 {
                                     arr.map((ele, i) => {
+                                        let style = null; 
+                                        if(login && (starred !== null)) {
+                                            style = getStyle(starred, ele._id);
+                                        } 
                                         return (
-                                            <p key={ele._id}>
+                                            <div key={ele._id}>
                                                 <p>{(i === 0) ? ele.tense : null}</p>
                                                 <span>{ele.pronoun}: </span>
                                                 <span>{ele.conjugation}</span>
-                                            </p>
+                                                {login ? 
+                                                <button 
+                                                    onClick={() => {updateStarred(ele._id)}} 
+                                                    style={style}>*</button> 
+                                                : null}
+                                            </div>
                                         )
                                     })
                                 }
