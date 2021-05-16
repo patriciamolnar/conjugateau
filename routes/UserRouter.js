@@ -23,7 +23,7 @@ userRouter.post('/register', async (req, res, next) => {
         });
         const savedUser = await user.save(); 
         if(savedUser) {
-            return res.send({message: 'User successfully created.'});
+            return res.send({messages: 'Account successfully created. Please log in.', success: true});
         }
         return next(new Error('Failed to save user.'));
     } catch(err) {
