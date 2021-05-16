@@ -10,6 +10,7 @@ import {
 import Flashcard from './pages/Flashcard';
 import StarredFlashcard from './pages/StarredFlashcard';
 import Test from './pages/Test';
+import StarredTest from './pages/StarredTest';
 import Verbs from './pages/Verbs';
 import Account from './pages/Account';
 import Header from './components/Header';
@@ -108,7 +109,7 @@ function App() {
               if(!login) {
                 return <Redirect to="/account" />
               } else {
-                return <Test {...props} verbs={starred} practicing={practicing} updateOptions={updateOptions} startGame={startGame} finishPractice={finishPractice} login={login} starred={starred} setStarred={setStarred} />
+                return <StarredTest {...props} verbs={data} practicing={practicing} setPracticing={setPracticing} starred={starred} setStarred={setStarred} selected={selected} setSelected={setSelected} updateOptions={updateOptions} startGame={filterStarred} finishPractice={finishPractice} login={login}/>
               } 
             }} />
 
