@@ -4,18 +4,24 @@ import { shuffle } from './functions';
 export const getAll = (callback) => {
   fetch('/verbs/')
     .then(res => res.json())
-    .then(data => callback(data)) 
+    .then(data => callback(data)); 
 }
 
 //get data based on tenses
 export const getByTense = (query, callback) => {
     fetch('/verbs/' + query)
       .then(res => res.json())
-      .then(data => callback(shuffle(data)))
+      .then(data => callback(shuffle(data)));
+}
+
+export const getByInfinitive = (query, callback) => {
+  fetch('/verbs/search/' + query.trim().toLowerCase())
+  .then(res => res.json())
+  .then(data => callback(data));
 }
 
 export const saveVerb = (verb, callback) => {
-  fetch('/user/saved', {
+  fetch('/user/saved/', {
     method: "PUT",
     headers: {
         'Content-type': 'application/json'
@@ -27,11 +33,11 @@ export const saveVerb = (verb, callback) => {
       if(info.saved) {
         getSavedVerbs(callback);
       }
-    })
+    });
 }
 
 export const getSavedVerbs = (callback) => {
-  fetch('/user/saved')
+  fetch('/user/saved/')
       .then(res => res.json())
       .then(data => callback(shuffle(data)));
 }
