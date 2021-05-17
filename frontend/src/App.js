@@ -28,15 +28,21 @@ function App() {
   //check if user is already logged in.
   useEffect(() => {
     if(login) return; 
-
+    
     fetch('/user/auth')
-    .then(res => res.json())
-    .then(data => {
+    .then(res => {
+      if(res.ok) {
+        return res.json();
+      } else {
+          return JSON.stringify({isAuthenticated: false});
+      }
+    }).then(data => {
       if(data.isAuthenticated) {
         setLogin(true);
         getSavedVerbs(setStarred);
       }
     });
+  
   }, [login]); 
 
   //whenever user stars/unstars a word, update filteredData
