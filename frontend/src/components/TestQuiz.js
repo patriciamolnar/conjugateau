@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useRef, useState, useEffect } from 'react';
 import { saveVerb } from '../lib/fetch';
 import { getStyle } from '../lib/functions';
 
@@ -6,6 +6,21 @@ function TestQuiz({ data, getNext, login, starred, setStarred }) {
     const [answered, setAnswered] = useState(false);
     const [input, setInput] = useState('');
     const [correct, setCorrect] = useState(null);
+
+    //focus on input
+    const inputRef = useRef(null);
+    useEffect(() => {
+        if (!answered) {
+          inputRef.current.focus();
+        }
+      }, [answered]);
+
+    //focus on next btn 
+    const focusNext = useCallback(node => {
+        if(node !== null) {
+            node.focus();
+        }
+    }, []);
 
     const validateAnswer = (e) => {
         e.preventDefault();
@@ -16,12 +31,6 @@ function TestQuiz({ data, getNext, login, starred, setStarred }) {
             setCorrect(false);
         } 
     }
-
-    const focusNext = useCallback(node => {
-        if(node !== null) {
-            node.focus();
-        }
-    }, []);
 
     //let users bookmark verbforms and update starred array
     const updateStarred = (id) => {
@@ -45,7 +54,7 @@ function TestQuiz({ data, getNext, login, starred, setStarred }) {
             <p>{data.pronoun}</p>
             
             <form onSubmit={(e) => validateAnswer(e)}>
-                <input type="text" value={input} onChange={(e) => setInput(e.target.value)} disabled={answered} />
+                <input type="text" ref={inputRef} value={input} onChange={(e) => setInput(e.target.value)} disabled={answered} />
                 {answered ? null : <button>Check Answer</button>}
             </form>
             
