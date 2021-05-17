@@ -1,10 +1,12 @@
 require('dotenv').config(); 
 const express = require('express');
 const userRouter = express.Router(); 
+const nodemailer = require('nodemailer');
 const passport = require('passport');
 const passportConfig = require('../passport');
 const JWT = require('jsonwebtoken');
 const User = require('../models/UserModel');
+const crypto = require('crypto');
 
 const signToken = userID => {
     return JWT.sign({
@@ -141,6 +143,61 @@ userRouter.post('/password', passport.authenticate('jwt', { session: false }), f
             }
         });
     }
+});
+
+//send reset password email
+userRouter.post('/forgotten-password', (req, res) => {
+    if(req.body.email === '') { //check if email present
+        res.status(400).send({message: 'Please provide your email.'});
+    }
+
+    //find user 
+    const {email} = req.body; 
+    User.findOne({'email': email}, (err, doc) => {
+        if(err) { //no user
+            res.status(403).send({message: `No account associated with your ${email}`})
+        }
+
+        //generate token
+        const token = crypto.randomBytes(20).toString('hex'); 
+        User.updateOne({'_id': doc._id}, { 
+            $set: {
+                'resetPasswordToken': token, 
+                'resetPasswordExpires': Date.now() + 1800000
+            }
+        }, (err, doc) => {
+            if(err) { 
+                res.send({message: 'There was an error. Please try again'})
+            } else { //if added to DB
+                const transporter = nodemailer.createTransport({
+                    service: 'gmail', 
+                    auth: {
+                        user: process.env.EMAIL_ADDRESS, 
+                        pass: process.env.EMAIL_PASSWORD,
+                    }
+                }); 
+        
+                const mailOptions = {
+                    from: 'conjugateau@gmail.com', 
+                    to: email, 
+                    subject: 'Conjugâteau: Password Reset Link', 
+                    text: 'A request has been received to change the password for your Conjugâteau account\n\n'
+                    + 'Please click the link below to change it within the next 30 minutes.\n\n'
+                    + `http://localhost:3000/reset/${token} \n\n`
+                    + 'Alternatively, copy paste the link into your browser to change your password.'
+                    + 'If you did not request this change, please ignore this email and your password will remain unchanged.'
+                }
+        
+                transporter.sendMail(mailOptions, (mailErr, response) => {
+                    if(mailErr) {
+                        res.send({message: 'There was an error.'})
+                    } else {
+                        res.send({message: 'Email successfully sent.'}); 
+                    }
+                });
+            }
+        }); 
+    });
 });
 
 module.exports = userRouter;

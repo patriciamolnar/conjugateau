@@ -26,7 +26,15 @@ const UserSchema = new mongoose.Schema({
             message: 'Invalid password. Passwords must contain at least 1 lowercase, 1 uppercase and 1 special character. Minimum length must be 8 characters.'
         }
     },
-    saved: [{type: ObjectId, ref: 'Verb'}]
+    saved: [{type: ObjectId, ref: 'Verb'}], 
+    resetPasswordToken: {
+        type: String, 
+        default: ''
+    }, 
+    resetPasswordExpires: {
+        type: Date, 
+        default: Date.now()
+    }
 }, {
     timestamps: true,
 });
