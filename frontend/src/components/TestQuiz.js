@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { saveVerb } from '../lib/fetch';
 import { getStyle } from '../lib/functions';
 
@@ -14,8 +14,14 @@ function TestQuiz({ data, getNext, login, starred, setStarred }) {
             setCorrect(true);
         } else {
             setCorrect(false);
-        }
+        } 
     }
+
+    const focusNext = useCallback(node => {
+        if(node !== null) {
+            node.focus();
+        }
+    }, []);
 
     //let users bookmark verbforms and update starred array
     const updateStarred = (id) => {
@@ -46,7 +52,7 @@ function TestQuiz({ data, getNext, login, starred, setStarred }) {
             {correct ? <p>Correct!</p> : null}
             {correct === false ? <p>False: The correct conjugation is {data.conjugation}</p> : null}
 
-            {answered ? <button onClick={() => {
+            {answered ? <button ref={focusNext} onClick={() => {
                 setInput('');
                 setAnswered(false);
                 setCorrect(null);
