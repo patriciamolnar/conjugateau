@@ -51,7 +51,7 @@ userRouter.get('/auth', passport.authenticate('jwt', { session: false }), (req, 
     return res.json({isAuthenticated: true, id: _id});
 });
 
-
+//get saved conjugations
 userRouter.get('/saved', passport.authenticate('jwt', { session: false }), async (req, res, next) => {
     try {  
         const { _id } = req.user; 
@@ -66,6 +66,7 @@ userRouter.get('/saved', passport.authenticate('jwt', { session: false }), async
     }
 });
 
+//add saved conjugation id to users document
 userRouter.put('/saved', passport.authenticate('jwt', { session: false }), async (req, res, next) => {
     try { 
         const verbId = req.body._id; 
@@ -94,6 +95,24 @@ userRouter.put('/saved', passport.authenticate('jwt', { session: false }), async
         })
     } catch(err) {
         return next(err);
+    }
+});
+
+//change password under Account page when user is logged in.
+userRouter.post('/password', passport.authenticate('jwt', { session: false }), function (req, res, next) {
+    if(req.user) {
+        const { _id } = req.user; 
+        User.findOne({_id}, function(err, doc) {
+            if(err) {
+                return next(err);
+            } else {
+                doc.password = req.body.newPass;
+                doc.save(err => {
+                    if(err) {res.send(err)}
+                    else {res.send('success')}
+                });
+            }
+        });
     }
 });
 
