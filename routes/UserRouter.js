@@ -99,17 +99,44 @@ userRouter.put('/saved', passport.authenticate('jwt', { session: false }), async
 });
 
 //change password under Account page when user is logged in.
-userRouter.post('/password', passport.authenticate('jwt', { session: false }), function (req, res, next) {
-    if(req.user) {
+userRouter.post('/password', passport.authenticate('jwt', { session: false }), function (req, res) {
+    const {oldPass, newPass} = req.body; 
+
+    if(!oldPass || !newPass) { //check if password fields were completed
+        req.send({ success: false, message: 'Please fill in all fields.' });
+    }
+
+    if(req.user) { 
         const { _id } = req.user; 
-        User.findOne({_id}, function(err, doc) {
+        User.findOne({_id}, function(err, doc) { //check if there is a user
             if(err) {
-                return next(err);
-            } else {
-                doc.password = req.body.newPass;
-                doc.save(err => {
-                    if(err) {res.send(err)}
-                    else {res.send('success')}
+                req.send({ 
+                    success: false, 
+                    message: 'No user found.' 
+                });
+            } else { //check if provided old password matches current
+                doc.comparePassword(req.body.oldPass, (err, user) => {
+                    if(err) {
+                        res.send({ success: false, message: 'An error occurred.' });
+                    } else if(!user) { 
+                        res.send({ success: false, message: 'Incorrect password.' });
+                    } else { //save password
+                        user.password = req.body.newPass;
+                        user.save(err => { 
+                            if(err) {
+                                res.send({
+                                    success: false, 
+                                    message: 'Invalid password. Passwords must contain at least 1 lowercase, 1 uppercase and 1 special character. Minimum length must be 8 characters.'
+                                })
+                            }
+                            else {
+                                res.send({ 
+                                    success: true, 
+                                    message: 'Password successfully changed.'
+                                });
+                            }
+                        });
+                    }
                 });
             }
         });
