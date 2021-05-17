@@ -8,6 +8,8 @@ function Loginform({ setLogin, setStarred }) {
         password: ''
     });
 
+    const [message, setMessage] = useState(null);
+
     const updateDetails = (e) => {
         const inputName = e.target.name; 
         const inputValue = e.target.value; 
@@ -26,19 +28,31 @@ function Loginform({ setLogin, setStarred }) {
             },
             body: JSON.stringify(user)
             })
-            .then((result) => result.json())
+            .then((res) => {
+                if(res.ok) {
+                    return res.json();
+                } else {
+                    return JSON.stringify({isAuthenticated: false});
+                }
+            })
             .then(data => {
                 if(data.isAuthenticated) {
                     setLogin(true);
                     getSavedVerbs(setStarred); 
+                } else {
+                    setMessage('Incorrect username or password.');
                 } 
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                console.log(err); 
+                setMessage('An error occured. Please try again later.');
+            });
     }
 
     return(
         <>
             <h2>Login</h2>
+            <p className="error">{message === null ? null : message}</p>
             <form onSubmit={(e) => registerUser(e)}>
                 <label htmlFor="loginEmail">Email:</label>
                 <input type="email" id="loginEmail" name="email"
