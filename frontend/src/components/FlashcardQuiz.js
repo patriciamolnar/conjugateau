@@ -1,9 +1,16 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { saveVerb } from '../lib/fetch';
 import { getStyle } from '../lib/functions';
 
 function FlashcardQuiz({ data, getNext, login, starred, setStarred }) {
     const [hidden, setHidden] = useState(true);
+
+    //focus on next btn 
+    const focusNext = useCallback(node => {
+        if(node !== null) {
+            node.focus();
+        }
+    }, []);
 
     //let users bookmark verbforms and update starred array
     const updateStarred = (id) => {
@@ -29,10 +36,11 @@ function FlashcardQuiz({ data, getNext, login, starred, setStarred }) {
                 {hidden ? 'Tap to see answer' : data.conjugation}
             </p>
 
-            {hidden ? null : <button onClick={() => {
+            {!hidden ? <button ref={focusNext} onClick={() => {
                 setHidden(true); 
                 getNext();
-            }}>Next</button>}
+            }}>Next</button>: 
+            null}
         </div>
     )
 }
