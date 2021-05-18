@@ -111,10 +111,10 @@ userRouter.post('/password', passport.authenticate('jwt', { session: false }), f
     if(req.user) { 
         const { _id } = req.user; 
         User.findOne({_id}, function(err, doc) { //check if there is a user
-            if(err) {
+            if(err || doc === null) {
                 req.send({ 
                     success: false, 
-                    message: 'No user found.' 
+                    message: 'An error occurred. Clear cookies and try again.' 
                 });
             } else { //check if provided old password matches current
                 doc.comparePassword(req.body.oldPass, (err, user) => {
