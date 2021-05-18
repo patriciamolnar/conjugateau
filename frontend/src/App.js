@@ -14,6 +14,7 @@ import StarredTest from './pages/StarredTest';
 import Verbs from './pages/Verbs';
 import Account from './pages/Account';
 import Header from './components/Header';
+import ForgottenPassword from './pages/ForgottenPassword';
 
 import { getByTense, getSavedVerbs } from './lib/fetch';
 
@@ -107,6 +108,7 @@ function App() {
         </nav>
 
         <Switch>
+           {/* Flashcard page - can be used without login */}
           <Route exact path="/" render={(props) => {
             return <Flashcard {...props} verbs={data} practicing={practicing} updateOptions={updateOptions} startGame={startGame} finishPractice={finishPractice} login={login} starred={starred} setStarred={setStarred}/>
           }} />
@@ -120,6 +122,7 @@ function App() {
             } 
           }} />
           
+          {/* Test page - can be used without login */}
           <Route path="/test" render={(props) => {
             return <Test {...props} verbs={data} practicing={practicing} updateOptions={updateOptions} startGame={startGame} finishPractice={finishPractice} login={login} starred={starred} setStarred={setStarred}/>
           }} />
@@ -133,10 +136,23 @@ function App() {
             } 
           }} />
 
+           {/* Page showing conjugation tables for all words in DB */}
           <Route path="/verbs" render={(props) => {
             return <Verbs {...props} login={login} starred={starred} setStarred={setStarred} />
           }} />
 
+          {/* Reset password route: only accessible if not logged in */}
+          <Route path="/forgotten-password" render={(props) => {
+            if(login) {
+              return <Redirect to="/account" />
+            } else {
+              return <ForgottenPassword {...props} />
+            }}}/>
+
+          {/* 
+          Login, Register page (if logged out) - 
+          Account settings page (if logged in)
+          */}
           <Route path="/account" render={(props) => {
             return <Account {...props} login={login} setLogin={setLogin} setStarred={setStarred}/>
           }} />  

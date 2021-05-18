@@ -1,5 +1,5 @@
 import { useState } from 'react'; 
-
+import { Link } from 'react-router-dom'; 
 import { getSavedVerbs } from '../lib/fetch';
 
 function Loginform({ setLogin, setStarred }) {
@@ -64,6 +64,7 @@ function Loginform({ setLogin, setStarred }) {
                     onChange={(e) => updateDetails(e)}/>
                 <button type="submit">Login</button>
             </form>
+            <Link to="/forgotten-password">Forgotten Password?</Link>
         </>
     )
 }
