@@ -200,4 +200,39 @@ userRouter.post('/forgotten-password', (req, res) => {
     });
 });
 
+//check if reset password token is valid
+userRouter.put('/reset/:token', (req, res) => {
+    const { token } = req.params;
+    const { password } = req.body; 
+    
+    //check if token exists and still valid
+    User.findOne({
+        'resetPasswordToken': token, 
+        'resetPasswordExpires': {
+            $gt: Date.now()
+        }
+    }, (err, doc) => {
+        if(err) { //invalid token: send error
+            res.send({success: false, message: 'An error occurred.'});
+        } else { //valid token: change password
+            doc.password = password; 
+            doc.save(err => { 
+                if(err) {
+                    res.send({
+                        success: false, 
+                        message: 'Invalid password. Passwords must contain at least 1 lowercase, 1 uppercase and 1 special character. Minimum length must be 8 characters.'
+                    })
+                }
+                else {
+                    res.send({ 
+                        success: true, 
+                        message: 'Password successfully changed.'
+                    });
+                }
+            });
+        }
+    });
+});
+
+
 module.exports = userRouter;
