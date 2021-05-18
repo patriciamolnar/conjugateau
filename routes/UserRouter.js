@@ -212,8 +212,8 @@ userRouter.put('/reset/:token', (req, res) => {
             $gt: Date.now()
         }
     }, (err, doc) => {
-        if(err) { //invalid token: send error
-            res.send({success: false, message: 'An error occurred.'});
+        if(err || doc === null) { //invalid token: send error
+            res.send({success: false, message: 'An error occurred. Please try again.'});
         } else { //valid token: change password
             doc.password = password; 
             doc.save(err => { 
@@ -221,12 +221,24 @@ userRouter.put('/reset/:token', (req, res) => {
                     res.send({
                         success: false, 
                         message: 'Invalid password. Passwords must contain at least 1 lowercase, 1 uppercase and 1 special character. Minimum length must be 8 characters.'
-                    })
+                    });
                 }
                 else {
-                    res.send({ 
-                        success: true, 
-                        message: 'Password successfully changed.'
+                    //invalidating token
+                    User.updateOne({'_id': doc._id}, { 
+                        $set: {
+                            'resetPasswordToken': "", 
+                            'resetPasswordExpires': Date.now() - 1800000
+                        }
+                    }, (err, doc) => {
+                        if(err) {
+                            console.log(err);
+                        }
+
+                        res.send({ 
+                            success: true, 
+                            message: 'Password successfully changed.'
+                        });
                     });
                 }
             });
