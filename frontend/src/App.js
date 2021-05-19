@@ -15,6 +15,7 @@ import Verbs from './pages/Verbs';
 import Account from './pages/Account';
 import Header from './components/Header';
 import ForgottenPassword from './pages/ForgottenPassword';
+import ResetPassword from './pages/ResetPassword';
 
 import { getByTense, getSavedVerbs } from './lib/fetch';
 
@@ -141,12 +142,20 @@ function App() {
             return <Verbs {...props} login={login} starred={starred} setStarred={setStarred} />
           }} />
 
-          {/* Reset password route: only accessible if not logged in */}
+          {/* Forgotten password route: only accessible if not logged in */}
           <Route path="/forgotten-password" render={(props) => {
             if(login) {
               return <Redirect to="/account" />
             } else {
               return <ForgottenPassword {...props} />
+            }}}/>
+
+          {/* Reset password route: only accessible if not logged in */}
+          <Route path="/reset/:token" render={(props) => {
+            if(login) {
+              return <Redirect to="/account" />
+            } else {
+              return <ResetPassword {...props} />
             }}}/>
 
           {/* 
