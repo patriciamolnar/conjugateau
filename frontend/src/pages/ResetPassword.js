@@ -34,7 +34,7 @@ function ResetPassword() {
            <h2>Reset Your Password</h2>
            <p>Please enter your new password below:</p>
            <p>
-                {message ? message : null}
+                {message ? message + ' ' : null}
                 {message === 'Password successfully changed.' ? 
                 <Link to="/account">Please login</Link> : null}
             </p>
