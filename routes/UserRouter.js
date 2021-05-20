@@ -84,14 +84,14 @@ userRouter.put('/saved', passport.authenticate('jwt', { session: false }), async
                     if(err) {
                         return next(err);
                     } 
-                    return res.json({saved: 'true', status: 'removed'});
+                    return res.json({saved: true, status: 'removed'});
                 });
             } else { //else add
                 User.updateOne({_id}, {$push: { saved: verbId }}, function (err, doc) {
                     if(err) {
                         return next(err);
                     } 
-                    return res.json({saved: 'true', status: 'added'});
+                    return res.json({saved: true, status: 'added'});
                 });
             }
         })
@@ -101,7 +101,7 @@ userRouter.put('/saved', passport.authenticate('jwt', { session: false }), async
 });
 
 //change password under Account page when user is logged in.
-userRouter.post('/password', passport.authenticate('jwt', { session: false }), function (req, res) {
+userRouter.put('/password', passport.authenticate('jwt', { session: false }), function (req, res) {
     const {oldPass, newPass} = req.body; 
 
     if(!oldPass || !newPass) { //check if password fields were completed
