@@ -117,13 +117,13 @@ userRouter.put('/password', passport.authenticate('jwt', { session: false }), fu
                     message: 'An error occurred. Clear cookies and try again.' 
                 });
             } else { //check if provided old password matches current
-                doc.comparePassword(req.body.oldPass, (err, user) => {
+                doc.comparePassword(oldPass, (err, user) => {
                     if(err) {
                         res.send({ success: false, message: 'An error occurred.' });
                     } else if(!user) { 
                         res.send({ success: false, message: 'Incorrect password.' });
                     } else { //save password
-                        user.password = req.body.newPass;
+                        user.password = newPass;
                         user.save(err => { 
                             if(err) {
                                 res.send({
@@ -202,7 +202,7 @@ userRouter.post('/forgotten-password', (req, res) => {
     });
 });
 
-//check if reset password token is valid
+//change password route
 userRouter.put('/reset/:token', (req, res) => {
     const { token } = req.params;
     const { password } = req.body; 
@@ -248,5 +248,41 @@ userRouter.put('/reset/:token', (req, res) => {
     });
 });
 
+//change email 
+userRouter.put('/change-email', passport.authenticate('jwt', { session: false }), function (req, res) {
+    const {email, password} = req.body; 
+
+    if(!email || !password) { //check if password fields were completed
+        req.send({ success: false, message: 'Please fill in all fields.' });
+    }
+
+    if(req.user) { 
+        const { _id } = req.user; 
+        User.findOne({_id}, function(err, doc) { //check if there is a user
+            if(err || doc === null) {
+                req.send({ 
+                    success: false, 
+                    message: 'An error occurred. Clear cookies and try again.' 
+                });
+            } else { //check if provided old password matches current
+                doc.comparePassword(password, (err, user) => {
+                    if(err) {
+                        res.send({ success: false, message: 'An error occurred.' });
+                    } else if(!user) { 
+                        res.send({ success: false, message: 'Incorrect password.' });
+                    } else { //save password
+                        User.updateOne({'_id': doc._id}, { $set: {'email': email} }, (err, doc) => {
+                            if(err) {
+                                res.send({ success: false, message: 'An error occurred.' });
+                            }
+
+                            res.send({ success: true, message: 'Email successfully updated.' });
+                        })
+                    }
+                });
+            }
+        });
+    }
+});
 
 module.exports = userRouter;
