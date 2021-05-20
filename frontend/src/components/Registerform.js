@@ -5,6 +5,7 @@ function Registerform() {
         email: '',
         password: ''
     });
+    const [showPass, setShowPass] = useState(false);
     const [message, setMessage] = useState(null);
 
     const updateDetails = (e) => {
@@ -47,9 +48,17 @@ function Registerform() {
                         value={user.email} autoComplete="email"
                         onChange={(e) => updateDetails(e)}/>
                     <label htmlFor="registerPassword">Password:</label>
-                    <input type="password" id="registerPassword" name="password"
+                    <input type={showPass ? "text" : "password"} id="registerPassword" name="password"
                         value={user.password} autoComplete="new-password"
                         onChange={(e) => updateDetails(e)}/>
+                    <label htmlFor="toggle-password-visibility">
+                        <input 
+                            type="checkbox" 
+                            id="toggle-password-visibility" 
+                            checked={showPass}
+                            onChange={() => setShowPass(!showPass)}/>
+                        Show password
+                    </label>
                     <button type="submit">Sign Up</button>
                 </form>
             </> :
@@ -64,9 +73,17 @@ function Registerform() {
                         value={user.email} autoComplete="email"
                         onChange={(e) => updateDetails(e)}/>
                     <label htmlFor="registerPassword">Password:</label>
-                    <input type="password" id="registerPassword" name="password"
+                    <input type={showPass ? "text" : "password"} id="registerPassword" name="password"
                         value={user.password} autoComplete="new-password"
-                        onChange={(e) => updateDetails(e)}/>
+                        onClick={(e) => updateDetails(e)}/>
+                    <label htmlFor="toggle-password-visibility">
+                        <input 
+                            type="checkbox" 
+                            id="toggle-password-visibility" 
+                            checked={showPass}
+                            onChange={() => setShowPass(!showPass)}/>
+                        Show password
+                    </label>
                     <button type="submit">Sign Up</button>
                 </form>
             </>

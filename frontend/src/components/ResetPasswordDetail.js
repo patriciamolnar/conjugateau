@@ -5,6 +5,8 @@ function ResetPasswordDetail() {
         newPass: '', 
         oldPass: ''
     });
+
+    const [showPass, setShowPass] = useState(false);
     const [message, setMessage] = useState(null);
 
     const updateDetails = (e) => {
@@ -44,9 +46,17 @@ function ResetPasswordDetail() {
             {message ? message : null}
             <form onSubmit={(e) => changePassword(e)}>
                 <label htmlFor="password">Your old password:</label>
-                <input type="password" value={password.oldPass} name="oldPass" onChange={(e) => updateDetails(e)} autoComplete="current-password"/>
+                <input type={showPass ? "text" : "password"} value={password.oldPass} name="oldPass" onChange={(e) => updateDetails(e)} autoComplete="current-password"/>
                 <label htmlFor="password">Your new password:</label>
-                <input type="password" value={password.newPass} name="newPass" onChange={(e) => updateDetails(e)} autoComplete="new-password"/>
+                <input type={showPass ? "text" : "password"} value={password.newPass} name="newPass" onChange={(e) => updateDetails(e)} autoComplete="new-password"/>
+                <label htmlFor="toggle-password-visibility">
+                    <input 
+                        type="checkbox" 
+                        id="toggle-password-visibility" 
+                        checked={showPass}
+                        onChange={() => setShowPass(!showPass)}/>
+                    Show password
+                </label>
                 <button type="submit">Change</button>
             </form>
         </div>

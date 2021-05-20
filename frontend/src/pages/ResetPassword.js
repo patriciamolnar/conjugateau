@@ -4,6 +4,7 @@ import { useParams, Link } from 'react-router-dom';
 function ResetPassword() {
     const [password, setPassword] = useState(''); 
     const [message, setMessage] = useState(null); 
+    const [showPass, setShowPass] = useState(false);
     const {token} = useParams();
 
     const changePassword = (e) => {
@@ -40,7 +41,15 @@ function ResetPassword() {
             </p>
            <form onSubmit={(e) => changePassword(e)}>
                <label htmlFor="password">Password:</label>
-               <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} id="password"/>
+               <input type={showPass ? "text" : "password"} value={password} onChange={(e) => setPassword(e.target.value)} id="password"/>
+               <label htmlFor="toggle-password-visibility">
+                    <input 
+                        type="checkbox" 
+                        id="toggle-password-visibility" 
+                        checked={showPass}
+                        onChange={() => setShowPass(!showPass)}/>
+                    Show password
+                </label>
                <button type="submit">Change</button>
            </form>
        </div>
