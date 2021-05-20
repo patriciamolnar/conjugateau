@@ -285,4 +285,43 @@ userRouter.put('/change-email', passport.authenticate('jwt', { session: false })
     }
 });
 
+
+userRouter.delete('/delete-account', passport.authenticate('jwt', { session: false }), function (req, res) {
+    const { password } = req.body; 
+
+    if(!password) { //check if password fields were completed
+        req.send({ success: false, message: 'Please fill in all fields.' });
+    }
+
+    if(req.user) { 
+        const { _id } = req.user; 
+        User.findOne({_id}, function(err, doc) { //check if there is a user
+            if(err || doc === null) {
+                req.send({ 
+                    success: false, 
+                    message: 'An error occurred. Clear cookies and try again.' 
+                });
+            } else { //check if provided old password matches current
+                doc.comparePassword(password, (err, user) => {
+                    if(err) {
+                        res.send({ success: false, message: 'An error occurred.' });
+                    } else if(!user) { 
+                        res.send({ success: false, message: 'Incorrect password.' });
+                    } else { //save password
+                        User.deleteOne({'_id': doc._id}, (err, doc) => {
+                            if(err) {
+                                res.send({ success: false, message: 'An error occurred.' });
+                            }
+
+                            //Log user out
+                            res.clearCookie('access_token');
+                            res.send({ success: true, message: 'Account successfully deleted.' });
+                        })
+                    }
+                });
+            }
+        });
+    }
+});
+
 module.exports = userRouter;
