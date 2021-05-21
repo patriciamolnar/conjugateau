@@ -15,6 +15,7 @@ function Flashcard({ verbs, practicing, updateOptions, startGame, finishPractice
             <>  
                 <NavLink exact to="/" activeStyle={activeStyle}>Practice All Words</NavLink> | 
                 <NavLink to="/starred" activeStyle={activeStyle}>Practice Saved Words</NavLink>
+                <h2>Practice with Flashcards!</h2>
                 <TenseSelector updateOptions={updateOptions} startGame={startGame} />
             </>
         )

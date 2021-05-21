@@ -17,6 +17,7 @@ function Test({ verbs, practicing, updateOptions, startGame, finishPractice, log
             <>  
                 <NavLink exact to="/test" activeStyle={activeStyle}>Practice All Words</NavLink> | 
                 <NavLink to="/starred-test" activeStyle={activeStyle}>Practice Saved Words</NavLink>
+                <h2>Test Yourself</h2>
                 <TenseSelector updateOptions={updateOptions} startGame={startGame} />
             </>
         )

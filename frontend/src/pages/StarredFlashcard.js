@@ -24,6 +24,7 @@ function StarredFlashcard({ verbs, practicing, updateOptions, startGame, finishP
             <>  
                 <NavLink exact to="/" activeStyle={activeStyle}>Practice All Words</NavLink> | 
                 <NavLink to="/starred" activeStyle={activeStyle}>Practice Saved Words</NavLink>
+                <h2>Saved Conjugations: Practice with Flashcards!</h2>
                 <TenseSelector updateOptions={updateOptions} startGame={startGame} />
             </>
         )

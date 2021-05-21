@@ -24,6 +24,7 @@ function StarredTest({ verbs, practicing, updateOptions, startGame, finishPracti
             <>  
                 <NavLink exact to="/test" activeStyle={activeStyle}>Practice All Words</NavLink> | 
                 <NavLink to="/starred-test" activeStyle={activeStyle}>Practice Saved Words</NavLink>
+                <h2>Saved Conjugations: Test Yourself</h2>
                 <TenseSelector updateOptions={updateOptions} startGame={startGame} />
             </>
         )
