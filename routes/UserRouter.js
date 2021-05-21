@@ -105,34 +105,34 @@ userRouter.put('/password', passport.authenticate('jwt', { session: false }), fu
     const {oldPass, newPass} = req.body; 
 
     if(!oldPass || !newPass) { //check if password fields were completed
-        req.send({ success: false, message: 'Please fill in all fields.' });
+        return res.send({ success: false, message: 'Please fill in all fields.' });
     }
 
     if(req.user) { 
         const { _id } = req.user; 
         User.findOne({_id}, function(err, doc) { //check if there is a user
             if(err || doc === null) {
-                req.send({ 
+                return res.send({ 
                     success: false, 
                     message: 'An error occurred. Clear cookies and try again.' 
                 });
             } else { //check if provided old password matches current
                 doc.comparePassword(oldPass, (err, user) => {
                     if(err) {
-                        res.send({ success: false, message: 'An error occurred.' });
+                        return res.send({ success: false, message: 'An error occurred.' });
                     } else if(!user) { 
-                        res.send({ success: false, message: 'Incorrect password.' });
+                        return res.send({ success: false, message: 'Incorrect password.' });
                     } else { //save password
                         user.password = newPass;
                         user.save(err => { 
                             if(err) {
-                                res.send({
+                                return res.send({
                                     success: false, 
                                     message: 'Invalid password. Passwords must contain at least 1 lowercase, 1 uppercase and 1 special character. Minimum length must be 8 characters.'
                                 })
                             }
                             else {
-                                res.send({ 
+                                return res.send({ 
                                     success: true, 
                                     message: 'Password successfully changed.'
                                 });
@@ -147,17 +147,17 @@ userRouter.put('/password', passport.authenticate('jwt', { session: false }), fu
 
 //send reset password email
 userRouter.post('/forgotten-password', (req, res) => {
-    if(req.body.email === '') { //check if email present
-        res.status(400).send({message: 'Please provide your email.'});
-    }
-
     //find user 
     const {email} = req.body; 
+    if(!email) {
+        return res.status(400).send({message: 'Please provide your email.'});
+    }
+
     User.findOne({'email': email}, (err, doc) => {
         if(err) { //general error
-            res.status(403).send({message: `There was an error.`});
+            return res.status(403).send({message: `There was an error.`});
         } else if(doc === null) { //no user
-            res.status(403).send({message: `No account found for ${email}.`});
+            return res.status(403).send({message: `No account found for ${email}.`});
         } else {
             //generate token
             const token = crypto.randomBytes(20).toString('hex'); 
@@ -168,7 +168,7 @@ userRouter.post('/forgotten-password', (req, res) => {
                 }
             }, (err, doc) => {
                 if(err) { 
-                    res.send({message: 'There was an error. Please try again'})
+                    return res.send({message: 'There was an error. Please try again'})
                 } else { //if added to DB
                     const transporter = nodemailer.createTransport({
                         service: 'gmail', 
@@ -215,12 +215,12 @@ userRouter.put('/reset/:token', (req, res) => {
         }
     }, (err, doc) => {
         if(err || doc === null) { //invalid token: send error
-            res.send({success: false, message: 'An error occurred. Please try again.'});
+            return res.send({success: false, message: 'An error occurred. Please try again.'});
         } else { //valid token: change password
             doc.password = password; 
             doc.save(err => { 
                 if(err) {
-                    res.send({
+                    return res.send({
                         success: false, 
                         message: 'Invalid password. Passwords must contain at least 1 lowercase, 1 uppercase and 1 special character. Minimum length must be 8 characters.'
                     });
@@ -233,11 +233,7 @@ userRouter.put('/reset/:token', (req, res) => {
                             'resetPasswordExpires': Date.now() - 1800000
                         }
                     }, (err, doc) => {
-                        if(err) {
-                            console.log(err);
-                        }
-
-                        res.send({ 
+                        return res.send({ 
                             success: true, 
                             message: 'Password successfully changed.'
                         });
@@ -253,30 +249,30 @@ userRouter.put('/change-email', passport.authenticate('jwt', { session: false })
     const {email, password} = req.body; 
 
     if(!email || !password) { //check if password fields were completed
-        req.send({ success: false, message: 'Please fill in all fields.' });
+        return res.send({ success: false, message: 'Please fill in all fields.' });
     }
 
     if(req.user) { 
         const { _id } = req.user; 
         User.findOne({_id}, function(err, doc) { //check if there is a user
             if(err || doc === null) {
-                req.send({ 
+                return res.send({ 
                     success: false, 
                     message: 'An error occurred. Clear cookies and try again.' 
                 });
             } else { //check if provided old password matches current
                 doc.comparePassword(password, (err, user) => {
                     if(err) {
-                        res.send({ success: false, message: 'An error occurred.' });
+                        return res.send({ success: false, message: 'An error occurred.' });
                     } else if(!user) { 
-                        res.send({ success: false, message: 'Incorrect password.' });
+                        return res.send({ success: false, message: 'Incorrect password.' });
                     } else { //save password
                         User.updateOne({'_id': doc._id}, { $set: {'email': email} }, (err, doc) => {
                             if(err) {
-                                res.send({ success: false, message: 'An error occurred.' });
+                                return res.send({ success: false, message: 'An error occurred.' });
                             }
 
-                            res.send({ success: true, message: 'Email successfully updated.' });
+                            return res.send({ success: true, message: 'Email successfully updated.' });
                         })
                     }
                 });
@@ -290,32 +286,32 @@ userRouter.delete('/delete-account', passport.authenticate('jwt', { session: fal
     const { password } = req.body; 
 
     if(!password) { //check if password fields were completed
-        req.send({ success: false, message: 'Please fill in all fields.' });
+        return res.send({ success: false, message: 'Please fill in all fields.' });
     }
 
     if(req.user) { 
         const { _id } = req.user; 
         User.findOne({_id}, function(err, doc) { //check if there is a user
             if(err || doc === null) {
-                req.send({ 
+                return res.send({ 
                     success: false, 
                     message: 'An error occurred. Clear cookies and try again.' 
                 });
             } else { //check if provided old password matches current
                 doc.comparePassword(password, (err, user) => {
                     if(err) {
-                        res.send({ success: false, message: 'An error occurred.' });
+                        return res.send({ success: false, message: 'An error occurred.' });
                     } else if(!user) { 
-                        res.send({ success: false, message: 'Incorrect password.' });
+                        return res.send({ success: false, message: 'Incorrect password.' });
                     } else { //save password
                         User.deleteOne({'_id': doc._id}, (err, doc) => {
                             if(err) {
-                                res.send({ success: false, message: 'An error occurred.' });
+                                return res.send({ success: false, message: 'An error occurred.' });
                             }
 
                             //Log user out
                             res.clearCookie('access_token');
-                            res.send({ success: true, message: 'Account successfully deleted.' });
+                            return res.send({ success: true, message: 'Account successfully deleted.' });
                         })
                     }
                 });
