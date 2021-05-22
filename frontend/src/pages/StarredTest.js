@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import TestQuiz from '../components/TestQuiz';
 import TenseSelector from '../components/TenseSelector';
+import { getNext } from '../lib/functions';
 
 function StarredTest({ verbs, practicing, updateOptions, startGame, finishPractice, login, starred, setStarred }) {
     const [number, setNumber] = useState(0);
@@ -49,18 +50,15 @@ function StarredTest({ verbs, practicing, updateOptions, startGame, finishPracti
     
     // start praciting
     } else { 
-        const getNext = () => {
-            if(number < (verbs.length - 1)) {
-                setNumber(number => number + 1);
-            } else { //if all questions were answered start from beginning.
-                setNumber(0);
-            }
-        }
-
         return(
             <>  
-                <p>Practiced: {number}/{verbs.length}</p>
-                <TestQuiz data={verbs[number]} getNext={getNext} login={login} setStarred={setStarred} starred={starred}/>
+                <p>Count: {number + 1}/{verbs.length}</p>
+                <TestQuiz 
+                    data={verbs[number]} 
+                    getNext={() => setNumber(getNext(number, verbs))} 
+                    login={login} 
+                    setStarred={setStarred} 
+                    starred={starred}/>
                 <button onClick={() => {
                     setNumber(0);
                     finishPractice(); 

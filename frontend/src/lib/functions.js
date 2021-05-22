@@ -43,3 +43,12 @@ export const getStyle = (arr, id) => {
 
   return styles; 
 }
+
+// return count of conjugations practiced.
+export const getNext = (number, verbs) => {
+    if(number < (verbs.length - 1)) {
+        return number + 1
+    } else { //if all questions were answered start from beginning.
+        return 0
+    }
+}

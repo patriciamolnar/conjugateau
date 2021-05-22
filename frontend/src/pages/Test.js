@@ -1,8 +1,8 @@
 import { useState } from 'react'; 
 import { NavLink } from 'react-router-dom';
-
 import TestQuiz from '../components/TestQuiz';
 import TenseSelector from '../components/TenseSelector';
+import { getNext } from '../lib/functions';
 
 function Test({ verbs, practicing, updateOptions, startGame, finishPractice, login, setStarred, starred }) {
     const [number, setNumber] = useState(0);
@@ -28,19 +28,15 @@ function Test({ verbs, practicing, updateOptions, startGame, finishPractice, log
         )
 
     } else { // start praciting
-
-        const getNext = () => {
-            if(number < (verbs.length - 1)) {
-                setNumber(number => number + 1);
-            } else { //if all questions were practiced start again.
-                setNumber(0);
-            }
-        }
-
         return(
             <>  
-                <p>Practiced: {number}/{verbs.length}</p>
-                <TestQuiz data={verbs[number]} getNext={getNext} login={login} setStarred={setStarred} starred={starred}/>
+                <p>Count: {number + 1}/{verbs.length}</p>
+                <TestQuiz 
+                    data={verbs[number]} 
+                    getNext={() => setNumber(getNext(number, verbs))} 
+                    login={login} 
+                    setStarred={setStarred} 
+                    starred={starred}/>
                 <button onClick={() => {
                     setNumber(0);
                     finishPractice(); 
