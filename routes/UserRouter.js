@@ -149,6 +149,8 @@ userRouter.put('/password', passport.authenticate('jwt', { session: false }), fu
 userRouter.post('/forgotten-password', (req, res) => {
     //find user 
     const {email} = req.body; 
+
+    //check if email is empty
     if(!email) {
         return res.status(400).send({
             success: false, 
@@ -259,6 +261,16 @@ userRouter.put('/change-email', passport.authenticate('jwt', { session: false })
 
     if(!email || !password) { //check if password fields were completed
         return res.send({ success: false, message: 'Please fill in all fields.' });
+    }
+
+    //check if email is valid
+    const regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i;
+
+    if(!regex.test(email)) {
+        return res.send({
+            success: false, 
+            message: 'Invalid email. Please provide a valid one.'
+        });
     }
 
     if(req.user) { 
