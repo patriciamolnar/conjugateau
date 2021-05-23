@@ -59,3 +59,5 @@ export const getNext = (number, verbs) => {
 export const updateStarred = (id, callback) => {
     saveVerb({_id: id}, callback); 
 }
+
+export const formatInput = (str) => str.trim().toLowerCase(); 

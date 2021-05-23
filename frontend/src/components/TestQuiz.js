@@ -1,5 +1,5 @@
 import { useCallback, useRef, useState, useEffect } from 'react';
-import { getStyle, updateStarred } from '../lib/functions';
+import { formatInput, getStyle, updateStarred } from '../lib/functions';
 
 function TestQuiz({ data, getNext, login, starred, setStarred }) {
     const [answered, setAnswered] = useState(false);
@@ -24,7 +24,7 @@ function TestQuiz({ data, getNext, login, starred, setStarred }) {
     const validateAnswer = (e) => {
         e.preventDefault();
         setAnswered(true);
-        if(data.conjugation === input) {
+        if(data.conjugation === formatInput(input)) {
             setCorrect(true);
         } else {
             setCorrect(false);

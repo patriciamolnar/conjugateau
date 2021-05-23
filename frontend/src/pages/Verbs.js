@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Verb from '../components/Verb';
 import { getAll, getByInfinitive } from '../lib/fetch';
-import { filterData } from '../lib/functions';
+import { filterData, formatInput } from '../lib/functions';
 
 function Verbs({ login, starred, setStarred }) {
     const [info, setInfo] = useState(null);
@@ -24,7 +24,7 @@ function Verbs({ login, starred, setStarred }) {
 
     const searchVerb = (e) => {
         e.preventDefault();
-        getByInfinitive(search, setSearchResult);
+        getByInfinitive(formatInput(search), setSearchResult);
     }
 
     return (

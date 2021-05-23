@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useInput } from '../lib/customHooks';
 import { handleSubmit } from '../lib/fetch';
+import { formatInput } from "../lib/functions";
 
 function ForgottenPassword() {
     const [emailProps, resetEmail] = useInput('');
@@ -13,7 +14,7 @@ function ForgottenPassword() {
         const obj = {
             uri: '/user/forgotten-password', 
             method: 'POST',
-            details: {email: emailProps.value}
+            details: {email: formatInput(emailProps.value)}
         }
         
         handleSubmit(e, obj).then(data => {

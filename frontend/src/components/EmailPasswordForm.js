@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useInput } from '../lib/customHooks';
 import { getSavedVerbs } from '../lib/fetch';
+import { formatInput } from "../lib/functions";
 import ToggleVisibility from "./ToggleVisibility";
 
 function EmailPasswordForm({ title, id, url, method, btnText, setLogin, setStarred }) {
@@ -16,7 +17,7 @@ function EmailPasswordForm({ title, id, url, method, btnText, setLogin, setStarr
             'Content-type': 'application/json'
         },
         body: JSON.stringify({
-                email: emailProps.value, 
+                email: formatInput(emailProps.value), 
                 password: passwordProps.value
         })
     
