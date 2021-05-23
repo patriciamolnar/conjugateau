@@ -1,6 +1,5 @@
 import { useState, useCallback } from 'react';
-import { saveVerb } from '../lib/fetch';
-import { getStyle } from '../lib/functions';
+import { getStyle, updateStarred } from '../lib/functions';
 
 function FlashcardQuiz({ data, getNext, login, starred, setStarred }) {
     const [hidden, setHidden] = useState(true);
@@ -12,11 +11,6 @@ function FlashcardQuiz({ data, getNext, login, starred, setStarred }) {
         }
     }, []);
 
-    //let users bookmark verbforms and update starred array
-    const updateStarred = (id) => {
-        saveVerb({_id: id}, setStarred); 
-    }
-
     let style = null; 
     if(login && starred !== null) {
         style = getStyle(starred, data._id);
@@ -25,7 +19,7 @@ function FlashcardQuiz({ data, getNext, login, starred, setStarred }) {
     return(
         <div>
             {login ? 
-            <button onClick={() => {updateStarred(data._id)}}
+            <button onClick={() => {updateStarred(data._id, setStarred)}}
             style={style}>*</button> 
             : null}
             <p>{data.infinitive} <span>({data.en})</span></p>

@@ -1,3 +1,5 @@
+import { saveVerb } from '../lib/fetch';
+
 export const shuffle = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
       let j = Math.floor(Math.random() * (i + 1)); // random index from 0 to i
@@ -51,4 +53,9 @@ export const getNext = (number, verbs) => {
     } else { //if all questions were answered start from beginning.
         return 0
     }
+}
+
+// bookmark conjugations
+export const updateStarred = (id, callback) => {
+    saveVerb({_id: id}, callback); 
 }
