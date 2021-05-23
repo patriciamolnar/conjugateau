@@ -28,12 +28,17 @@ function EmailPasswordForm({ title, id, url, method, btnText, setLogin, setStarr
 
         fetch(url, options)
             .then(res => {
-                if(res.ok) return res.json(); 
-                else { // if login is unauthorised  
-                    return JSON.stringify({success: false});
-                }
+                if(id === 'login') { // avoid errors if login is unauthorised
+                    if(res.ok) return res.json(); 
+                    else {  
+                        return JSON.stringify({success: false});
+                    }
+                } else { // for non login requests, simply return json
+                    return res.json(); 
+                }    
             })
             .then(data => {
+                console.log(data);
                 resetPassword();
                 setLoading(false);
 
