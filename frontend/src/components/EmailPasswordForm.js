@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useInput } from '../lib/customHooks';
 import { getSavedVerbs } from '../lib/fetch';
+import ToggleVisibility from "./ToggleVisibility";
 
 function EmailPasswordForm({ title, id, url, method, btnText, setLogin, setStarred }) {
     const [emailProps, resetEmail] = useInput(''); 
@@ -59,11 +60,7 @@ function EmailPasswordForm({ title, id, url, method, btnText, setLogin, setStarr
     }
 
     //display loading message while processing form
-    if(loading) {
-        return (
-            <p>Loading...</p>
-        )
-    }
+    loading && <p>Loading...</p>
 
     //if user registers successfully hide register form and ask them to login
     if(id === 'register' && message === 'Account successfully created. Please log in.') {
@@ -75,7 +72,7 @@ function EmailPasswordForm({ title, id, url, method, btnText, setLogin, setStarr
     return(
         <>
             <h2>{title}</h2>
-            {message ? message : null}
+            <p>{message && message}</p>
 
             <form onSubmit={(e) => handleSubmit(e)}>
 
@@ -93,14 +90,7 @@ function EmailPasswordForm({ title, id, url, method, btnText, setLogin, setStarr
                     id={id + 'password'} 
                     autoComplete="current-password"/>
 
-                <label htmlFor={id + 'toggle-password-visibility'}>
-                    <input 
-                        type="checkbox" 
-                        id={id + 'toggle-password-visibility'} 
-                        checked={showPass}
-                        onChange={() => setShowPass(!showPass)}/>
-                    Show password
-                </label>
+                <ToggleVisibility id={id} showPass={showPass} setShowPass={setShowPass} />
 
                 <button type="submit">{btnText}</button>
             </form>
