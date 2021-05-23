@@ -10,10 +10,14 @@ function Account({ login, setLogin, setStarred }) {
     const [deleted, setDeleted] = useState(null);
     return (
         <>
-            <p>{deleted ? deleted : null}</p>
+            <p>{deleted && deleted}</p>
             {login ? 
             (<>
                 <Logout setLogin={setLogin}/>
+
+                <p>Welcome to Conjugâteau</p>
+
+                <p>Manage your account:</p>
 
                 {/* Change user email form */}
                 <EmailPasswordForm
