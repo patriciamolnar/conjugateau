@@ -150,14 +150,17 @@ userRouter.post('/forgotten-password', (req, res) => {
     //find user 
     const {email} = req.body; 
     if(!email) {
-        return res.status(400).send({message: 'Please provide your email.'});
+        return res.status(400).send({
+            success: false, 
+            message: 'Please provide your email.'
+        });
     }
 
     User.findOne({'email': email}, (err, doc) => {
         if(err) { //general error
-            return res.status(403).send({message: `There was an error.`});
+            return res.status(403).send({success: false, message: `There was an error.`});
         } else if(doc === null) { //no user
-            return res.status(403).send({message: `No account found for ${email}.`});
+            return res.status(403).send({success: false, message: `No account found for ${email}.`});
         } else {
             //generate token
             const token = crypto.randomBytes(20).toString('hex'); 
@@ -168,7 +171,10 @@ userRouter.post('/forgotten-password', (req, res) => {
                 }
             }, (err, doc) => {
                 if(err) { 
-                    return res.send({message: 'There was an error. Please try again'})
+                    return res.send({
+                        success: false, 
+                        message: 'There was an error. Please try again'
+                    });
                 } else { //if added to DB
                     const transporter = nodemailer.createTransport({
                         service: 'gmail', 
@@ -191,9 +197,12 @@ userRouter.post('/forgotten-password', (req, res) => {
             
                     transporter.sendMail(mailOptions, (mailErr, response) => {
                         if(mailErr) {
-                            res.send({message: 'There was an error.'})
+                            res.send({success: false, message: 'There was an error.'})
                         } else {
-                            res.send({message: 'Email successfully sent.'}); 
+                            res.send({
+                                success: true, 
+                                message: 'Email successfully sent.'
+                            }); 
                         }
                     });
                 }
