@@ -33,7 +33,9 @@ function DeleteAccount({ setLogin, setDeleted }) {
         });
     }
 
-    loading && <p>Loading ...</p>
+    if(loading) {
+        return <p>Loading...</p>;
+    }
 
     return (
         <div>

@@ -60,7 +60,9 @@ function EmailPasswordForm({ title, id, url, method, btnText, setLogin, setStarr
     }
 
     //display loading message while processing form
-    loading && <p>Loading...</p>
+    if(loading) {
+        return <p>Loading...</p>;
+    }
 
     //if user registers successfully hide register form and ask them to login
     if(id === 'register' && message === 'Account successfully created. Please log in.') {
