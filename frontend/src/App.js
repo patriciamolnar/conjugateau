@@ -3,7 +3,7 @@ import {
   BrowserRouter as Router, 
   Switch, 
   Route,
-  Link, 
+  NavLink, 
   Redirect
 } from 'react-router-dom';
 
@@ -94,16 +94,16 @@ function App() {
         <nav>
           <ul>
             <li>
-              <Link to="/" onClick={finishPractice}>Flashcards</Link>
+              <NavLink to="/" activeClassName="active" onClick={finishPractice}>Flashcards</NavLink>
             </li>
             <li>
-              <Link to="/test" onClick={finishPractice}>Test</Link>
+              <NavLink to="/test" activeClassName="active" onClick={finishPractice}>Test</NavLink>
             </li>
             <li>
-              <Link to="/verbs" onClick={finishPractice}>Verbs</Link>
+              <NavLink to="/verbs" activeClassName="active" onClick={finishPractice}>Verbs</NavLink>
             </li>
             <li>
-              <Link to="/account" onClick={finishPractice}>Account</Link>
+              <NavLink to="/account" activeClassName="active" onClick={finishPractice}>Account</NavLink>
             </li>
           </ul>
         </nav>

@@ -7,16 +7,12 @@ import { getNext } from '../lib/functions';
 function Test({ verbs, practicing, updateOptions, startGame, finishPractice, login, setStarred, starred }) {
     const [number, setNumber] = useState(0);
 
-    const activeStyle = {
-        backgroundColor: 'magenta'
-    }
-
     //if tenses have not been selected display select page.
     if(!practicing) { //if tenses have not been selected display select page.
         return (
             <>  
-                <NavLink exact to="/test" activeStyle={activeStyle}>Practice All Words</NavLink> | 
-                <NavLink to="/starred-test" activeStyle={activeStyle}>Practice Saved Words</NavLink>
+                <NavLink exact to="/test" activeClassName="active">Practice All Words</NavLink> | 
+                <NavLink to="/starred-test" activeClassName="active">Practice Saved Words</NavLink>
                 <h2>Test Yourself</h2>
                 <TenseSelector updateOptions={updateOptions} startGame={startGame} />
             </>

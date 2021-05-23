@@ -7,15 +7,11 @@ import { getNext } from '../lib/functions';
 function Flashcard({ verbs, practicing, updateOptions, startGame, finishPractice, login, starred, setStarred }) {
     const [number, setNumber] = useState(0);
 
-    const activeStyle = {
-        backgroundColor: 'magenta'
-    }
-
     if(!practicing) { //if tenses have not been selected display select page.
         return (
             <>  
-                <NavLink exact to="/" activeStyle={activeStyle}>Practice All Words</NavLink> | 
-                <NavLink to="/starred" activeStyle={activeStyle}>Practice Saved Words</NavLink>
+                <NavLink exact to="/" activeClassName="active">Practice All Words</NavLink> | 
+                <NavLink to="/starred" activeClassName="active">Practice Saved Words</NavLink>
                 <h2>Practice with Flashcards!</h2>
                 <TenseSelector updateOptions={updateOptions} startGame={startGame} />
             </>
