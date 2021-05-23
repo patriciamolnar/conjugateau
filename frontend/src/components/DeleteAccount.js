@@ -1,31 +1,38 @@
 import { useState } from "react";
+import { handleSubmit } from '../lib/fetch';
 
 function DeleteAccount({ setLogin, setDeleted }) {
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState(null); 
+    const [loading, setLoading] = useState(false);
 
     const deleteAccount = (e) => {
-        e.preventDefault(); 
-        fetch('/user/delete-account/', {
-            method: "DELETE",
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify({password})
-            })
-            .then(res => res.json())
-            .then(data => {
-                if(data.success) {
-                    setPassword('');
-                    setDeleted(data.message);
-                    setLogin(false);
-                } else {
-                    setMessage(data.message);
-                } 
-            })
-            .catch(err => {
-                setMessage('An error occured. Please try again later.');
-            });
+        const obj = {
+            uri: '/user/delete-account/', 
+            method: 'DELETE',
+            details: { password }
+        }
+
+        setLoading(true); 
+        
+        handleSubmit(e, obj).then(data => {
+            setLoading(false); 
+
+            if(data.success) {
+                setPassword('');
+                setDeleted(data.message);
+                setLogin(false);
+            } else {
+                setMessage(data.message);
+            } 
+        })
+        .catch(err => {
+            setMessage('An error occured. Please try again later.');
+        });
+    }
+
+    if(loading) {
+        return <p>Loading...</p>
     }
 
     return (
