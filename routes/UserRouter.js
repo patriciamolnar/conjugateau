@@ -25,7 +25,7 @@ userRouter.post('/register', async (req, res, next) => {
         });
         const savedUser = await user.save(); 
         if(savedUser) {
-            return res.send({messages: 'Account successfully created. Please log in.', success: true});
+            return res.send({message: 'Account successfully created. Please log in.', success: true});
         }
         return next(new Error('Failed to save user.'));
     } catch(err) {
@@ -39,7 +39,7 @@ userRouter.post('/login', passport.authenticate('local', {session: false}), (req
         console.log(req.user);
         const token = signToken(_id);
         res.cookie('access_token', token, {httpOnly: true, sameSite: true}); 
-        res.status(200).json({isAuthenticated: true, user: {_id, email}}); 
+        res.status(200).json({success: true, message: '', user: {_id, email}}); 
     } 
 }); 
 
