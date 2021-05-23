@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import FlashcardNav from '../components/FlashcardNav';
 import FlashcardQuiz from '../components/FlashcardQuiz';
 import TenseSelector from '../components/TenseSelector';
 import { getNext } from '../lib/functions';
@@ -23,9 +24,7 @@ function StarredFlashcard({ verbs, practicing, updateOptions, startGame, finishP
     if(!practicing) { //if tenses have not been selected display select page.
         return (
             <>  
-                <NavLink exact to="/" activeStyle={activeStyle}>Practice All Words</NavLink> | 
-                <NavLink to="/starred" activeStyle={activeStyle}>Practice Saved Words</NavLink>
-                <h2>Saved Conjugations: Practice with Flashcards!</h2>
+                <FlashcardNav />
                 <TenseSelector updateOptions={updateOptions} startGame={startGame} />
             </>
         )
