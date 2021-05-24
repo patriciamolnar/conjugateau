@@ -16,8 +16,8 @@ import Account from './pages/Account';
 import Header from './components/Header';
 import ForgottenPassword from './pages/ForgottenPassword';
 import ResetPassword from './pages/ResetPassword';
-
 import { getByTense, getSavedVerbs } from './lib/fetch';
+import './App.css';
 
 function App() {
   const [data, setData] = useState(null);
@@ -51,16 +51,27 @@ function App() {
   useEffect(() => {
     if(starred === null || selected.length === 0) return; 
 
-    let filtered = starred.filter(obj => {
-      return obj['tense'].includes(selected);
-    }); 
-    
-    setFilterData(filtered);
+    let temp = [];
+    selected.forEach(tense => {
+      let filtered = starred.filter(obj => {
+        return obj['tense'].includes(tense);
+      }); 
+
+      temp = [...temp, ...filtered]; 
+    });
+
+    setFilterData(temp); 
   }, [starred, selected]);
 
   //save tenses selected to state
-  const updateOptions = (e) => {
-    setSelected([...selected, e.target.name]);
+  const updateOptions = (val) => {
+    //if value is already included, remove 
+    if(selected.includes(val)) {
+      const i = selected.indexOf(val);
+      setSelected([...selected.slice(0, i), ...selected.slice(i + 1)]); 
+    } else { //not yet included so add
+      setSelected([...selected, val]);
+    }
   }
 
   //start game and filter data based on tenses selected
@@ -91,10 +102,10 @@ function App() {
     <Fragment>
       <Router>
         <Header />
-        <nav>
+        <nav id="main-nav">
           <ul>
             <li>
-              <NavLink to="/" activeClassName="active" onClick={finishPractice}>Flashcards</NavLink>
+              <NavLink exact to="/" activeClassName="active" onClick={finishPractice}>Flashcards</NavLink>
             </li>
             <li>
               <NavLink to="/test" activeClassName="active" onClick={finishPractice}>Test</NavLink>
