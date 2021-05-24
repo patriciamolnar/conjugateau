@@ -29,21 +29,13 @@ export const filterData = (arr, key) => {
 }
 
 export const getStyle = (arr, id) => {
-  let styles = null; 
-
   let isIncluded = arr.find(o => o._id === id); 
     
   if(isIncluded) {
-      styles = {
-          backgroundColor: 'yellow'
-      }
+      return ' bookmarked';
   } else {
-      styles = {
-          backgroundColor: '#ccc'
-      }
+      return '';
   }
-
-  return styles; 
 }
 
 // return count of conjugations practiced.

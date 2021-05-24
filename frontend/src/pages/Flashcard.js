@@ -2,6 +2,7 @@ import { useState } from 'react';
 import FlashcardNav from '../components/FlashcardNav';
 import FlashcardQuiz from '../components/FlashcardQuiz';
 import TenseSelector from '../components/TenseSelector';
+import Count from '../components/Count';
 import { getNext } from '../lib/functions';
 
 function Flashcard({ verbs, practicing, updateOptions, startGame, finishPractice, login, starred, setStarred }) {
@@ -23,7 +24,7 @@ function Flashcard({ verbs, practicing, updateOptions, startGame, finishPractice
     } else { // start praciting
         return(
             <>  
-                <p>Count: {number + 1}/{verbs.length}</p>
+                <Count num={number + 1} length={verbs.length}/>
                 <FlashcardQuiz 
                     data={verbs[number]} 
                     getNext={() => setNumber(getNext(number, verbs))} 
@@ -33,7 +34,7 @@ function Flashcard({ verbs, practicing, updateOptions, startGame, finishPractice
                 <button onClick={() => {
                     setNumber(0);
                     finishPractice(); 
-                }}>Finish Practicing</button>
+                }} className="finish-practicing">Finish Practicing</button>
             </>
         )
     }

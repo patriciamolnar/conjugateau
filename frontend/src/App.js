@@ -82,7 +82,7 @@ function App() {
   }
 
   //start game and filter starred verbs based on tenses selected 
-  const filterStarred = () => {
+  const startBookmarkedGame = () => {
       setPracticing(true);
   }
 
@@ -125,7 +125,7 @@ function App() {
             if(!login) {
               return <Redirect to="/account" />
             } else {
-              return <StarredFlashcard {...props} verbs={filterData} practicing={practicing} setPracticing={setPracticing} starred={starred} setStarred={setStarred} selected={selected} setSelected={setSelected} updateOptions={updateOptions} startGame={filterStarred} finishPractice={finishPractice} login={login}/>
+              return <StarredFlashcard {...props} verbs={filterData} practicing={practicing} setPracticing={setPracticing} starred={starred} setStarred={setStarred} selected={selected} setSelected={setSelected} updateOptions={updateOptions} startGame={startBookmarkedGame} finishPractice={finishPractice} login={login}/>
             } 
           }} />
           
@@ -139,7 +139,7 @@ function App() {
             if(!login) {
               return <Redirect to="/account" />
             } else {
-              return <StarredTest {...props} verbs={filterData} practicing={practicing} setPracticing={setPracticing} starred={starred} setStarred={setStarred} selected={selected} setSelected={setSelected} updateOptions={updateOptions} startGame={filterStarred} finishPractice={finishPractice} login={login}/>
+              return <StarredTest {...props} verbs={filterData} practicing={practicing} setPracticing={setPracticing} starred={starred} setStarred={setStarred} selected={selected} setSelected={setSelected} updateOptions={updateOptions} startGame={startBookmarkedGame} finishPractice={finishPractice} login={login}/>
             } 
           }} />
 

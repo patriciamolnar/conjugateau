@@ -3,6 +3,7 @@ data.json
 z.txt
 .env
 frontend/node_modules
+frontend/src/fonts
 a/
 insert-data.js
 verbs.json

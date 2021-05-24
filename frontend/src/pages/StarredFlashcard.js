@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import FlashcardNav from '../components/FlashcardNav';
 import FlashcardQuiz from '../components/FlashcardQuiz';
 import TenseSelector from '../components/TenseSelector';
+import Count from '../components/Count';
 import { getNext } from '../lib/functions';
 
 function StarredFlashcard({ verbs, practicing, updateOptions, startGame, finishPractice, login, starred, setStarred }) {
@@ -51,7 +52,7 @@ function StarredFlashcard({ verbs, practicing, updateOptions, startGame, finishP
     } else { 
         return(
             <>  
-                <p>Count: {number + 1}/{verbs.length}</p>
+                <Count num={number + 1} length={verbs.length}/>
                 <FlashcardQuiz 
                     data={verbs[number]} 
                     getNext={() => setNumber(getNext(number, verbs))} 
@@ -61,7 +62,7 @@ function StarredFlashcard({ verbs, practicing, updateOptions, startGame, finishP
                 <button onClick={() => {
                     setNumber(0);
                     finishPractice(); 
-                }}>Finish Practicing</button>
+                }} className="finish-practicing">Finish Practicing</button>
             </>
         )
     } 

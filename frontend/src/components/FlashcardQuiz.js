@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import { getStyle, updateStarred } from '../lib/functions';
+import StarIcon from './StarIcon'; 
 
 function FlashcardQuiz({ data, getNext, login, starred, setStarred }) {
     const [hidden, setHidden] = useState(true);
@@ -11,25 +12,29 @@ function FlashcardQuiz({ data, getNext, login, starred, setStarred }) {
         }
     }, []);
 
-    let style = null; 
+    let style = 'star'; 
     if(login && starred !== null) {
-        style = getStyle(starred, data._id);
+        style += getStyle(starred, data._id);
     }
 
     return(
-        <div>
-            {login ? 
-            <button onClick={() => {updateStarred(data._id, setStarred)}}
-            style={style}>*</button> 
-            : null}
-            <p>{data.infinitive} <span>({data.en})</span></p>
-            <p>{data.tense}</p>
-            <p>{data.pronoun}</p>
+        <div className="flashcard">
+            <p className="infinitive">
+                {data.infinitive} 
+                {login && 
+                <span onClick={() => {updateStarred(data._id, setStarred)}}>
+                    <StarIcon styling={style} />
+                </span>}
+            </p>
+            <p className="translation">{data.en}</p>
+            <p className="tense">{data.tense}</p>
+            <p className="pronoun">{data.pronoun}</p>
             
             <p onClick={() => setHidden(false)}>
-                {hidden ? 'Tap to see answer' : data.conjugation}
+                {hidden ? 
+                <span className="tap-to-see">Tap to see answer</span> :
+                <span className="flashcard-result">{data.conjugation}</span>}
             </p>
-
             {!hidden ? <button ref={focusNext} onClick={() => {
                 setHidden(true); 
                 getNext();

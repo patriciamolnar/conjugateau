@@ -1,38 +1,203 @@
-.App {
+@font-face {
+  font-family: 'Renner';
+  src: local('Renner'), url('./fonts/Renner_\ 400\ Book.ttf') format('truetype');
+}
+
+:root {
+  --font: 'Renner';
+  --darker: #282A35;
+  --dark: #585c74; 
+  --light: #f1f1f1; 
+  --main: #6368ff;
+
+}
+
+* {
+  margin: 0; 
+  padding: 0; 
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font); 
+  color: var(--darker);
+  line-height: 1.7;
+}
+
+button {
+  background-color: var(--main); 
+  font-family: var(--font);
+  color: #fff; 
+  padding: 0.5rem 2rem 0.4rem;
+  border: none; 
+  font-size: 1em;
+  text-transform: uppercase;
+  margin-top: 15px;
+}
+
+header {
+  text-align: center; 
+  background-color: var(--main);
+  color: #fff;
+  padding: 0.5rem;
+}
+
+
+header h1 {
+  font-size: calc(2em + 5vw);
+}
+
+header p {
+  font-size: calc(1em + 0.7vw);
+}
+
+#main-nav {
+  width: 100%; 
+  position: fixed; 
+  bottom: 0;
+  left: 0; 
+  right: 0; 
+  background-color: var(--darker);
+}
+
+#main-nav ul {
+  list-style-type: none;
+  display: flex; 
+  flex-direction: row; 
+  justify-content: space-around; 
+}
+
+#main-nav li {
+  width: 100%; 
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+#main-nav a {
+  font-size: 1.2em;
+  display: inline-block;
+  color: var(--light);
+  text-decoration: none;
+  width: 100%; 
+  padding: 10px; 
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+#main-nav a.active {
+  background-color: var(--dark);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+h2 {
+  display: inline-block;
+  padding: 10px; 
+  position: relative; 
+  left: 50%; 
+  transform: translateX(-50%);
 }
 
-.App-link {
-  color: #61dafb;
+.secondary-nav {
+  display: flex; 
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-bottom: 1em;
+  background-color: var(--darker);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.secondary-nav a {
+  text-decoration: none;
+  display: inline-block; 
+  width: 100%; 
+  text-align: center;
+  padding: 10px;
+  color: #fff;
 }
+
+.secondary-nav a.active {
+  background-color: var(--dark);
+}
+
+.tense-selector {
+  padding: 1rem; 
+}
+
+.tense-selector > p:first-of-type {
+  font-weight: 600;
+  font-size: 1.2em;
+}
+
+.tense-selector label {
+  display: block; 
+  margin: 10px 0 0; 
+}
+
+.tense-selector input {
+  margin-right: 5px;
+  position: relative; 
+  top: 2px; 
+}
+
+.count {
+  background-color: var(--darker); 
+  color: #fff; 
+  padding: 10px;
+  float: right; 
+}
+
+.flashcard {
+  clear: right; 
+  text-align: center;
+}
+
+.infinitive {
+  font-size: 1.8em;
+  font-weight: 600;
+}
+
+.star {
+  cursor: pointer;
+  margin-left: 10px;
+  margin-bottom: -3px;
+  fill: #ccc;
+}
+
+.star.bookmarked {
+  fill: var(--main);
+}
+
+.translation {
+  text-transform: uppercase;
+  margin-bottom: 1em;
+  font-size: 0.9em;
+}
+
+.tense {
+  font-size: 1.2em;
+  color: var(--dark);
+}
+
+.pronoun {
+  font-size: 1.3em;
+}
+
+.tap-to-see, 
+.flashcard-result {
+  display: inline-block;
+  margin: 0.3em 0 0.5rem; 
+  font-size: 1.3em;
+}
+
+.tap-to-see { 
+  color: var(--dark);
+  border-bottom: 1px solid var(--dark)
+}
+
+.finish-practicing {
+  position: absolute; 
+  bottom: 4em;
+  left: 50%; 
+  transform: translateX(-50%);
+  background-color: transparent; 
+  color: var(--main); 
+  border-bottom: 1px solid var(--main);
+  padding: 0; 
+  margin-top: 2em;
+}
+
