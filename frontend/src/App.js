@@ -83,13 +83,8 @@ function App() {
 
   //start game and filter starred verbs based on tenses selected 
   const filterStarred = () => {
-    let filtered = starred.filter(obj => {
-      return obj['tense'].includes(selected);
-    }); 
-    
-    setFilterData(filtered);
-    setPracticing(true);
-}
+      setPracticing(true);
+  }
 
   const finishPractice = () => {
     setFilterData(null);
