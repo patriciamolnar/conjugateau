@@ -44,7 +44,7 @@ function ResetPasswordDetail() {
 
     return(
         <div>
-            <h2>Change your password:</h2>
+            <h4>Change your password</h4>
             <p>{message && message}</p>
             <form onSubmit={(e) => changePassword(e)}>
 
@@ -61,9 +61,9 @@ function ResetPasswordDetail() {
                     id="new-password"
                     name="new-password" 
                     autoComplete="new-password"/>
-
+                    
                 <ToggleVisibility id={"change-password"} showPass={showPass} setShowPass={setShowPass} />
-
+                <br />  
                 <button type="submit">Change</button>
             </form>
         </div>

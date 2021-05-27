@@ -24,6 +24,7 @@ body {
   font-family: var(--font); 
   color: var(--darker);
   line-height: 1.7;
+  margin-bottom: 3em;
 }
 
 button {
@@ -145,7 +146,7 @@ h2 {
   margin: 10px 0 0; 
 }
 
-.tense-selector input {
+input[type="checkbox"] {
   margin-right: 5px;
   position: relative; 
   top: 2px; 
@@ -259,4 +260,34 @@ h2 {
   top: 50%; 
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+/* Account Page */
+.logout {
+  float: right; 
+}
+
+.account {
+  clear: right; 
+  padding: 1em; 
+}
+
+.account h3 {
+  font-size: 1.3em;
+  margin: 1em 0 0.2em; 
+}
+
+.account h4 {
+  margin-top: 1em;
+  font-size: 1.2em;
+}
+
+.account div {
+  background-color: var(--light);
+  padding: 0.1em 1em 1em;
+  margin-bottom: 1em;
+}
+
+.account input[type="checkbox"] {
+  margin-top: 10px;
 }

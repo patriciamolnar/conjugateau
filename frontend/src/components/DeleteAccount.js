@@ -39,14 +39,14 @@ function DeleteAccount({ setLogin, setDeleted }) {
 
     return (
         <div>
-            <h2>Delete your account</h2>
+            <h4>Delete your account</h4>
             <p>{message && message}</p>
             <form onSubmit={(e) => deleteAccount(e)}>
                 <label htmlFor="delete-password">Confirm password to delete:</label>
                 <input type={showPass ? "text" : "password"} id="delete-password" value={password} onChange={(e) => setPassword(e.target.value)} autoComplete="current-password"/>
-                <button type="submit">Delete</button>
-
                 <ToggleVisibility id="delete-account" showPass={showPass} setShowPass={setShowPass}/>
+                <br />
+                <button type="submit">Delete</button>
             </form>
         </div>
     )

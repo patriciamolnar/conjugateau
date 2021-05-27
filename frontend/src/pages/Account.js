@@ -15,22 +15,26 @@ function Account({ login, setLogin, setStarred }) {
             (<>
                 <Logout setLogin={setLogin}/>
 
-                <p>Welcome to Conjugâteau</p>
+                <div className="account">
+                    <h2>Welcome to Conjugâteau</h2>
 
-                <p>Manage your account:</p>
+                    <p>An app that makes learning French conjugation a piece of cake!</p>
 
-                {/* Change user email form */}
-                <EmailPasswordForm
-                    title="Change Your Email"
-                    id="change-email"
-                    url="/user/change-email/"
-                    method="PUT"
-                    btnText="Change"
-                />
-                <ResetPasswordDetail />
-                <DeleteAccount setLogin={setLogin} setDeleted={setDeleted}/>
+                    <h3>Manage your account</h3>
+
+                    {/* Change user email form */}
+                    <EmailPasswordForm
+                        title="Change Your Email"
+                        id="change-email"
+                        url="/user/change-email/"
+                        method="PUT"
+                        btnText="Change"
+                    />
+                    <ResetPasswordDetail />
+                    <DeleteAccount setLogin={setLogin} setDeleted={setDeleted}/>
+                </div>
             </>) :
-            (<>
+            (<div className="account">
                 {/* Sign Up Form */}
                 <EmailPasswordForm 
                     title="Sign Up"
@@ -52,7 +56,7 @@ function Account({ login, setLogin, setStarred }) {
                 />
                 
                 <Link to="/forgotten-password">Forgotten Password?</Link>
-            </>) 
+            </div>) 
             }
         </>
     )

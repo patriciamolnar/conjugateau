@@ -10,7 +10,7 @@ function Logout({ setLogin }) {
     }
 
     return(
-        <button onClick={logoutUser}>Logout</button>
+        <button onClick={logoutUser} className="logout">Logout</button>
     )
 }
 

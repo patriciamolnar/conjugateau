@@ -78,8 +78,8 @@ function EmailPasswordForm({ title, id, url, method, btnText, setLogin, setStarr
     }
 
     return(
-        <>
-            <h2>{title}</h2>
+        <div>
+            <h4>{title}</h4>
             <p>{message && message}</p>
 
             <form onSubmit={(e) => handleSubmit(e)}>
@@ -97,12 +97,11 @@ function EmailPasswordForm({ title, id, url, method, btnText, setLogin, setStarr
                     name="password"  
                     id={id + 'password'} 
                     autoComplete="current-password"/>
-
                 <ToggleVisibility id={id} showPass={showPass} setShowPass={setShowPass} />
-
+                <br />
                 <button type="submit">{btnText}</button>
             </form>
-        </>
+        </div>
     )
 }
 
