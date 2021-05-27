@@ -5,6 +5,7 @@ import SecondaryNav from '../components/SecondaryNav';
 import TestQuiz from '../components/TestQuiz';
 import TenseSelector from '../components/TenseSelector';
 import { getNext } from '../lib/functions';
+import Loading from '../components/Loading';
 
 function StarredTest({ verbs, practicing, updateOptions, startGame, finishPractice, login, starred, setStarred }) {
     const [number, setNumber] = useState(0);
@@ -32,9 +33,7 @@ function StarredTest({ verbs, practicing, updateOptions, startGame, finishPracti
 
         // display loading until data is ready
     } else if(verbs === null) {  
-        return (
-            <div>Loading...</div>
-        );
+        return <Loading />;
         
     } // if filtering results in empty array show error msg
      else if(verbs.length === 0) {

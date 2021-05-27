@@ -1,10 +1,11 @@
 import { filterData, getStyle, updateStarred } from '../lib/functions';
+import Loading from '../components/Loading';
 
 function Verb({data, login, starred, setStarred}) {
     const tenses = filterData(data, 'tense');
 
     if(!tenses) {
-        return <p>Loading...</p>
+        return <Loading />; 
     }
     
     return(

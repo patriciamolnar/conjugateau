@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Verb from '../components/Verb';
 import { getAll, getByInfinitive } from '../lib/fetch';
 import { filterData, formatInput } from '../lib/functions';
+import Loading from '../components/Loading';
 
 function Verbs({ login, starred, setStarred }) {
     const [info, setInfo] = useState(null);
@@ -55,7 +56,7 @@ function Verbs({ login, starred, setStarred }) {
                 <h2>Verbs</h2>
                 {infinitives ? 
                 infinitives.map((arr, i) => <Verb key={i.toString()} data={arr} login={login} starred={starred} setStarred={setStarred}/>) :
-                <div>Loading...</div>}
+                <Loading />}
              </>
             }
 

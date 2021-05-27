@@ -3,6 +3,7 @@ import SecondaryNav from '../components/SecondaryNav';
 import FlashcardQuiz from '../components/FlashcardQuiz';
 import TenseSelector from '../components/TenseSelector';
 import Count from '../components/Count';
+import Loading from '../components/Loading';
 import { getNext } from '../lib/functions';
 
 function Flashcard({ verbs, practicing, updateOptions, startGame, finishPractice, login, starred, setStarred }) {
@@ -18,7 +19,7 @@ function Flashcard({ verbs, practicing, updateOptions, startGame, finishPractice
 
     } else if(verbs === null) { // wait for data to load 
         return (
-            <div>Loading...</div>
+            <Loading />
         )
 
     } else { // start praciting

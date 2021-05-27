@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { useInput } from '../lib/customHooks';
 import { handleSubmit } from '../lib/fetch';
 import ToggleVisibility from '../components/ToggleVisibility';
+import Loading from '../components/Loading';
 
 function ResetPassword() {
     const [passwordProps, resetPassword] = useInput(''); 
@@ -37,7 +38,7 @@ function ResetPassword() {
     }
 
     if(loading) {
-        return <p>Loading...</p>
+        return <Loading />;
     }
 
     return(

@@ -5,6 +5,7 @@ import FlashcardQuiz from '../components/FlashcardQuiz';
 import TenseSelector from '../components/TenseSelector';
 import Count from '../components/Count';
 import { getNext } from '../lib/functions';
+import Loading from '../components/Loading';
 
 function StarredFlashcard({ verbs, practicing, updateOptions, startGame, finishPractice, login, starred, setStarred }) {
     const [number, setNumber] = useState(0);
@@ -32,9 +33,7 @@ function StarredFlashcard({ verbs, practicing, updateOptions, startGame, finishP
 
         // display loading until data is ready
     } else if(verbs === null) {  
-        return (
-            <div>Loading...</div>
-        );
+        return <Loading />;
         
     } // if filtering results in empty array show error msg
      else if(verbs.length === 0) {

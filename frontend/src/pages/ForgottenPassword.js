@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useInput } from '../lib/customHooks';
 import { handleSubmit } from '../lib/fetch';
 import { formatInput } from "../lib/functions";
+import Loading from '../components/Loading';
 
 function ForgottenPassword() {
     const [emailProps, resetEmail] = useInput('');
@@ -32,7 +33,7 @@ function ForgottenPassword() {
     }
 
     if(loading) {
-        return <p>Loading...</p>;
+        return <Loading />;
     }
 
     return(

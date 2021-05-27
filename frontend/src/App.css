@@ -251,3 +251,12 @@ h2 {
   margin-top: 2em;
 }
 
+.loading {
+  text-align: center;
+  font-size: calc(1em + 2vw); 
+  color: var(--dark);
+  position: absolute; 
+  top: 50%; 
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

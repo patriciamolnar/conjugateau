@@ -4,6 +4,7 @@ import Count from '../components/Count';
 import TenseSelector from '../components/TenseSelector';
 import SecondaryNav from '../components/SecondaryNav'; 
 import { getNext } from '../lib/functions';
+import Loading from '../components/Loading';
 
 function Test({ verbs, practicing, updateOptions, startGame, finishPractice, login, setStarred, starred }) {
     const [number, setNumber] = useState(0);
@@ -18,9 +19,7 @@ function Test({ verbs, practicing, updateOptions, startGame, finishPractice, log
         )
 
     } else if(verbs === null) { // wait for data to load 
-        return (
-            <div>Loading...</div>
-        )
+        return <Loading />
 
     } else { // start praciting
         return(
