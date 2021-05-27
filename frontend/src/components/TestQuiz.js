@@ -1,5 +1,6 @@
 import { useCallback, useRef, useState, useEffect } from 'react';
 import { formatInput, getStyle, updateStarred } from '../lib/functions';
+import StarIcon from './StarIcon';  
 
 function TestQuiz({ data, getNext, login, starred, setStarred }) {
     const [answered, setAnswered] = useState(false);
@@ -31,29 +32,32 @@ function TestQuiz({ data, getNext, login, starred, setStarred }) {
         } 
     }
 
-    let style = null; 
+    let style = 'star'; 
     if(login && starred !== null) {
-        style = getStyle(starred, data._id);
+        style += getStyle(starred, data._id);
     }
 
     return(
-        <div>
-            {login ? 
-            <button 
-                onClick={() => {updateStarred(data._id, setStarred)}} 
-                style={style}>*</button> 
-            : null}
-            <p>{data.infinitive} <span>({data.en})</span></p>
-            <p>{data.tense}</p>
-            <p>{data.pronoun}</p>
+        <div class="quizcard">
+            <p className="infinitive">
+                {data.infinitive} 
+                {login && 
+                <span onClick={() => {updateStarred(data._id, setStarred)}}>
+                    <StarIcon styling={style} />
+                </span>}
+            </p>
+            <p className="translation">{data.en}</p>
+            <p className="tense">{data.tense}</p>
+            <p className="pronoun">{data.pronoun}</p>
             
             <form onSubmit={(e) => validateAnswer(e)}>
-                <input type="text" ref={inputRef} value={input} onChange={(e) => setInput(e.target.value)} disabled={answered} />
+                <label htmlFor="test-input">Please type the correct conjugation below:</label>
+                <input type="text" ref={inputRef} value={input} onChange={(e) => setInput(e.target.value)} id="test-input" disabled={answered} />
                 {answered ? null : <button>Check Answer</button>}
             </form>
             
-            {correct ? <p>Correct!</p> : null}
-            {correct === false ? <p>False: The correct conjugation is {data.conjugation}</p> : null}
+            {correct ? <p className="test-answer correct-answer">Correct!</p> : null}
+            {correct === false ? <p className="test-answer"><span className="false-answer">False</span>: The correct conjugation is <span className="test-solution">{data.conjugation}</span></p> : null}
 
             {answered ? <button ref={focusNext} onClick={() => {
                 setInput('');

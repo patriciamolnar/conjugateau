@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import Count from '../components/Count';
+import SecondaryNav from '../components/SecondaryNav';
 import TestQuiz from '../components/TestQuiz';
 import TenseSelector from '../components/TenseSelector';
 import { getNext } from '../lib/functions';
@@ -23,9 +25,7 @@ function StarredTest({ verbs, practicing, updateOptions, startGame, finishPracti
     if(!practicing) { //if tenses have not been selected display select page.
         return (
             <>  
-                <NavLink exact to="/test" activeStyle={activeStyle}>Practice All Words</NavLink> | 
-                <NavLink to="/starred-test" activeStyle={activeStyle}>Practice Saved Words</NavLink>
-                <h2>Saved Conjugations: Test Yourself</h2>
+                 <SecondaryNav uri={"/test"} uriStarred={"/starred-test"} title={"Practice Test"} />
                 <TenseSelector updateOptions={updateOptions} startGame={startGame} />
             </>
         )
@@ -52,7 +52,7 @@ function StarredTest({ verbs, practicing, updateOptions, startGame, finishPracti
     } else { 
         return(
             <>  
-                <p>Count: {number + 1}/{verbs.length}</p>
+                <Count num={number + 1} length={verbs.length}/>
                 <TestQuiz 
                     data={verbs[number]} 
                     getNext={() => setNumber(getNext(number, verbs))} 
@@ -62,7 +62,7 @@ function StarredTest({ verbs, practicing, updateOptions, startGame, finishPracti
                 <button onClick={() => {
                     setNumber(0);
                     finishPractice(); 
-                }}>Finish Practicing</button>
+                }} className="finish-practicing">Finish Practicing</button>
             </>
         )
     } 

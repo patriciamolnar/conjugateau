@@ -10,6 +10,8 @@
   --light: #f1f1f1; 
   --main: #6368ff;
 
+  --correct: #33cc33;
+  --wrong: #E5063E; 
 }
 
 * {
@@ -33,22 +35,37 @@ button {
   font-size: 1em;
   text-transform: uppercase;
   margin-top: 15px;
+  cursor: pointer;
 }
 
 header {
-  text-align: center; 
   background-color: var(--main);
   color: #fff;
-  padding: 0.5rem;
 }
 
-
 header h1 {
-  font-size: calc(2em + 5vw);
+  font-size: calc(1em + 2vw);
+  margin-left: 0.5em;
+  font-weight: 400;
 }
 
 header p {
-  font-size: calc(1em + 0.7vw);
+  /* font-size: calc(1em + 0.7vw); */
+  display: none; 
+}
+
+input:not([type="checkbox"]) {
+  display: block; 
+  width: 15em; 
+  font-size: 1.2em;
+  padding: 10px 10px 5px; 
+  font-family: var(--font);
+  border-radius: 0; 
+  border: 1px solid var(--dark); 
+}
+
+input[type="checkbox"] {
+  cursor: pointer;
 }
 
 #main-nav {
@@ -139,9 +156,10 @@ h2 {
   color: #fff; 
   padding: 10px;
   float: right; 
+  margin-bottom: -2em;
 }
 
-.flashcard {
+.quizcard {
   clear: right; 
   text-align: center;
 }
@@ -177,6 +195,14 @@ h2 {
   font-size: 1.3em;
 }
 
+.quizcard input {
+  margin: auto; 
+}
+
+.tap-to-see {
+  cursor: pointer;
+}
+
 .tap-to-see, 
 .flashcard-result {
   display: inline-block;
@@ -187,6 +213,30 @@ h2 {
 .tap-to-see { 
   color: var(--dark);
   border-bottom: 1px solid var(--dark)
+}
+
+.test-answer {
+  margin-top: 10px; 
+}
+
+.correct-answer, 
+.false-answer {
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 1.3em;
+}
+
+.correct-answer {
+  color: var(--correct); 
+}
+
+.false-answer {
+  color: var(--wrong); 
+}
+
+.test-solution {
+  text-decoration: underline;
+  font-size: 1.2em; 
 }
 
 .finish-practicing {

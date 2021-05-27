@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { getStyle, updateStarred } from '../lib/functions';
-import StarIcon from './StarIcon'; 
+import StarIcon from './StarIcon';  
 
 function FlashcardQuiz({ data, getNext, login, starred, setStarred }) {
     const [hidden, setHidden] = useState(true);
@@ -18,7 +18,7 @@ function FlashcardQuiz({ data, getNext, login, starred, setStarred }) {
     }
 
     return(
-        <div className="flashcard">
+        <div className="quizcard">
             <p className="infinitive">
                 {data.infinitive} 
                 {login && 
