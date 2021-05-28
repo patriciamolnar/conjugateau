@@ -41,18 +41,20 @@ function Verbs({ login, starred, setStarred }) {
                 <label htmlFor="search">Search</label>
                 <input type="search" id="search" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search by infinite..."/>
                 <button type="submit">Submit</button>
-                {searchResult ? 
-                <button onClick={() => {
-                    setSearchResult(null); 
-                    setSearch('');
-                }}>Reset</button>: null}
             </form>
 
             {message && <p className="error">{message}</p>}
 
             {searchResult ? 
             <div>
-                <p>Result for {search}: </p>
+                {searchResult ? 
+                <button className="search-reset" onClick={() => {
+                    setSearchResult(null); 
+                    setSearch('');
+                }}>Reset Search</button>: null}
+
+                <p class="search-title">Result for {search}: </p>
+
                 {searchResult.length === 0 ? 
                 <p>Could not find infinitive you are looking for in our database.</p>:
                 <Verb data={searchResult} login={login} starred={starred} setStarred={setStarred}/>
@@ -60,7 +62,7 @@ function Verbs({ login, starred, setStarred }) {
             </div> : 
 
             <>
-                <h2>Verbs</h2>
+                <h2>All Verbs</h2>
                 {infinitives ? 
                 infinitives.map((arr, i) => <Verb key={i.toString()} data={arr} login={login} starred={starred} setStarred={setStarred}/>) :
                 <Loading />}
