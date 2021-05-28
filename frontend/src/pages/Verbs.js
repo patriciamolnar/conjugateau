@@ -9,6 +9,7 @@ function Verbs({ login, starred, setStarred }) {
     const [infinitives, setInfinitives] = useState(null);
     const [search, setSearch] = useState('');
     const [searchResult, setSearchResult] = useState(null);
+    const [message, setMessage] = useState(null);
     
     //get all verbs from DB and assign it to all variable
     useEffect(() => {
@@ -25,14 +26,20 @@ function Verbs({ login, starred, setStarred }) {
 
     const searchVerb = (e) => {
         e.preventDefault();
-        getByInfinitive(formatInput(search), setSearchResult);
+        setMessage(null);
+
+        if(search === "") { //check if something was added to search form
+            setMessage('Please enter an infinitive to search for.')
+        } else {
+            getByInfinitive(formatInput(search), setSearchResult);
+        }
     }
 
     return (
         <>  
-            <form onSubmit={(e) => {searchVerb(e)}}>
+            <form className="search" onSubmit={(e) => {searchVerb(e)}}>
                 <label htmlFor="search">Search</label>
-                <input type="search" value={search} onChange={(e) => setSearch(e.target.value)}/>
+                <input type="search" id="search" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search by infinite..."/>
                 <button type="submit">Submit</button>
                 {searchResult ? 
                 <button onClick={() => {
@@ -41,7 +48,7 @@ function Verbs({ login, starred, setStarred }) {
                 }}>Reset</button>: null}
             </form>
 
-            {}
+            {message && <p className="error">{message}</p>}
 
             {searchResult ? 
             <div>
