@@ -38,7 +38,7 @@ function Verbs({ login, starred, setStarred }) {
     return (
         <>  
             <form className="search" onSubmit={(e) => {searchVerb(e)}}>
-                <label htmlFor="search">Search</label>
+                <label htmlFor="search" className="sr-only">Search</label>
                 <input type="search" id="search" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search by infinite..."/>
                 <button type="submit">Submit</button>
             </form>

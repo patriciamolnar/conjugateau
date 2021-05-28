@@ -57,7 +57,7 @@ header p {
 
 input:not([type="checkbox"]) {
   display: block; 
-  width: 15em; 
+  max-width: 15em; 
   font-size: 1.2em;
   padding: 10px 10px 5px; 
   font-family: var(--font);
@@ -67,6 +67,14 @@ input:not([type="checkbox"]) {
 
 input[type="checkbox"] {
   cursor: pointer;
+}
+
+.sr-only {
+  position: absolute; 
+  left: -1000px; 
+  width: 1px; 
+  height: 1px; 
+  overflow: hidden; 
 }
 
 .error {
