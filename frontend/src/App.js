@@ -96,6 +96,7 @@ function App() {
   return (
     <Fragment>
       <Router>
+        <div className="header-flex">
         <Header />
         <nav id="main-nav">
           <ul>
@@ -113,6 +114,7 @@ function App() {
             </li>
           </ul>
         </nav>
+        </div>
 
         <Switch>
            {/* Flashcard page - can be used without login */}

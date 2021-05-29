@@ -4,6 +4,7 @@ import ResetPasswordDetail from '../components/ResetPasswordDetail';
 import DeleteAccount from '../components/DeleteAccount';
 import { useState } from 'react';
 import EmailPasswordForm from '../components/EmailPasswordForm';
+import Misc from '../components/Misc';
 
 
 function Account({ login, setLogin, setStarred }) {
@@ -23,18 +24,21 @@ function Account({ login, setLogin, setStarred }) {
                     <h3>Manage your account</h3>
 
                     {/* Change user email form */}
-                    <EmailPasswordForm
-                        title="Change Your Email"
-                        id="change-email"
-                        url="/user/change-email/"
-                        method="PUT"
-                        btnText="Change"
-                    />
-                    <ResetPasswordDetail />
-                    <DeleteAccount setLogin={setLogin} setDeleted={setDeleted}/>
+                    <div className="account-grid">
+                        <EmailPasswordForm
+                            title="Change Your Email"
+                            id="change-email"
+                            url="/user/change-email/"
+                            method="PUT"
+                            btnText="Change"
+                        />
+                        <ResetPasswordDetail />
+                        <DeleteAccount setLogin={setLogin} setDeleted={setDeleted}/>
+                        <Misc />
+                    </div>
                 </div>
             </>) :
-            (<div className="account">
+            (<div className="account account-grid">
                 {/* Sign Up Form */}
                 <EmailPasswordForm 
                     title="Sign Up"
@@ -45,6 +49,7 @@ function Account({ login, setLogin, setStarred }) {
                 />
 
                 {/* Login Form */}
+                <div>
                 <EmailPasswordForm 
                     title="Login"
                     id="login"
@@ -56,6 +61,7 @@ function Account({ login, setLogin, setStarred }) {
                 />
                 
                 <Link to="/forgotten-password">Forgotten Password?</Link>
+                </div>
             </div>) 
             }
         </>

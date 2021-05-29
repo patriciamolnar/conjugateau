@@ -11,7 +11,7 @@
   --main: #6368ff;
 
   --correct: #33cc33;
-  --wrong: #E5063E; 
+  --false: #E5063E; 
 }
 
 * {
@@ -24,7 +24,7 @@ body {
   font-family: var(--font); 
   color: var(--darker);
   line-height: 1.7;
-  margin-bottom: 3em;
+  margin-bottom: 4em;
 }
 
 button {
@@ -78,8 +78,8 @@ input[type="checkbox"] {
 }
 
 .error {
-  color: var(--wrong); 
-  border: 1px solid var(--wrong);
+  color: var(--false); 
+  border: 1px solid var(--false);
   margin: 0.5em; 
   padding: 0.5em; 
 }
@@ -223,7 +223,7 @@ input[type="checkbox"] {
 .flashcard-result {
   display: inline-block;
   margin: 0.3em 0 0.5rem; 
-  font-size: 1.3em;
+  font-size: 1.5em;
 }
 
 .tap-to-see { 
@@ -247,7 +247,7 @@ input[type="checkbox"] {
 }
 
 .false-answer {
-  color: var(--wrong); 
+  color: var(--false); 
 }
 
 .test-solution {
@@ -280,6 +280,7 @@ input[type="checkbox"] {
 /* Account Page */
 .logout {
   float: right; 
+  margin-right: 1em;
 }
 
 .account {
@@ -374,4 +375,116 @@ input[type="checkbox"] {
   text-align: left;
   font-size: 1.3em;
   width: 50%;
+}
+
+@media (min-width:600px ) {
+  .conjugation-grid {
+    margin: 1em;
+    display: grid; 
+    grid-template-columns: 1fr 1fr;
+    gap: 1em;
+  }
+
+  .conjugation-card {
+    margin: 0;
+  }
+}
+
+@media(min-width: 800px) {
+  body {
+    background-color: lightblue;
+  }
+
+  /* Navigation and Header */
+
+  .header-flex {
+    background-color: var(--main);
+    display: flex; 
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  header {
+    display: inline-block; 
+    width: auto; 
+    background-color: none; 
+  }
+
+  #main-nav {
+    width: auto; 
+    float: right; 
+    position: static; 
+    background-color: var(--main);
+  }
+  
+  #main-nav ul {
+    list-style-type: none;
+    display: flex; 
+    flex-direction: row; 
+    justify-content: space-around; 
+  }
+  
+  #main-nav li {
+    min-width: 7em; 
+    text-align: center;
+  }
+  
+  #main-nav a {
+    font-size: 1.2em;
+    display: inline-block;
+    color: var(--light);
+    text-decoration: none;
+    width: 100%; 
+    padding: 10px; 
+  }
+  
+  #main-nav a.active {
+    background-color: var(--main);
+  }
+
+  /* Account */
+  .account div {
+    background-color: transparent;
+    padding: 0; 
+    margin-bottom: 0;
+  }
+
+  .account-grid {
+    background-color: transparent;
+    display: grid; 
+    grid-template-columns: 1fr 1fr;
+    gap: 1em;
+  }
+
+  .account-grid > div {
+    background-color: var(--light);
+    padding: 0.1em 1em 1em;
+  }
+}
+
+@media (min-width:1024px) {
+  body { 
+    background-color: lightgreen;
+  }
+
+  .conjugation-grid {
+    margin: 2em;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2em;
+  }
+}
+
+@media (min-width:1920px ) {
+  body {
+    background-color: lightpink; 
+  }
+  .conjugation-grid {
+    margin: 2em;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2em;
+  }
+
+  .account-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }

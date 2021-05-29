@@ -84,7 +84,7 @@ function EmailPasswordForm({ title, id, url, method, btnText, setLogin, setStarr
 
             <form onSubmit={(e) => handleSubmit(e)}>
 
-                <label htmlFor={id + 'email'}>Your new email</label>
+                <label htmlFor={id + 'email'}>Your email</label>
                 <input { ...emailProps } 
                     type="email" 
                     name="email" 

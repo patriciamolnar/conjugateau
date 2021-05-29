@@ -15,7 +15,7 @@ function Verb({data, login, starred, setStarred}) {
             <p className="translation">{data[0].en}</p>
             <p className="type">Type: {data[0].type}</p>
             
-            <div>
+            <div className="conjugation-grid">
                 {tenses.map((arr, i) => {
                     return (
                         <div className="conjugation-card" key={i.toString()}>
