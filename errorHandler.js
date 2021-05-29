@@ -3,7 +3,7 @@ const handleDuplicateKeyError = (err, res) => {
     const field = Object.keys(err.keyValue);
     const code = 409;
     const error = `An account with that ${field} already exists.`;
-    res.status(code).send({messages: error, fields: field});
+    res.status(code).send({success: false, message: error, fields: field});
 }
 
 //handle field formatting and empty fields
@@ -13,9 +13,9 @@ const handleValidationError = (err, res) => {
     let code = 400;
     if(errors.length > 1) {
         const formattedErrors = errors.join(' ');
-        res.status(code).send({messages: formattedErrors, fields: fields});
+        res.status(code).send({success: false, message: formattedErrors, fields: fields});
     } else {
-        res.status(code).send({messages: errors, fields: fields})
+        res.status(code).send({success: false, message: errors, fields: fields})
     }
 }
 
