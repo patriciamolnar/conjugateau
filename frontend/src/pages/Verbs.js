@@ -36,7 +36,7 @@ function Verbs({ login, starred, setStarred }) {
     }
 
     return (
-        <>  
+        <main>  
             <form className="search" onSubmit={(e) => {searchVerb(e)}}>
                 <label htmlFor="search" className="sr-only">Search</label>
                 <input type="search" id="search" value={search} onChange={(e) => {
@@ -70,11 +70,8 @@ function Verbs({ login, starred, setStarred }) {
                 infinitives.map((arr, i) => <Verb key={i.toString()} data={arr} login={login} starred={starred} setStarred={setStarred}/>) :
                 <Loading />}
              </>
-            }
-
-           
-            
-        </>
+            } 
+        </main>
     )
 }
 

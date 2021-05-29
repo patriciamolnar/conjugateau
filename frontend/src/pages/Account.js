@@ -10,7 +10,7 @@ import Misc from '../components/Misc';
 function Account({ login, setLogin, setStarred }) {
     const [deleted, setDeleted] = useState(null);
     return (
-        <>
+        <main>
             <p className="correct">{deleted && deleted}</p>
             {login ? 
             (<>
@@ -41,33 +41,33 @@ function Account({ login, setLogin, setStarred }) {
             (<div className="account">
                 <h2>Sign Up or Login</h2>
                 <div className="account-grid">
-                {/* Sign Up Form */}
-                <EmailPasswordForm 
-                    title="Sign Up"
-                    id="register"
-                    url="/user/register"
-                    method="POST"
-                    btnText="Sign Up"
-                />
+                    {/* Sign Up Form */}
+                    <EmailPasswordForm 
+                        title="Sign Up"
+                        id="register"
+                        url="/user/register"
+                        method="POST"
+                        btnText="Sign Up"
+                    />
 
-                {/* Login Form */}
-                <div>
-                <EmailPasswordForm 
-                    title="Login"
-                    id="login"
-                    url="/user/login"
-                    method="POST"
-                    btnText="Log in"
-                    setLogin={setLogin}
-                    setStarred={setStarred}
-                />
-                
-                <Link to="/forgotten-password">Forgotten Password?</Link>
+                    {/* Login Form */}
+                    <div>
+                    <EmailPasswordForm 
+                        title="Login"
+                        id="login"
+                        url="/user/login"
+                        method="POST"
+                        btnText="Log in"
+                        setLogin={setLogin}
+                        setStarred={setStarred}
+                    />
+                    
+                    <Link to="/forgotten-password">Forgotten Password?</Link>
+                    </div>
                 </div>
-            </div>
             </div>) 
             }
-        </>
+        </main>
     )
 }
 

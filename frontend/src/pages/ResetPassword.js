@@ -47,7 +47,7 @@ function ResetPassword() {
     }
 
     return(
-       <div className="password">
+       <main className="password">
            <h2>Reset Your Password</h2>
            <p>Please enter your new password below:</p>
 
@@ -69,7 +69,7 @@ function ResetPassword() {
                <br />
                <button type="submit">Change</button>
            </form>
-       </div>
+       </main>
     )
 }
 

@@ -24,17 +24,17 @@ function Flashcard({
     if(starred !== null) { //if the starred array is empty  
       if(starred.length === 0) {
         return (
-          <div className="center">
+          <main className="center">
               <p>You have no saved words yet.</p>
               <Link exact to="/">Practice All Words</Link>
-          </div>
+          </main>
         )
       }
     }
 
     if(!practicing) { //if tenses have not been selected display select page.
         return (
-            <>  
+            <main>  
                 <SecondaryNav 
                     practiceSaved={practiceSaved} 
                     setPractiveSaved={setPractiveSaved}
@@ -46,7 +46,7 @@ function Flashcard({
                     ' Practice all words'}
                 </h2>
                 <TenseSelector updateOptions={updateOptions} startGame={startGame} />
-            </>
+            </main>
         )
 
         // display loading until data is ready
@@ -56,19 +56,19 @@ function Flashcard({
     } // if filtering results in empty array show error msg
      else if(verbs.length === 0) {
         return (
-            <>
+            <main>
                 <div>No starred conjugations for the tenses selected.</div>
                 <button onClick={() => {
                     setNumber(0);
                     finishPractice(); 
                 }}>Go back</button>
-            </>
+            </main>
     )  
     
     // start praciting
     } else { 
       return(
-        <>  
+        <main>  
           <Count num={number + 1} length={verbs.length}/>
           <FlashcardQuiz 
               data={verbs[number]} 
@@ -80,7 +80,7 @@ function Flashcard({
               setNumber(0);
               finishPractice(); 
           }} className="finish-practicing">Finish Practicing</button>
-        </>
+        </main>
       )
     } 
 }
