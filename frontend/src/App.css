@@ -36,6 +36,7 @@ button {
   font-size: 1em;
   text-transform: uppercase;
   margin-top: 15px;
+  margin-bottom: 10px;
   cursor: pointer;
 }
 
@@ -91,6 +92,7 @@ input[type="checkbox"] {
   left: 0; 
   right: 0; 
   background-color: var(--darker);
+  z-index: 1; 
 }
 
 #main-nav ul {
@@ -312,6 +314,18 @@ input[type="checkbox"] {
   background-color: var(--light);
   padding: 1em;
 }
+
+.password {
+  margin: 1rem;
+}
+
+.password h2 {
+  position: static; 
+  left: 0; 
+  transform: translateX(0);
+  padding: 0; 
+}
+
 
 /* Verbs Overview Page */
 .search {
