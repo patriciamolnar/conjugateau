@@ -8,9 +8,11 @@ function ForgottenPassword() {
     const [emailProps, resetEmail] = useInput('');
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState(null);
+    const [success, setSuccess] = useState(null);
 
     const requestReset = (e) => {
         setLoading(true); 
+        setSuccess(null);
 
         const obj = {
             uri: '/user/forgotten-password', 
@@ -22,13 +24,16 @@ function ForgottenPassword() {
             setLoading(false);
             if(data.success) {
                 setMessage(data.message);
+                setSuccess(true);
                 resetEmail(); 
             } else {
                 setMessage(data.message);
+                setSuccess(false);
             } 
         })
         .catch(err => {
             setMessage('An error occured. Please try again later.');
+            setSuccess(false);
         });
     }
 
@@ -40,7 +45,7 @@ function ForgottenPassword() {
         <>
         <h2>Reset your password</h2>
         <p>Please enter your email below.</p>
-        {message && message}
+        {message && <p className={success ? 'correct' : 'false'}>{message}</p>}
         <form onSubmit={(e) => requestReset(e)}>
             <label htmlFor="reset-email"></label>
             <input {...emailProps}

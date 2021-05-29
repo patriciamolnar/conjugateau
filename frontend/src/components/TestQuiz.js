@@ -56,8 +56,8 @@ function TestQuiz({ data, getNext, login, starred, setStarred }) {
                 {answered ? null : <button>Check Answer</button>}
             </form>
             
-            {correct ? <p className="test-answer correct-answer">Correct!</p> : null}
-            {correct === false ? <p className="test-answer"><span className="false-answer">False</span>: The correct conjugation is <span className="test-solution">{data.conjugation}</span></p> : null}
+            {correct ? <p className="test-answer correct">Correct!</p> : null}
+            {correct === false ? <p className="test-answer"><span className="false">False</span>: The correct conjugation is <span className="test-solution">{data.conjugation}</span></p> : null}
 
             {answered ? <button ref={focusNext} onClick={() => {
                 setInput('');

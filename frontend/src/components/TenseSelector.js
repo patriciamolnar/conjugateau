@@ -6,7 +6,7 @@ function TenseSelector({ updateOptions, startGame }) {
             <p>Select tenses to practice:</p>
             {tenseNames.map(name => {
                 return( 
-                    <label htmlFor={name}>
+                    <label htmlFor={name} key={name}>
                         <input id={name} name={name} type="checkbox" onClick={(e) => updateOptions(e.target.name)}/>
                         {name}
                     </label>

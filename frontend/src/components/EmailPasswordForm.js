@@ -9,7 +9,8 @@ function EmailPasswordForm({ title, id, url, method, btnText, setLogin, setStarr
     const [passwordProps, resetPassword] = useInput('')
     const [message, setMessage] = useState(null);
     const [showPass, setShowPass] = useState(false);
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
+    const [success, setSuccess] = useState(null);
 
     const options = {
         method: method,
@@ -26,6 +27,7 @@ function EmailPasswordForm({ title, id, url, method, btnText, setLogin, setStarr
     const handleSubmit = (e) => {
         e.preventDefault();
         setLoading(true);
+        setSuccess(null); 
 
         fetch(url, options)
             .then(res => {
@@ -46,6 +48,7 @@ function EmailPasswordForm({ title, id, url, method, btnText, setLogin, setStarr
                 if(data.success) {
                     resetEmail(); 
                     setMessage(data.message);
+                    setSuccess(data.success);
 
                     //if login form: get verbs from DB and save to state
                     if(id === 'login') { 
@@ -53,6 +56,7 @@ function EmailPasswordForm({ title, id, url, method, btnText, setLogin, setStarr
                         getSavedVerbs(setStarred);
                     }
                 } else {
+                    setSuccess(false);
                     if(id === 'login') { //custom message when login fails
                         setMessage('Incorrect username or password.');
                     } else {
@@ -61,6 +65,7 @@ function EmailPasswordForm({ title, id, url, method, btnText, setLogin, setStarr
                 } 
             })
             .catch(err => {
+                setSuccess(false);
                 setMessage('An error occured. Please try again later.');
             });
     }
@@ -73,18 +78,20 @@ function EmailPasswordForm({ title, id, url, method, btnText, setLogin, setStarr
     //if user registers successfully hide register form and ask them to login
     if(id === 'register' && message === 'Account successfully created. Please log in.') {
         return (
-            <p>{message}</p>
+            <p className="correct">{message}</p>
         )
     }
 
     return(
         <div>
             <h4>{title}</h4>
-            <p>{message && message}</p>
+            {message && <p className={success ? 'correct' : 'false'}>{message}</p>}
 
             <form onSubmit={(e) => handleSubmit(e)}>
 
-                <label htmlFor={id + 'email'}>Your email</label>
+                <label htmlFor={id + 'email'}>
+                    {id === 'change-email' ? 'Your new email' : 'Your email'}
+                </label>
                 <input { ...emailProps } 
                     type="email" 
                     name="email" 

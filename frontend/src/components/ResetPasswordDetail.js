@@ -9,8 +9,12 @@ function ResetPasswordDetail() {
     const [loading, setLoading] = useState(false);
     const [showPass, setShowPass] = useState(false);
     const [message, setMessage] = useState(null);
+    const [success, setSuccess] = useState(null);
 
     const changePassword = (e) => {
+        setSuccess(null); 
+        setLoading(true);
+        
         const obj = {
             uri: '/user/password/', 
             method: 'PUT',
@@ -20,20 +24,15 @@ function ResetPasswordDetail() {
             }
         }
 
-        setLoading(true);
-
         handleSubmit(e, obj).then(data => {
             resetOldPass(); //resetting state and wih it the input fields.
             resetNewPass();
             setLoading(false);
-
-            if(data.success) {
-                setMessage(data.message);
-            } else {
-                setMessage(data.message);
-            } 
+            setMessage(data.message); 
+            setSuccess(data.success); 
         })
         .catch(err => {
+            setSuccess(false);
             setMessage('An error occured. Please try again later.');
         });
     }
@@ -45,7 +44,7 @@ function ResetPasswordDetail() {
     return(
         <div>
             <h4>Change your password</h4>
-            <p>{message && message}</p>
+            {message && <p className={success ? 'correct' : 'false'}>{message}</p>}
             <form onSubmit={(e) => changePassword(e)}>
 
                 <label htmlFor="old-password">Your old password:</label>

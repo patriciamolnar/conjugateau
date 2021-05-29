@@ -10,10 +10,12 @@ function ResetPassword() {
     const [message, setMessage] = useState(null); 
     const [showPass, setShowPass] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [success, setSuccess] = useState(null);
     const {token} = useParams();
 
     const changePassword = (e) => {
         setLoading(true);
+        setSuccess(null); 
 
         const obj = {
             uri: '/user/reset/' + token, 
@@ -26,13 +28,16 @@ function ResetPassword() {
         handleSubmit(e, obj).then(data => {
                 setLoading(false);
                 if(data.success) {
+                    setSuccess(true);
                     setMessage(data.message);
                     resetPassword(); 
                 } else {
                     setMessage(data.message);
+                    setSuccess(false);
                 } 
             })
             .catch(err => {
+                setSuccess(false);
                 setMessage('An error occured. Please try again later.');
             });
     }
@@ -45,11 +50,13 @@ function ResetPassword() {
        <div>
            <h2>Reset Your Password</h2>
            <p>Please enter your new password below:</p>
-           <p>
-                {message && message + ' '}
-                {message === 'Password successfully changed.' && 
-                <Link to="/account">Please login</Link>}
-            </p>
+
+           {message && 
+           <>
+              <p className={success ? 'correct' : 'false'}>{message + ' '}</p>
+              {success && <Link to="/account">Please login</Link>}
+           </>}
+           
 
            <form onSubmit={(e) => changePassword(e)}>
                <label htmlFor="reset-password">Password:</label>

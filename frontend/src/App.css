@@ -131,10 +131,10 @@ h2 {
   flex-direction: row;
   justify-content: space-evenly;
   margin-bottom: 1em;
-  background-color: var(--darker);
 }
 
 .secondary-nav a {
+  background-color: var(--darker);
   text-decoration: none;
   display: inline-block; 
   width: 100%; 
@@ -172,11 +172,11 @@ input[type="checkbox"] {
   color: #fff; 
   padding: 10px;
   float: right; 
-  margin-bottom: -2em;
 }
 
 .quizcard {
   clear: right; 
+  font-size: 1.1rem;
   text-align: center;
 }
 
@@ -209,6 +209,7 @@ input[type="checkbox"] {
 
 .pronoun {
   font-size: 1.3em;
+  color: var(--main);
 }
 
 .quizcard input {
@@ -235,18 +236,18 @@ input[type="checkbox"] {
   margin-top: 10px; 
 }
 
-.correct-answer, 
-.false-answer {
+.correct, 
+.false {
   text-transform: uppercase;
   font-weight: 600;
   font-size: 1.3em;
 }
 
-.correct-answer {
+.correct {
   color: var(--correct); 
 }
 
-.false-answer {
+.false {
   color: var(--false); 
 }
 
@@ -370,7 +371,6 @@ input[type="checkbox"] {
 }
 
 .conjugation-card-verb .pronoun {
-  color: var(--main);
   text-align: right;
   width: 45%;
 }
@@ -395,12 +395,7 @@ input[type="checkbox"] {
 }
 
 @media(min-width: 800px) {
-  body {
-    background-color: lightblue;
-  }
-
   /* Navigation and Header */
-
   .header-flex {
     background-color: var(--main);
     display: flex; 
@@ -411,46 +406,55 @@ input[type="checkbox"] {
   header {
     display: inline-block; 
     width: auto; 
-    background-color: none; 
   }
 
   #main-nav {
     width: auto; 
     float: right; 
     position: static; 
-    background-color: var(--main);
+    background-color: transparent;
   }
-  
-  #main-nav ul {
-    list-style-type: none;
-    display: flex; 
-    flex-direction: row; 
-    justify-content: space-around; 
-  }
-  
+
   #main-nav li {
     min-width: 7em; 
-    text-align: center;
   }
   
   #main-nav a {
-    font-size: 1.2em;
-    display: inline-block;
-    color: var(--light);
-    text-decoration: none;
-    width: 100%; 
-    padding: 10px; 
+    font-size: 1.3em; 
   }
   
   #main-nav a.active {
-    background-color: var(--main);
+    background-color: transparent; 
+    position: relative; 
   }
 
+  #main-nav a.active::after {
+    content: ''; 
+    position: absolute; 
+    background-color: var(--light); 
+    height: 2px; 
+    width: 50%;
+    bottom: 0.5em;
+    left: 50%; 
+    transform: translateX(-50%);  
+    border-radius: 5px;
+  }
+
+  /* Secondary Nav */
+  .secondary-nav {
+    margin: 0 auto;
+    width: 50%; 
+  }
+  
+  .secondary-nav a {
+    min-width: 4em;
+    margin: 1em 0.5em;
+  }
+  
   /* Account */
   .account-grid {
     grid-template-columns: 1fr 1fr;
   }
-
 }
 
 @media (min-width:1024px) {

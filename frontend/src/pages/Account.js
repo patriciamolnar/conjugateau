@@ -11,7 +11,7 @@ function Account({ login, setLogin, setStarred }) {
     const [deleted, setDeleted] = useState(null);
     return (
         <>
-            <p>{deleted && deleted}</p>
+            <p className="correct">{deleted && deleted}</p>
             {login ? 
             (<>
                 <Logout setLogin={setLogin}/>
