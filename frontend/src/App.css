@@ -290,22 +290,26 @@ input[type="checkbox"] {
 
 .account h3 {
   font-size: 1.3em;
-  margin: 1em 0 0.2em; 
+  margin-bottom: 0.2em; 
 }
 
 .account h4 {
-  margin-top: 1em;
   font-size: 1.2em;
-}
-
-.account div {
-  background-color: var(--light);
-  padding: 0.1em 1em 1em;
-  margin-bottom: 1em;
 }
 
 .account input[type="checkbox"] {
   margin-top: 10px;
+}
+
+.account-grid {
+  display: grid; 
+  grid-template-columns: 1fr;
+  gap: 1em; 
+}
+
+.account-grid > div {
+  background-color: var(--light);
+  padding: 1em;
 }
 
 /* Verbs Overview Page */
@@ -443,23 +447,10 @@ input[type="checkbox"] {
   }
 
   /* Account */
-  .account div {
-    background-color: transparent;
-    padding: 0; 
-    margin-bottom: 0;
-  }
-
   .account-grid {
-    background-color: transparent;
-    display: grid; 
     grid-template-columns: 1fr 1fr;
-    gap: 1em;
   }
 
-  .account-grid > div {
-    background-color: var(--light);
-    padding: 0.1em 1em 1em;
-  }
 }
 
 @media (min-width:1024px) {
