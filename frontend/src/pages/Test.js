@@ -20,7 +20,7 @@ function Test({
 }) {
     const [number, setNumber] = useState(0);
 
-    if(starred === 0) {
+    if(starred !== null) {
       if(starred.length === 0) {
         return (
           <div className="center">
