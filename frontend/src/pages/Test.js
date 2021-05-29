@@ -38,7 +38,13 @@ function Test({
                   <button className={practiceSaved === false ? 'active' : ''} onClick={() => setPractiveSaved(false)}>All Words</button>
                   <button className={practiceSaved ? 'active' : ''} onClick={() => setPractiveSaved(true)}>Saved Words</button>
                 </div>
-                <h2>Practice with Flashcards</h2>
+                <h2>
+                Test your knowledge of 
+                {practiceSaved ? 
+                    ' your saved words': 
+                    ' all words'}
+                </h2>
+                
                 <TenseSelector updateOptions={updateOptions} startGame={startGame} />
             </>
         )

@@ -8,7 +8,6 @@ import {
 } from 'react-router-dom';
 
 import Flashcard from './pages/Flashcard';
-import StarredFlashcard from './pages/StarredFlashcard';
 import Verbs from './pages/Verbs';
 import Account from './pages/Account';
 import Header from './components/Header';
@@ -117,18 +116,16 @@ function App() {
         </div>
 
         <Switch>
-           {/* Flashcard page - can be used without login */}
           <Route exact path="/" render={(props) => {
-            return <Flashcard {...props} verbs={data} practicing={practicing} updateOptions={updateOptions} startGame={startGame} finishPractice={finishPractice} login={login} starred={starred} setStarred={setStarred}/>
-          }} />
-
-          {/* Flashcards with only bookmarked verbs */}
-          <Route path="/starred" render={(props) => {
-            if(!login) {
-              return <Redirect to="/account" />
-            } else {
-              return <StarredFlashcard {...props} verbs={filterData} practicing={practicing} setPracticing={setPracticing} starred={starred} setStarred={setStarred} selected={selected} setSelected={setSelected} updateOptions={updateOptions} startGame={startBookmarkedGame} finishPractice={finishPractice} login={login}/>
-            } 
+            if(practiceSaved === false) { //practice all words
+              return <Flashcard {...props} verbs={data} practicing={practicing} updateOptions={updateOptions} startGame={startGame} finishPractice={finishPractice} login={login} starred={starred} setStarred={setStarred}  practiceSaved={practiceSaved} setPractiveSaved={setPractiveSaved}/>
+            } else { //practice bookmarked words
+              if(!login) { //but if not logged in, redirect to login
+                return <Redirect to="/account" />
+              } else {
+                return <Flashcard {...props} verbs={filterData} practicing={practicing} setPracticing={setPracticing} starred={starred} setStarred={setStarred} selected={selected} setSelected={setSelected} updateOptions={updateOptions} startGame={startBookmarkedGame} finishPractice={finishPractice} login={login} practiceSaved={practiceSaved} setPractiveSaved={setPractiveSaved}/>
+              } 
+            }
           }} />
           
           <Route path="/test" render={(props) => {
@@ -136,7 +133,7 @@ function App() {
               return <Test {...props} verbs={data} practicing={practicing} updateOptions={updateOptions} startGame={startGame} finishPractice={finishPractice} login={login} starred={starred} setStarred={setStarred} practiceSaved={practiceSaved}
               setPractiveSaved={setPractiveSaved}/>
             } else { //practice bookmarked words
-              if(!login) { //if not logged in, redirect to login
+              if(!login) { //but if not logged in, redirect to login
                 return <Redirect to="/account" />
               } else {
                 return <Test {...props} verbs={filterData} practicing={practicing} setPracticing={setPracticing} starred={starred} setStarred={setStarred} selected={selected} setSelected={setSelected} updateOptions={updateOptions} startGame={startBookmarkedGame} finishPractice={finishPractice} login={login} practiceSaved={practiceSaved} setPractiveSaved={setPractiveSaved}/>
