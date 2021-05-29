@@ -45,20 +45,25 @@ header {
   color: #fff;
 }
 
+#cake {
+  fill: #fff; 
+  width: 24px;
+  height: 24px;  
+  margin: auto 0.5em; 
+}
+
 header h1 {
-  font-size: calc(1em + 2vw);
-  margin-left: 0.5em;
+  font-size: calc(16px + (30 - 16) * ((100vw - 280) / (2000 - 280)));
   font-weight: 400;
+  display: inline-block;
 }
 
 header p {
-  /* font-size: calc(1em + 0.7vw); */
   display: none; 
 }
 
 input:not([type="checkbox"]) {
   display: block; 
-  max-width: 15em; 
   font-size: 1.2em;
   padding: 10px 10px 5px; 
   font-family: var(--font);
@@ -76,6 +81,10 @@ input[type="checkbox"] {
   width: 1px; 
   height: 1px; 
   overflow: hidden; 
+}
+
+.center {
+  text-align: center;
 }
 
 .error {
@@ -108,7 +117,7 @@ input[type="checkbox"] {
 }
 
 #main-nav a {
-  font-size: 1.2em;
+  font-size: calc(16px + (30 - 16) * ((100vw - 280) / (2000 - 280)));
   display: inline-block;
   color: var(--light);
   text-decoration: none;
@@ -315,6 +324,10 @@ input[type="checkbox"] {
   padding: 1em;
 }
 
+.account-grid input:not(input[type="checkbox"]) {
+  width: 100%; 
+}
+
 .password {
   margin: 1rem;
 }
@@ -337,17 +350,17 @@ input[type="checkbox"] {
   text-align: right;
 }
 
-.search label {
-  display: none; 
-}
-
 .search input {
   display: inline; 
   font-size: 0.9em;
+  width: 75%;
 }
 
 .search button {
-  margin: auto 10px; 
+  margin: auto 0 auto 10px; 
+  width: 25%; 
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .search-reset {
@@ -359,6 +372,8 @@ input[type="checkbox"] {
   text-align: center;
   clear: right; 
   padding-top: 1em;
+  font-size: calc(1em + 1vw);
+  font-weight: 600;
 }
 
 .conjugation {
@@ -395,7 +410,7 @@ input[type="checkbox"] {
   width: 50%;
 }
 
-@media (min-width:600px ) {
+@media screen and (min-width:600px ) {
   .conjugation-grid {
     margin: 1em;
     display: grid; 
@@ -408,7 +423,7 @@ input[type="checkbox"] {
   }
 }
 
-@media(min-width: 800px) {
+@media screen and (min-width: 800px) {
   /* Navigation and Header */
   .header-flex {
     background-color: var(--main);
@@ -435,6 +450,7 @@ input[type="checkbox"] {
   
   #main-nav a {
     font-size: 1.3em; 
+    color: #fff;
   }
   
   #main-nav a.active {
@@ -469,11 +485,33 @@ input[type="checkbox"] {
   .account-grid {
     grid-template-columns: 1fr 1fr;
   }
+
+  /* Search */
+  .search input {
+    width: 80%;
+  }
+  
+  .search button {
+    width: 20%; 
+  }
 }
 
-@media (min-width:1024px) {
-  body { 
-    background-color: lightgreen;
+@media screen and (min-width:1024px) {
+  header p {
+    display: inline; 
+    margin-left: 4px;
+  }
+
+  header p::before {
+    content: '- ';
+  }
+
+  .search input {
+    width: 90%;
+  }
+  
+  .search button {
+    width: 10%; 
   }
 
   .conjugation-grid {
@@ -483,10 +521,7 @@ input[type="checkbox"] {
   }
 }
 
-@media (min-width:1920px ) {
-  body {
-    background-color: lightpink; 
-  }
+@media screen and (min-width:1920px ) {
   .conjugation-grid {
     margin: 2em;
     grid-template-columns: repeat(4, 1fr);

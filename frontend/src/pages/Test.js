@@ -13,7 +13,7 @@ function Test({ verbs, practicing, updateOptions, startGame, finishPractice, log
     if(!practicing) { //if tenses have not been selected display select page.
         return (
             <>
-                <SecondaryNav uri={"/test"} uriStarred={"/starred-test"} title={"Practice Test"} />
+                <SecondaryNav uri={"/test"} uriStarred={"/starred-test"} title={"Test your knowledge"} />
                 <TenseSelector updateOptions={updateOptions} startGame={startGame} />
             </>
         )

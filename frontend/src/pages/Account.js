@@ -38,7 +38,9 @@ function Account({ login, setLogin, setStarred }) {
                     </div>
                 </div>
             </>) :
-            (<div className="account account-grid">
+            (<div className="account">
+                <h2>Sign Up or Login</h2>
+                <div className="account-grid">
                 {/* Sign Up Form */}
                 <EmailPasswordForm 
                     title="Sign Up"
@@ -62,6 +64,7 @@ function Account({ login, setLogin, setStarred }) {
                 
                 <Link to="/forgotten-password">Forgotten Password?</Link>
                 </div>
+            </div>
             </div>) 
             }
         </>

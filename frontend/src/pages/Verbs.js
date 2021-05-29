@@ -39,7 +39,10 @@ function Verbs({ login, starred, setStarred }) {
         <>  
             <form className="search" onSubmit={(e) => {searchVerb(e)}}>
                 <label htmlFor="search" className="sr-only">Search</label>
-                <input type="search" id="search" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search by infinite..."/>
+                <input type="search" id="search" value={search} onChange={(e) => {
+                    setSearch(e.target.value); 
+                    setSearchResult(null); 
+                    }} placeholder="Search by infinite form..."/>
                 <button type="submit">Submit</button>
             </form>
 
@@ -53,10 +56,10 @@ function Verbs({ login, starred, setStarred }) {
                     setSearch('');
                 }}>Reset Search</button>: null}
 
-                <p class="search-title">Result for {search}: </p>
+                <p className="search-title">Result for {search}: </p>
 
                 {searchResult.length === 0 ? 
-                <p>Could not find infinitive you are looking for in our database.</p>:
+                <p className="center">Could not find infinitive you are looking for in our database.</p>:
                 <Verb data={searchResult} login={login} starred={starred} setStarred={setStarred}/>
                 }
             </div> : 

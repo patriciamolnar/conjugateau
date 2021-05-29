@@ -38,7 +38,7 @@ function TestQuiz({ data, getNext, login, starred, setStarred }) {
     }
 
     return(
-        <div class="quizcard">
+        <div className="quizcard">
             <p className="infinitive">
                 {data.infinitive} 
                 {login && 
