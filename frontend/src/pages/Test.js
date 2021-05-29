@@ -5,6 +5,7 @@ import TestQuiz from '../components/TestQuiz';
 import TenseSelector from '../components/TenseSelector';
 import { getNext } from '../lib/functions';
 import Loading from '../components/Loading';
+import SecondaryNav from '../components/SecondaryNav';
 
 function Test({
   verbs, 
@@ -34,10 +35,10 @@ function Test({
     if(!practicing) { //if tenses have not been selected display select page.
         return (
             <>  
-                <div className="secondary-nav">
-                  <button className={practiceSaved === false ? 'active' : ''} onClick={() => setPractiveSaved(false)}>All Words</button>
-                  <button className={practiceSaved ? 'active' : ''} onClick={() => setPractiveSaved(true)}>Saved Words</button>
-                </div>
+                <SecondaryNav 
+                    practiceSaved={practiceSaved} 
+                    setPractiveSaved={setPractiveSaved}
+                />
                 <h2>
                 Test your knowledge of 
                 {practiceSaved ? 

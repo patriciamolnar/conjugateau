@@ -5,6 +5,7 @@ import TenseSelector from '../components/TenseSelector';
 import Count from '../components/Count';
 import Loading from '../components/Loading';
 import { getNext } from '../lib/functions';
+import SecondaryNav from '../components/SecondaryNav';
 
 function Flashcard({
   verbs, 
@@ -34,10 +35,10 @@ function Flashcard({
     if(!practicing) { //if tenses have not been selected display select page.
         return (
             <>  
-                <div className="secondary-nav">
-                  <button className={practiceSaved === false ? 'active' : ''} onClick={() => setPractiveSaved(false)}>All Words</button>
-                  <button className={practiceSaved ? 'active' : ''} onClick={() => setPractiveSaved(true)}>Saved Words</button>
-                </div>
+                <SecondaryNav 
+                    practiceSaved={practiceSaved} 
+                    setPractiveSaved={setPractiveSaved}
+                />
                 <h2>
                 Flashcards: 
                 {practiceSaved ? 
