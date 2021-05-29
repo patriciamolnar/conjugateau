@@ -9,8 +9,6 @@ import {
 
 import Flashcard from './pages/Flashcard';
 import StarredFlashcard from './pages/StarredFlashcard';
-import Test from './pages/Test';
-import StarredTest from './pages/StarredTest';
 import Verbs from './pages/Verbs';
 import Account from './pages/Account';
 import Header from './components/Header';
@@ -18,6 +16,7 @@ import ForgottenPassword from './pages/ForgottenPassword';
 import ResetPassword from './pages/ResetPassword';
 import { getByTense, getSavedVerbs } from './lib/fetch';
 import './App.css';
+import Test from './pages/Test';
 
 function App() {
   const [data, setData] = useState(null);
@@ -26,6 +25,7 @@ function App() {
   const [selected, setSelected] = useState([]);
   const [practicing, setPracticing] = useState(false);
   const [login, setLogin] = useState(false); 
+  const [practiceSaved, setPractiveSaved] = useState(false);
 
   //check if user is already logged in.
   useEffect(() => {
@@ -131,18 +131,17 @@ function App() {
             } 
           }} />
           
-          {/* Test page - can be used without login */}
           <Route path="/test" render={(props) => {
-            return <Test {...props} verbs={data} practicing={practicing} updateOptions={updateOptions} startGame={startGame} finishPractice={finishPractice} login={login} starred={starred} setStarred={setStarred}/>
-          }} />
-          
-          {/*Test with only bookmarked verbs*/ }
-          <Route path="/starred-test" render={(props) => {
-            if(!login) {
-              return <Redirect to="/account" />
-            } else {
-              return <StarredTest {...props} verbs={filterData} practicing={practicing} setPracticing={setPracticing} starred={starred} setStarred={setStarred} selected={selected} setSelected={setSelected} updateOptions={updateOptions} startGame={startBookmarkedGame} finishPractice={finishPractice} login={login}/>
-            } 
+            if(practiceSaved === false) { //practice all words
+              return <Test {...props} verbs={data} practicing={practicing} updateOptions={updateOptions} startGame={startGame} finishPractice={finishPractice} login={login} starred={starred} setStarred={setStarred} practiceSaved={practiceSaved}
+              setPractiveSaved={setPractiveSaved}/>
+            } else { //practice bookmarked words
+              if(!login) { //if not logged in, redirect to login
+                return <Redirect to="/account" />
+              } else {
+                return <Test {...props} verbs={filterData} practicing={practicing} setPracticing={setPracticing} starred={starred} setStarred={setStarred} selected={selected} setSelected={setSelected} updateOptions={updateOptions} startGame={startBookmarkedGame} finishPractice={finishPractice} login={login} practiceSaved={practiceSaved} setPractiveSaved={setPractiveSaved}/>
+              } 
+            }
           }} />
 
            {/* Page showing conjugation tables for all words in DB */}

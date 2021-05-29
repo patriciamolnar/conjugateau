@@ -144,7 +144,7 @@ h2 {
   margin-bottom: 1em;
 }
 
-.secondary-nav a {
+.secondary-nav button {
   background-color: var(--darker);
   text-decoration: none;
   display: inline-block; 
@@ -152,9 +152,10 @@ h2 {
   text-align: center;
   padding: 10px;
   color: #fff;
+  margin: 0; 
 }
 
-.secondary-nav a.active {
+.secondary-nav button.active {
   background-color: var(--dark);
 }
 
@@ -476,7 +477,7 @@ input[type="checkbox"] {
     width: 50%; 
   }
   
-  .secondary-nav a {
+  .secondary-nav button {
     min-width: 4em;
     margin: 1em 0.5em;
   }
