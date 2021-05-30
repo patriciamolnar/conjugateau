@@ -10,7 +10,7 @@ import Misc from '../components/Misc';
 function Account({ login, setLogin, setStarred }) {
     const [deleted, setDeleted] = useState(null);
     return (
-        <main>
+        <main className="default">
             <p className="correct">{deleted && deleted}</p>
             {login ? 
             (<>

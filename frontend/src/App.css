@@ -5,14 +5,25 @@
 
 :root {
   --font: 'Renner';
-  --darker: #282A35;
-  --dark: #585c74; 
-  --light: #f1f1f1; 
-  --main: #6368ff;
+  --default-margin: 1em; 
+  
+  --primary-hs: 238, 100%;
+  --secondary-hs: 231, 14%;
 
-  --correct: #33cc33;
-  --false: #E5063E; 
+  --correct-hs: 120, 60%; 
+  --false-hs: 345, 95%; 
+
+  --darker: hsl(var(--secondary-hs), 19%);
+  --dark: hsl(var(--secondary-hs), 40%);
+  --main: hsl(var(--primary-hs), 69%);
+  --light: hsl(var(--secondary-hs), 95%);
+  --lighter: hsl(var(--secondary-hs), 100%);
+
+  --correct: hsl(var(--correct-hs), 50%);
+  --false: hsl(var(--false-hs), 50%); 
 }
+
+/* General Rules */
 
 * {
   margin: 0; 
@@ -23,37 +34,44 @@
 body {
   font-family: var(--font); 
   color: var(--darker);
+  background-color: var(--lighter);
   line-height: 1.7;
   margin-bottom: 4em;
 }
 
 button {
   background-color: var(--main); 
+  color: var(--lighter);
+  font-size: 1rem; 
   font-family: var(--font);
-  color: #fff; 
-  padding: 0.5rem 2rem 0.4rem;
-  border: none; 
-  font-size: 1em;
   text-transform: uppercase;
-  margin-top: 15px;
-  margin-bottom: 10px;
+  padding: 0.5em 2em 0.4em;
+  margin-top: 1em;
+  margin-bottom: 0.8em;
+  border: none; 
   cursor: pointer;
+}
+
+a {
+  color: var(--darker); 
+  border-bottom: 2px solid var(--main);
+  text-decoration: none;
 }
 
 header {
   background-color: var(--main);
-  color: #fff;
+  color: var(--lighter);
 }
 
 #cake {
-  fill: #fff; 
+  fill: var(--lighter); 
   width: 24px;
   height: 24px;  
   margin: auto 0.5em; 
 }
 
 header h1 {
-  font-size: calc(16px + (30 - 16) * ((100vw - 280) / (2000 - 280)));
+  font-size: calc(1rem + (2 - 1) * ((100vw - 280) / (2000 - 280)));
   font-weight: 400;
   display: inline-block;
 }
@@ -62,10 +80,18 @@ header p {
   display: none; 
 }
 
+h2 {
+  display: inline-block;
+  padding: 10px; 
+  position: relative; 
+  left: 50%; 
+  transform: translateX(-50%);
+}
+
 input:not([type="checkbox"]) {
   display: block; 
-  font-size: 1.2em;
-  padding: 10px 10px 5px; 
+  font-size: 1.2rem;
+  padding: 0.5em 0.5em 0.3em; 
   font-family: var(--font);
   border-radius: 0; 
   border: 1px solid var(--dark); 
@@ -85,6 +111,10 @@ input[type="checkbox"] {
 
 .center {
   text-align: center;
+}
+
+.default {
+  margin: var(--default-margin);
 }
 
 #main-nav {
@@ -110,24 +140,17 @@ input[type="checkbox"] {
 }
 
 #main-nav a {
-  font-size: calc(16px + (30 - 16) * ((100vw - 280) / (2000 - 280)));
+  font-size: calc(1rem + (2 - 1) * ((100vw - 280) / (2000 - 280)));
   display: inline-block;
   color: var(--light);
   text-decoration: none;
   width: 100%; 
-  padding: 10px; 
+  padding: 0.6em 0.5em 0.5em;  
+  border-bottom: none; 
 }
 
 #main-nav a.active {
   background-color: var(--dark);
-}
-
-h2 {
-  display: inline-block;
-  padding: 10px; 
-  position: relative; 
-  left: 50%; 
-  transform: translateX(-50%);
 }
 
 .secondary-nav {
@@ -143,8 +166,8 @@ h2 {
   display: inline-block; 
   width: 100%; 
   text-align: center;
-  padding: 0.5rem 2rem 0.4rem;
-  color: #fff;
+  padding: 0.7rem 2rem 0.5rem;
+  color: var(--lighter);
   margin: 0; 
 }
 
@@ -152,18 +175,19 @@ h2 {
   background-color: var(--dark);
 }
 
-.tense-selector {
-  padding: 1rem; 
+.tense-selector div {
+  display: grid; 
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .tense-selector > p:first-of-type {
   font-weight: 600;
-  font-size: 1.2em;
+  font-size: 1.2rem;
 }
 
 .tense-selector label {
   display: block; 
-  margin: 10px 0 0; 
+  margin: 5px 0; 
 }
 
 input[type="checkbox"] {
@@ -174,7 +198,7 @@ input[type="checkbox"] {
 
 .count {
   background-color: var(--darker); 
-  color: #fff; 
+  color: var(--lighter); 
   padding: 10px;
   float: right; 
 }
@@ -186,7 +210,7 @@ input[type="checkbox"] {
 }
 
 .infinitive {
-  font-size: 1.8em;
+  font-size: 1.8rem;
   font-weight: 600;
 }
 
@@ -194,7 +218,13 @@ input[type="checkbox"] {
   cursor: pointer;
   margin-left: 10px;
   margin-bottom: -3px;
-  fill: #ccc;
+  fill: transparent; 
+}
+
+.star:not(.bookmarked) {
+  stroke: var(--main);
+  stroke-width: 1px; 
+  stroke-linejoin: miter;
 }
 
 .star.bookmarked {
@@ -202,18 +232,18 @@ input[type="checkbox"] {
 }
 
 .translation {
+  font-size: 0.9rem;
   text-transform: uppercase;
   margin-bottom: 1em;
-  font-size: 0.9em;
 }
 
 .tense {
-  font-size: 1.2em;
+  font-size: 1.2rem;
   color: var(--dark);
 }
 
 .pronoun {
-  font-size: 1.3em;
+  font-size: 1.3rem;
   color: var(--main);
 }
 
@@ -227,9 +257,9 @@ input[type="checkbox"] {
 
 .tap-to-see, 
 .flashcard-result {
+  font-size: 1.5rem;
   display: inline-block;
   margin: 0.3em 0 0.5rem; 
-  font-size: 1.5em;
 }
 
 .tap-to-see { 
@@ -243,9 +273,9 @@ input[type="checkbox"] {
 
 .correct, 
 .false {
+  font-size: 1.3rem;
   text-transform: uppercase;
   font-weight: 600;
-  font-size: 1.3em;
 }
 
 .correct {
@@ -257,25 +287,13 @@ input[type="checkbox"] {
 }
 
 .test-solution {
-  text-decoration: underline;
-  font-size: 1.2em; 
-}
-
-.finish-practicing {
-  position: absolute; 
-  bottom: 4em;
-  left: 50%; 
-  transform: translateX(-50%);
-  background-color: transparent; 
-  color: var(--main); 
-  border-bottom: 1px solid var(--main);
-  padding: 0; 
-  margin-top: 2em;
+  font-size: 1.2rem;
+  text-decoration: underline; 
 }
 
 .loading {
   text-align: center;
-  font-size: calc(1em + 2vw); 
+  font-size: calc(1rem + 2vw); 
   color: var(--dark);
   position: absolute; 
   top: 50%; 
@@ -286,12 +304,10 @@ input[type="checkbox"] {
 /* Account Page */
 .logout {
   float: right; 
-  margin-right: 1em;
 }
 
 .account {
   clear: right; 
-  padding: 1em; 
 }
 
 .account h3 {
@@ -322,10 +338,6 @@ input[type="checkbox"] {
   width: 100%; 
 }
 
-.password {
-  margin: 1rem;
-}
-
 .password h2 {
   position: static; 
   left: 0; 
@@ -346,7 +358,7 @@ input[type="checkbox"] {
 
 .search input {
   display: inline; 
-  font-size: 0.9em;
+  font-size: 0.9rem;
   width: 75%;
 }
 
@@ -363,11 +375,11 @@ input[type="checkbox"] {
 }
 
 .search-title {
-  text-align: center;
   clear: right; 
-  padding-top: 1em;
-  font-size: calc(1em + 1vw);
+  text-align: center;
+  font-size: calc(1rem + 1vw);
   font-weight: 600;
+  padding-top: 1em;  
 }
 
 .conjugation {
@@ -380,12 +392,13 @@ input[type="checkbox"] {
 
 .conjugation-card {
   background-color: var(--light);
-  margin: 1rem;  
+  margin-bottom: var(--default-margin);
+  margin-top: var(--default-margin);
 }
 
 .conjugation-card-verb .tense {
   text-transform: uppercase;
-  font-size: 1.4em;
+  font-size: 1.4rem;
 }
 
 .conjugation-card-verb > span {
@@ -400,16 +413,16 @@ input[type="checkbox"] {
 
 .conjugation-card-verb .verb {
   text-align: left;
-  font-size: 1.3em;
+  font-size: 1.3rem;
   width: 50%;
 }
 
-@media screen and (min-width:600px ) {
+@media screen and (min-width: 38em) {
   .conjugation-grid {
-    margin: 1em;
     display: grid; 
     grid-template-columns: 1fr 1fr;
     gap: 1em;
+    margin: 10px 0;
   }
 
   .conjugation-card {
@@ -417,7 +430,11 @@ input[type="checkbox"] {
   }
 }
 
-@media screen and (min-width: 800px) {
+@media screen and (min-width: 50em) {
+  :root {
+    --default-margin: 1em 2em; 
+  }
+
   /* Navigation and Header */
   .header-flex {
     background-color: var(--main);
@@ -443,8 +460,8 @@ input[type="checkbox"] {
   }
   
   #main-nav a {
-    font-size: 1.3em; 
-    color: #fff;
+    font-size: 1.3rem; 
+    color: var(--lighter);
   }
   
   #main-nav a.active {
@@ -455,7 +472,7 @@ input[type="checkbox"] {
   #main-nav a.active::after {
     content: ''; 
     position: absolute; 
-    background-color: var(--light); 
+    background-color: var(--lighter); 
     height: 2px; 
     width: 50%;
     bottom: 0.5em;
@@ -473,7 +490,10 @@ input[type="checkbox"] {
   .secondary-nav button {
     min-width: 4em;
     margin: 1em 0.5em;
+  }
 
+  .tense-selector div {
+    grid-template-columns: repeat(3, 1fr);
   }
   
   /* Account */
@@ -482,6 +502,10 @@ input[type="checkbox"] {
   }
 
   /* Search */
+  .search {
+    padding: 1em;
+  }
+
   .search input {
     width: 80%;
   }
@@ -491,14 +515,25 @@ input[type="checkbox"] {
   }
 }
 
-@media screen and (min-width:1024px) {
-  header p {
-    display: inline; 
-    margin-left: 4px;
+@media screen and (min-width: 64em) {
+  :root {
+    --default-margin: 1em 4em; 
+  }
+
+  body {
+    font-size: 1.2rem;
   }
 
   header p::before {
     content: '- ';
+  }
+
+  .secondary-nav {
+    margin: 2em auto; 
+  }
+
+  .tense-selector div {
+    grid-template-columns: repeat(4, 1fr);
   }
 
   .search input {
@@ -510,17 +545,32 @@ input[type="checkbox"] {
   }
 
   .conjugation-grid {
-    margin: 2em;
     grid-template-columns: repeat(3, 1fr);
     gap: 2em;
+    margin: 1em 0; 
   }
 }
 
-@media screen and (min-width:1920px ) {
+@media screen and (min-width: 80em) {
+  header p {
+    display: inline; 
+    margin-left: 4px;
+  }
+}
+
+@media screen and (min-width: 120em) {
+  :root {
+    --default-margin: 1em 6em; 
+  }
+
+  .tense-selector div {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
   .conjugation-grid {
-    margin: 2em;
     grid-template-columns: repeat(4, 1fr);
     gap: 2em;
+    margin: 2em 0; 
   }
 
   .account-grid {

@@ -24,7 +24,7 @@ function Test({
     if(starred !== null) {
       if(starred.length === 0) {
         return (
-          <main className="center">
+          <main className="center default">
               <p>You have no saved words yet.</p>
               <Link exact to="/test">Practice All Words</Link>
           </main>
@@ -57,7 +57,7 @@ function Test({
     } // if filtering results in empty array show error msg
      else if(verbs.length === 0) {
         return (
-            <main>
+            <main className="default">
                 <div>No starred conjugations for the tenses selected.</div>
                 <button onClick={() => {
                     setNumber(0);
@@ -71,16 +71,14 @@ function Test({
         return(
             <main>  
                 <Count num={number + 1} length={verbs.length}/>
-                <TestQuiz 
-                    data={verbs[number]} 
-                    getNext={() => setNumber(getNext(number, verbs))} 
-                    login={login} 
-                    setStarred={setStarred} 
-                    starred={starred}/>
-                <button onClick={() => {
-                    setNumber(0);
-                    finishPractice(); 
-                }} className="finish-practicing">Finish Practicing</button>
+                <div className="default">
+                    <TestQuiz 
+                        data={verbs[number]} 
+                        getNext={() => setNumber(getNext(number, verbs))} 
+                        login={login} 
+                        setStarred={setStarred} 
+                        starred={starred}/>
+                </div>
             </main>
         )
     } 

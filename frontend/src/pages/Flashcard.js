@@ -24,7 +24,7 @@ function Flashcard({
     if(starred !== null) { //if the starred array is empty  
       if(starred.length === 0) {
         return (
-          <main className="center">
+          <main className="center default">
               <p>You have no saved words yet.</p>
               <Link exact to="/">Practice All Words</Link>
           </main>
@@ -56,7 +56,7 @@ function Flashcard({
     } // if filtering results in empty array show error msg
      else if(verbs.length === 0) {
         return (
-            <main>
+            <main className="default">
                 <div>No starred conjugations for the tenses selected.</div>
                 <button onClick={() => {
                     setNumber(0);
@@ -70,16 +70,14 @@ function Flashcard({
       return(
         <main>  
           <Count num={number + 1} length={verbs.length}/>
-          <FlashcardQuiz 
-              data={verbs[number]} 
-              getNext={() => setNumber(getNext(number, verbs))} 
-              login={login} 
-              starred={starred} 
-              setStarred={setStarred}/>
-          <button onClick={() => {
-              setNumber(0);
-              finishPractice(); 
-          }} className="finish-practicing">Finish Practicing</button>
+          <div className="default">
+            <FlashcardQuiz 
+                data={verbs[number]} 
+                getNext={() => setNumber(getNext(number, verbs))} 
+                login={login} 
+                starred={starred} 
+                setStarred={setStarred}/>
+          </div>
         </main>
       )
     } 

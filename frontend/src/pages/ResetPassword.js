@@ -58,7 +58,7 @@ function ResetPassword() {
     }
 
     return(
-       <main className="password">
+       <main className="default">
            <h2>Reset Your Password</h2>
            <p>Please enter your new password below:</p>
 

@@ -51,7 +51,7 @@ function ForgottenPassword() {
     }
 
     return(
-        <main className="password">
+        <main className="default">
             <h2>Reset your password</h2>
             <p>Please enter your email below. We will then send you an email with a password reset link.</p>
             {message && <p className={success ? 'correct' : 'false'}>{message}</p>}

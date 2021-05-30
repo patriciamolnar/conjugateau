@@ -13,9 +13,10 @@ function TenseSelector({ updateOptions, startGame }) {
     ];
 
     return(
-        <div className="tense-selector">
+        <div className="tense-selector default">
             <p>Select tenses to practice:</p>
             <form>
+                <div>
                 {tenseNames.map(name => {
                     return( 
                         <label htmlFor={name} key={name}>
@@ -24,7 +25,7 @@ function TenseSelector({ updateOptions, startGame }) {
                         </label>
                     )
                 })}
-                <br />
+                </div>
                 <button type="button" onClick={startGame}>Start</button>
             </form>
         </div>
