@@ -30,7 +30,7 @@ function Verb({data, login, starred, setStarred}) {
                                         <span className="pronoun">{ele.pronoun} </span>
                                         <span className="verb">{ele.conjugation}
                                         {login && 
-                                        <span onClick={() => {updateStarred(data._id, setStarred)}}>
+                                        <span onClick={() => {updateStarred(ele._id, setStarred)}}>
                                         <StarIcon styling={style} />
                                         </span>}</span>
                                     </div>
