@@ -3,6 +3,7 @@ import { useInput } from '../lib/customHooks';
 import { getSavedVerbs } from '../lib/fetch';
 import { formatInput } from "../lib/functions";
 import ToggleVisibility from "./ToggleVisibility";
+import { validatePassword, validateEmail } from '../lib/functions';
 
 function EmailPasswordForm({ title, id, url, method, btnText, setLogin, setStarred }) {
     const [emailProps, resetEmail] = useInput(''); 
@@ -26,9 +27,24 @@ function EmailPasswordForm({ title, id, url, method, btnText, setLogin, setStarr
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setLoading(true);
-        setSuccess(null); 
+        
+        //check if email is empty or incorrect format. 
+        if(!validateEmail(emailProps.value)) {
+            setMessage('Please fill in a valid email');
+            setSuccess(false);
+            return;
+        } 
 
+        //check password format when user is registering
+        if(id === 'register' && !validatePassword(passwordProps.value)) { 
+            setMessage(
+                'Incorrect password format: must contain at least 1 uppercase, 1 lowercase letter, 1 special character and 1 number. Minimum length must be 8.'
+            );
+            setSuccess(false);
+            return; 
+        }
+
+        setLoading(true);
         fetch(url, options)
             .then(res => {
                 if(id === 'login') { // avoid errors if login is unauthorised
@@ -41,14 +57,13 @@ function EmailPasswordForm({ title, id, url, method, btnText, setLogin, setStarr
                 }    
             })
             .then(data => {
-                console.log(data);
                 resetPassword();
                 setLoading(false);
 
                 if(data.success) {
                     resetEmail(); 
                     setMessage(data.message);
-                    setSuccess(data.success);
+                    setSuccess(true);
 
                     //if login form: get verbs from DB and save to state
                     if(id === 'login') { 

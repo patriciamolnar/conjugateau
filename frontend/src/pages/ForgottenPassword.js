@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useInput } from '../lib/customHooks';
 import { handleSubmit } from '../lib/fetch';
-import { formatInput } from "../lib/functions";
+import { formatInput, validateEmail } from "../lib/functions";
 import Loading from '../components/Loading';
 import { Link } from 'react-router-dom';
 
@@ -12,16 +12,24 @@ function ForgottenPassword() {
     const [success, setSuccess] = useState(null);
 
     const requestReset = (e) => {
-        setLoading(true); 
-        setSuccess(null);
+        e.preventDefault(); 
+        
+        //check if email is empty or incorrect format. 
+        if(!validateEmail(emailProps.value)) {
+            setMessage('Please fill in a valid email');
+            setSuccess(false);
+            return;
+        }
 
+        setLoading(true); 
+        
         const obj = {
             uri: '/user/forgotten-password', 
             method: 'POST',
             details: {email: formatInput(emailProps.value)}
         }
         
-        handleSubmit(e, obj).then(data => {
+        handleSubmit(obj).then(data => {
             setLoading(false);
             if(data.success) {
                 setMessage(data.message);

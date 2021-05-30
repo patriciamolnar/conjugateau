@@ -43,7 +43,7 @@ export const getSavedVerbs = (callback) => {
 }
 
 //call API with method POST, PUT, DELETE, ...
-export const fetchWithParams = ({ uri, method, details }) => {
+export const handleSubmit = ({ uri, method, details }) => {
   const options = {
     method,
     headers: {
@@ -53,10 +53,4 @@ export const fetchWithParams = ({ uri, method, details }) => {
   }
 
   return fetch(uri, options).then(res => res.json());
-}
-
-//prevent default and call API
-export const handleSubmit = (e, obj) => {
-  e.preventDefault(); 
-  return fetchWithParams(obj);
 }

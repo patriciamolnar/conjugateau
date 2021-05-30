@@ -4,6 +4,7 @@ import { useInput } from '../lib/customHooks';
 import { handleSubmit } from '../lib/fetch';
 import ToggleVisibility from '../components/ToggleVisibility';
 import Loading from '../components/Loading';
+import { validatePassword } from '../lib/functions';
 
 function ResetPassword() {
     const [passwordProps, resetPassword] = useInput(''); 
@@ -14,8 +15,18 @@ function ResetPassword() {
     const {token} = useParams();
 
     const changePassword = (e) => {
+        e.preventDefault(); 
+
+        //check if password has been filled out and has correct format
+        if(!validatePassword(passwordProps.value)) {
+            setMessage(
+                'Incorrect password format: must contain at least 1 uppercase, 1 lowercase letter, 1 special character and 1 number. Minimum length must be 8.'
+            );
+            setSuccess(false);
+            return;
+        }
+
         setLoading(true);
-        setSuccess(null); 
 
         const obj = {
             uri: '/user/reset/' + token, 
@@ -25,7 +36,7 @@ function ResetPassword() {
             }
         }
 
-        handleSubmit(e, obj).then(data => {
+        handleSubmit(obj).then(data => {
                 setLoading(false);
                 if(data.success) {
                     setSuccess(true);

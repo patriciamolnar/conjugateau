@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { handleSubmit } from '../lib/fetch';
+import { isEmpty } from "../lib/functions";
 import ToggleVisibility from "./ToggleVisibility";
 
 function DeleteAccount({ setLogin, setDeleted }) {
@@ -9,15 +10,23 @@ function DeleteAccount({ setLogin, setDeleted }) {
     const [showPass, setShowPass] = useState(false);
 
     const deleteAccount = (e) => {
+        e.preventDefault(); 
+
+        if(isEmpty(password)) { //check if password is filled out
+            setMessage('Please fill in your password'); 
+            return; 
+        }
+
+        setLoading(true);
+
         const obj = {
             uri: '/user/delete-account/', 
             method: 'DELETE',
             details: { password }
         }
 
-        setLoading(true); 
-
-        handleSubmit(e, obj).then(data => {
+        //send request to DB
+        handleSubmit(obj).then(data => {
             setLoading(false); 
 
             if(data.success) {

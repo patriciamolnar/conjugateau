@@ -1,5 +1,7 @@
 import { saveVerb } from '../lib/fetch';
 
+const regexEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i; 
+
 export const shuffle = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
       let j = Math.floor(Math.random() * (i + 1)); // random index from 0 to i
@@ -52,4 +54,25 @@ export const updateStarred = (id, callback) => {
     saveVerb({_id: id}, callback); 
 }
 
-export const formatInput = (str) => str.trim().toLowerCase(); 
+//convert str to lowercase and remove spaces from front & back
+export const formatInput = str => str.trim().toLowerCase(); 
+
+//check if input is empty
+export const isEmpty = str => str.trim().length === 0;
+
+//check email has correct format
+export const checkFormatEmail = email => regexEmail.test(email); 
+
+//check password has correct requirements
+export const checkFormatPassword = (password) => {
+    const uppercase = /[A-Z]/.test(password); 
+    const lowercase = /[a-z]/.test(password);
+    const number    = /[0-9]/.test(password);
+    const special_char = /['^£$%&*()}{@#~?!><>,|=_+¬.-]/.test(password);
+
+    return uppercase && lowercase && number && special_char && password.length >= 8;
+}
+
+export const validateEmail = email => !isEmpty(email) && checkFormatEmail(email);
+
+export const validatePassword = password => !isEmpty(password) && checkFormatPassword(password); 

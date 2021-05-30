@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useInput } from '../lib/customHooks';
 import { handleSubmit } from '../lib/fetch';
 import ToggleVisibility from './ToggleVisibility';
+import { validatePassword } from '../lib/functions';
 
 function ResetPasswordDetail() {
     const [oldPassProps, resetOldPass] = useInput(''); 
@@ -12,7 +13,17 @@ function ResetPasswordDetail() {
     const [success, setSuccess] = useState(null);
 
     const changePassword = (e) => {
-        setSuccess(null); 
+        e.preventDefault(); 
+
+        //check if password is empty || has incorrect format
+        if(!validatePassword(newPassProps.value)) {
+            setMessage(
+                'Incorrect password format: must contain at least 1 uppercase, 1 lowercase letter, 1 special character and 1 number. Minimum length must be 8.'
+            );
+            setSuccess(false);
+            return;
+        }
+
         setLoading(true);
         
         const obj = {
@@ -24,8 +35,8 @@ function ResetPasswordDetail() {
             }
         }
 
-        handleSubmit(e, obj).then(data => {
-            resetOldPass(); //resetting state and wih it the input fields.
+        handleSubmit(obj).then(data => {
+            resetOldPass();
             resetNewPass();
             setLoading(false);
             setMessage(data.message); 

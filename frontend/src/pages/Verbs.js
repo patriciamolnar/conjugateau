@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Verb from '../components/Verb';
 import { getAll, getByInfinitive } from '../lib/fetch';
-import { filterData, formatInput } from '../lib/functions';
+import { filterData, formatInput, isEmpty } from '../lib/functions';
 import Loading from '../components/Loading';
 
 function Verbs({ login, starred, setStarred }) {
@@ -26,11 +26,11 @@ function Verbs({ login, starred, setStarred }) {
 
     const searchVerb = (e) => {
         e.preventDefault();
-        setMessage(null);
-
-        if(search === "") { //check if something was added to search form
+        
+        if(isEmpty(search)) { //check if something was added to search form
             setMessage('Please enter an infinitive to search for.')
         } else {
+            setMessage(null); //reset message in case it contains msg from previous search
             getByInfinitive(formatInput(search), setSearchResult);
         }
     }
@@ -46,7 +46,7 @@ function Verbs({ login, starred, setStarred }) {
                 <button type="submit">Submit</button>
             </form>
 
-            {message && <p className="error">{message}</p>}
+            {message && <p className="false">{message}</p>}
 
             {searchResult ? 
             <div>
