@@ -1,5 +1,5 @@
 import { useCallback, useRef, useState, useEffect } from 'react';
-import { formatInput, getStyle, updateStarred } from '../lib/functions';
+import { formatInput } from '../lib/functions';
 import StarIcon from './StarIcon';  
 
 function TestQuiz({ data, getNext, login, starred, setStarred }) {
@@ -32,19 +32,17 @@ function TestQuiz({ data, getNext, login, starred, setStarred }) {
         } 
     }
 
-    let style = 'star'; 
-    if(login && starred !== null) {
-        style += getStyle(starred, data._id);
-    }
-
     return(
         <div className="quizcard">
             <p className="infinitive">
                 {data.infinitive} 
                 {login && 
-                <span onClick={() => {updateStarred(data._id, setStarred)}}>
-                    <StarIcon styling={style} />
-                </span>}
+                <StarIcon 
+                login={login} 
+                starred={starred}
+                setStarred={setStarred}  
+                id={data._id}
+                />}
             </p>
             <p className="translation">{data.en}</p>
             <p className="tense">{data.tense}</p>

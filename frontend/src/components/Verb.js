@@ -1,4 +1,4 @@
-import { filterData, getStyle, updateStarred } from '../lib/functions';
+import { filterData } from '../lib/functions';
 import Loading from '../components/Loading';
 import StarIcon from './StarIcon';
 
@@ -20,19 +20,19 @@ function Verb({data, login, starred, setStarred}) {
                     return (
                         <div className="conjugation-card" key={i.toString()}>
                             {arr.map((ele, i) => {
-                                let style = 'star'; 
-                                if(login && starred) {
-                                    style += getStyle(starred, ele._id);
-                                }
                                 return (
                                     <div className="conjugation-card-verb" key={ele._id}>
                                         <p className="tense">{(i === 0) ? ele.tense : null}</p>
                                         <span className="pronoun">{ele.pronoun} </span>
                                         <span className="verb">{ele.conjugation}
                                         {login && 
-                                        <span onClick={() => {updateStarred(ele._id, setStarred)}}>
-                                        <StarIcon styling={style} />
-                                        </span>}</span>
+                                        <StarIcon 
+                                            login={login} 
+                                            starred={starred}
+                                            setStarred={setStarred}  
+                                            id={ele._id}
+                                        />}
+                                        </span>
                                     </div>
                                 )})
                             }
