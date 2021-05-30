@@ -52,7 +52,7 @@ function TestQuiz({ data, getNext, login, starred, setStarred }) {
             
             <form onSubmit={(e) => validateAnswer(e)}>
                 <label htmlFor="test-input">Please type the correct conjugation below:</label>
-                <input type="text" ref={inputRef} value={input} onChange={(e) => setInput(e.target.value)} id="test-input" disabled={answered} />
+                <input type="text" ref={inputRef} value={input} onChange={(e) => setInput(e.target.value)} id="test-input" disabled={answered} autoComplete="off"/>
                 {answered ? null : <button>Check Answer</button>}
             </form>
             
