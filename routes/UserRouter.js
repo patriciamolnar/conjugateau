@@ -220,6 +220,13 @@ userRouter.post('/forgotten-password', (req, res) => {
 userRouter.put('/reset/:token', (req, res) => {
     const { token } = req.params;
     const { password } = req.body; 
+
+    if(!password) { //check if password has been filled out
+        return res.send({
+            success: false, 
+            message: 'Please fill in a password.'
+        });
+    }
     
     //check if token exists and still valid
     User.findOne({
