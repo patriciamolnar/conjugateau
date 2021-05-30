@@ -75,9 +75,13 @@ function App() {
 
   //start game and filter data based on tenses selected
   const startGame = () => {
-    const queryStr = selected.join('+');
-    getByTense(queryStr, setData);
-    setPracticing(true);
+    if(selected.length > 0) {
+      const queryStr = selected.join('+');
+      getByTense(queryStr, setData);
+      setPracticing(true);
+    } else {
+      setPracticing('empty');
+    }
   }
 
   //start game and filter starred verbs based on tenses selected 

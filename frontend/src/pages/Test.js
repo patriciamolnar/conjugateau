@@ -32,7 +32,7 @@ function Test({
       }
     }
 
-    if(!practicing) { //if tenses have not been selected display select page.
+    if(!practicing || practicing === 'empty') { //if tenses have not been selected display select page.
         return (
             <main>  
                 <SecondaryNav 
@@ -45,7 +45,8 @@ function Test({
                     ' your saved words': 
                     ' all words'}
                 </h2>
-                
+                {practicing === 'empty' && 
+                <p className="false default">Please select at least 1 tense to start.</p> }
                 <TenseSelector updateOptions={updateOptions} startGame={startGame} />
             </main>
         )
