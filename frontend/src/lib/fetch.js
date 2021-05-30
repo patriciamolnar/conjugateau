@@ -20,7 +20,7 @@ export const getByInfinitive = (query, callback) => {
   .then(data => callback(data));
 }
 
-export const saveVerb = (verb, callback) => {
+export const saveVerb = (verb, callback, setLoading) => {
   fetch('/user/saved/', {
     method: "PUT",
     headers: {
@@ -31,15 +31,20 @@ export const saveVerb = (verb, callback) => {
     .then((result) => result.json())
     .then(info => {
       if(info.saved) {
-        getSavedVerbs(callback);
+        getSavedVerbs(callback, setLoading);
       }
     });
 }
 
-export const getSavedVerbs = (callback) => {
+export const getSavedVerbs = (callback, setLoading) => {
   fetch('/user/saved/')
       .then(res => res.json())
-      .then(data => callback(shuffle(data)));
+      .then(data => callback(shuffle(data)))
+      .then(() => {
+        if(setLoading) {
+          setLoading(false); 
+        }
+      });
 }
 
 //call API with method POST, PUT, DELETE, ...

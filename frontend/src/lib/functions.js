@@ -50,8 +50,8 @@ export const getNext = (number, verbs) => {
 }
 
 // bookmark conjugations
-export const updateStarred = (id, callback) => {
-    saveVerb({_id: id}, callback); 
+export const updateStarred = (id, callback, updateStatus) => {
+    saveVerb({_id: id}, callback, updateStatus); 
 }
 
 //convert str to lowercase and remove spaces from front & back
