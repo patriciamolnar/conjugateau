@@ -1,3 +1,5 @@
+import CheckBox from './CheckBox';
+
 function TenseSelector({ updateOptions, startGame }) { 
     const tenseNames = [
         'present-indicative', 
@@ -19,10 +21,7 @@ function TenseSelector({ updateOptions, startGame }) {
                 <div>
                 {tenseNames.map(name => {
                     return( 
-                        <label htmlFor={name} key={name}>
-                            <input id={name} name={name} type="checkbox" onClick={(e) => updateOptions(e.target.name)}/>
-                            {name}
-                        </label>
+                        <CheckBox name={name} updateOptions={updateOptions}/>
                     )
                 })}
                 </div>

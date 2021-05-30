@@ -27,7 +27,13 @@ function FlashcardQuiz({ data, getNext, login, starred, setStarred }) {
             <p className="tense">{data.tense}</p>
             <p className="pronoun">{data.pronoun}</p>
             
-            <p onClick={() => setHidden(false)} className="no-tap-highlight">
+            <p tabIndex="0" className="no-tap-highlight"
+                onClick={() => setHidden(false)}
+                onKeyPress={(e) => {
+                    if(e.key === 'Enter') {
+                        setHidden(false); 
+                    }
+                }}>
                 {hidden ? 
                 <span className="tap-to-see">Tap to see answer</span> :
                 <span className="flashcard-result">{data.conjugation}</span>}
