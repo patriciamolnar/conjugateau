@@ -290,6 +290,8 @@ userRouter.put('/change-email', passport.authenticate('jwt', { session: false })
                         return res.send({ success: false, message: 'An error occurred.' });
                     } else if(!user) { 
                         return res.send({ success: false, message: 'Incorrect password.' });
+                    } else if(user.email === email) {
+                        return res.send({ success: false, message: 'You are trying to change your email to the same one.' });
                     } else { //save password
                         User.updateOne({'_id': doc._id}, { $set: {'email': email} }, (err, doc) => {
                             if(err) {
