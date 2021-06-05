@@ -29,11 +29,27 @@ const UserSchema = new mongoose.Schema({
     saved: [{type: ObjectId, ref: 'Verb'}], 
     resetPasswordToken: {
         type: String, 
-        default: ''
+        default: undefined
     }, 
     resetPasswordExpires: {
         type: Date, 
-        default: Date.now()
+        default: undefined
+    }, 
+    name: {
+        type: String, 
+        default: undefined
+    }, 
+    country: {
+        type: String, 
+        default: undefined
+    },
+    confirmEmailToken: {
+        type: String, 
+        default: undefined
+    },
+    confirmEmailExpires: {
+        type: Date, 
+        default: undefined
     }
 }, {
     timestamps: true,
