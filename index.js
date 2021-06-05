@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
-const cookies = require("cookie-parser");
+const cookies = require('cookie-parser');
+const path = require('path');
 
 const db = require('./lib/db');
 const userRouter = require('./routes/UserRouter');
