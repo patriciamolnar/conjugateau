@@ -114,7 +114,7 @@ function App() {
               <NavLink to="/test" activeClassName="active" onClick={finishPractice}>Test</NavLink>
             </li>
             <li>
-              <NavLink to="/verbs" activeClassName="active" onClick={finishPractice}>Verbs</NavLink>
+              <NavLink to="/all" activeClassName="active" onClick={finishPractice}>Verbs</NavLink>
             </li>
             <li>
               <NavLink to="/account" activeClassName="active" onClick={finishPractice}>Account</NavLink>
@@ -150,7 +150,7 @@ function App() {
           }} />
 
            {/* Page showing conjugation tables for all words in DB */}
-          <Route path="/verbs" render={(props) => {
+          <Route path="/all" render={(props) => {
             return <Verbs {...props} login={login} starred={starred} setStarred={setStarred} />
           }} />
 
