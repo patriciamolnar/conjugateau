@@ -69,17 +69,18 @@ function ResetPassword() {
            </>}
            
 
+           {success !== true &&
            <form onSubmit={(e) => changePassword(e)}>
-               <label htmlFor="reset-password">Password:</label>
-               <input { ...passwordProps }
-                    type={showPass ? "text" : "password"}   
-                    id="reset-password"
-                    autoComplete="new-password" />
-               
-               <ToggleVisibility id={"change-password2"} showPass={showPass} setShowPass={setShowPass} />
-               <br />
-               <button type="submit">Change</button>
-           </form>
+                <label htmlFor="reset-password">Password:</label>
+                <input { ...passwordProps }
+                        type={showPass ? "text" : "password"}   
+                        id="reset-password"
+                        autoComplete="new-password" />
+                
+                <ToggleVisibility id={"change-password2"} showPass={showPass} setShowPass={setShowPass} />
+                <br />
+                <button type="submit">Change</button>
+            </form>}
        </main>
     )
 }
