@@ -26,6 +26,7 @@ function App() {
   const [practicing, setPracticing] = useState(false);
   const [login, setLogin] = useState(false); 
   const [practiceSaved, setPractiveSaved] = useState(false);
+  const [deleted, setDeleted] = useState(null);
 
   //check if user is already logged in.
   useEffect(() => {
@@ -96,6 +97,7 @@ function App() {
     setSelected([]);
     setPracticing(false);
     setPractiveSaved(false);
+    setDeleted(false);
   }
 
   return (
@@ -173,7 +175,7 @@ function App() {
           Account settings page (if logged in)
           */}
           <Route path="/account" render={(props) => {
-            return <Account {...props} login={login} setLogin={setLogin} setStarred={setStarred}/>
+            return <Account {...props} login={login} setLogin={setLogin} setStarred={setStarred} setDeleted={setDeleted} deleted={deleted}/>
           }} />  
 
           <Route path="*" component={NotFound} />

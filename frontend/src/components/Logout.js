@@ -1,4 +1,4 @@
-function Logout({ setLogin }) {
+function Logout({ setLogin, setDeleted }) {
     const logoutUser = () => {
         fetch('/user/logout')
             .then((result) => result.json())
@@ -6,11 +6,14 @@ function Logout({ setLogin }) {
                 if(info.success) {
                     setLogin(false);
                 }
-            })
+            });
     }
 
     return(
-        <button onClick={logoutUser} className="logout">Logout</button>
+        <button onClick={() => {
+            setDeleted(false);
+            logoutUser();
+        }} className="logout">Logout</button>
     )
 }
 

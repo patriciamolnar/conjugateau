@@ -7,14 +7,14 @@ import EmailPasswordForm from '../components/EmailPasswordForm';
 import Misc from '../components/Misc';
 
 
-function Account({ login, setLogin, setStarred }) {
-    const [deleted, setDeleted] = useState(null);
+function Account({ login, setLogin, setStarred, deleted, setDeleted }) {
     return (
         <main className="default">
-            <p className="correct">{deleted && deleted}</p>
             {login ? 
             (<>
-                <Logout setLogin={setLogin}/>
+                {/* passing setDeleted in case user registers after deletion
+                    and then logs out: this removed deletion confirmation */}
+                <Logout setLogin={setLogin} setDeleted={setDeleted}/>
 
                 <div className="account">
                     <h2>Welcome to Conjugâteau</h2>
@@ -40,6 +40,7 @@ function Account({ login, setLogin, setStarred }) {
             </>) :
             (<div className="account">
                 <h2>Sign Up or Login</h2>
+                <p className="correct">{deleted && deleted}</p>
                 <div className="account-grid">
                     {/* Sign Up Form */}
                     <EmailPasswordForm 
