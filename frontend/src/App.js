@@ -21,7 +21,7 @@ import NotFound from './pages/NotFound';
 function App() {
   const [data, setData] = useState(null);
   const [filterData, setFilterData] = useState(null);
-  const [starred, setStarred] = useState(null);
+  const [starred, setStarred] = useState([]);
   const [selected, setSelected] = useState([]);
   const [practicing, setPracticing] = useState(false);
   const [login, setLogin] = useState(false); 
@@ -95,6 +95,7 @@ function App() {
     setData(null);
     setSelected([]);
     setPracticing(false);
+    setPractiveSaved(false);
   }
 
   return (

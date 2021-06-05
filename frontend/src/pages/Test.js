@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import Count from '../components/Count';
 import TestQuiz from '../components/TestQuiz';
 import TenseSelector from '../components/TenseSelector';
 import { getNext } from '../lib/functions';
 import Loading from '../components/Loading';
 import SecondaryNav from '../components/SecondaryNav';
+import NoSavedWords from '../components/NoSavedWords';
 
 function Test({
   verbs, 
@@ -21,16 +21,14 @@ function Test({
 }) {
     const [number, setNumber] = useState(0);
 
-    if(starred !== null) {
-      if(starred.length === 0) {
+    
+    //if the starred array is empty  
+    if(starred.length === 0 && practiceSaved === true) {
         return (
-          <main className="center default">
-              <p>You have no saved words yet.</p>
-              <Link exact to="/test">Practice All Words</Link>
-          </main>
+          <NoSavedWords url="/test" setPractiveSaved={setPractiveSaved} />
         )
       }
-    }
+    
 
     if(!practicing || practicing === 'empty') { //if tenses have not been selected display select page.
         return (
