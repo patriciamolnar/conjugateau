@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import Logout from '../components/Logout'; 
 import ResetPasswordDetail from '../components/ResetPasswordDetail'; 
 import DeleteAccount from '../components/DeleteAccount';
-import { useState } from 'react';
 import EmailPasswordForm from '../components/EmailPasswordForm';
 import Misc from '../components/Misc';
 
