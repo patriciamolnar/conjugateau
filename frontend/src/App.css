@@ -422,6 +422,28 @@ input[type="checkbox"] {
   width: 50%;
 }
 
+/* 404 page */
+.not-found {
+  width: 100%;
+  position: absolute; 
+  top: 50%;  
+  transform: translateY(-50%);
+
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+}
+
+.not-found span:nth-child(1) {
+  font-size: calc(2rem + 2vw);
+}
+
+.not-found span:nth-child(2) {
+  color: var(--main);
+  margin: 0 0.5em;
+  font-weight: 600;
+}
+
 /* Focus Rules */
 button:focus {
   background-color: hsl(var(--false-hs), 45%);

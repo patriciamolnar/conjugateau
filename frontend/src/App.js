@@ -16,6 +16,7 @@ import ResetPassword from './pages/ResetPassword';
 import { getByTense, getSavedVerbs } from './lib/fetch';
 import './App.css';
 import Test from './pages/Test';
+import NotFound from './pages/NotFound';
 
 function App() {
   const [data, setData] = useState(null);
@@ -173,6 +174,8 @@ function App() {
           <Route path="/account" render={(props) => {
             return <Account {...props} login={login} setLogin={setLogin} setStarred={setStarred}/>
           }} />  
+
+          <Route path="*" component={NotFound} />
         </Switch>
 
       </Router>
