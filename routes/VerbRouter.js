@@ -24,7 +24,6 @@ verbRouter.get('/:tenses', async (req, res, next) => {
     try { 
         //convert query string into array of tenses
         const tenses = req.params.tenses.split('+'); 
-        console.log(tenses);
         Verb.find({"tense": {$in: tenses}}, function (err, document) {
             if (err) {
                 return next(err);

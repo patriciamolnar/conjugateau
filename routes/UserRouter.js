@@ -39,10 +39,9 @@ userRouter.post('/register', async (req, res, next) => {
 userRouter.post('/login', passport.authenticate('local', {session: false}), (req, res) => {
     if(req.isAuthenticated()) {
         const {_id, email} = req.user; 
-        console.log(req.user);
         const token = signToken(_id);
         res.cookie('access_token', token, {httpOnly: true, sameSite: true}); 
-        res.status(200).json({success: true, message: '', user: {_id, email}}); 
+        res.json({success: true, message: '', user: {_id, email}}); 
     } 
 }); 
 
@@ -63,6 +62,9 @@ userRouter.get('/saved', passport.authenticate('jwt', { session: false }), async
         User.findOne({_id}).populate('saved').exec((err, doc) => {
             if(err) {
                 return next(err);
+            } 
+            if(doc === null) {
+                return res.json({ success: false, message: 'No user found' });
             }
             return res.json(doc.saved);
         });
@@ -80,6 +82,10 @@ userRouter.put('/saved', passport.authenticate('jwt', { session: false }), async
             if(err) {
                 return next(err);
             } 
+
+            if(doc === null) {
+                return res.json({ success: false, message: 'No user found' });
+            }
              
             //if verbID already contained in 'saved', remove it
             if(doc.saved.includes(verbId)) { 
@@ -155,7 +161,7 @@ userRouter.post('/forgotten-password', (req, res) => {
 
     //check if email is empty
     if(!email) {
-        return res.status(400).send({
+        return res.send({
             success: false, 
             message: 'Please provide your email.'
         });
@@ -163,9 +169,9 @@ userRouter.post('/forgotten-password', (req, res) => {
 
     User.findOne({'email': email}, (err, doc) => {
         if(err) { //general error
-            return res.status(403).send({success: false, message: `There was an error.`});
+            return res.send({success: false, message: `There was an error.`});
         } else if(doc === null) { //no user
-            return res.status(403).send({success: false, message: `No account found for ${email}.`});
+            return res.send({success: false, message: `No account found for ${email}.`});
         } else {
             //generate token
             const token = crypto.randomBytes(20).toString('hex'); 
@@ -195,7 +201,7 @@ userRouter.post('/forgotten-password', (req, res) => {
                         subject: 'Conjugâteau: Password Reset Link', 
                         text: 'A request has been received to change the password for your Conjugâteau account\n\n'
                         + 'Please click the link below to change it within the next 30 minutes.\n\n'
-                        + `http://localhost:3000/reset/${token} \n\n`
+                        + `https://conjugateau.herokuapp.com/reset/${token} \n\n`
                         + 'Alternatively, copy paste the link into your browser to change your password.'
                         + 'If you did not request this change, please ignore this email and your password will remain unchanged.'
                     }
@@ -250,8 +256,8 @@ userRouter.put('/reset/:token', (req, res) => {
                     //invalidating token
                     User.updateOne({'_id': doc._id}, { 
                         $set: {
-                            'resetPasswordToken': "", 
-                            'resetPasswordExpires': Date.now() - 1800000
+                            'resetPasswordToken': undefined, 
+                            'resetPasswordExpires': undefined
                         }
                     }, (err, doc) => {
                         return res.send({ 
