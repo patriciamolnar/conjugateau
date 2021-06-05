@@ -50,12 +50,14 @@ button {
   margin-bottom: 0.8em;
   border: none; 
   cursor: pointer;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
 a {
   color: var(--darker); 
   border-bottom: 2px solid var(--main);
   text-decoration: none;
+  transition: background-color 0.3s ease-in-out;
 }
 
 header {
@@ -446,14 +448,14 @@ input[type="checkbox"] {
 
 /* Focus Rules */
 button:focus {
-  background-color: hsl(var(--false-hs), 45%);
+  background-color: hsl(var(--primary-hs), 20%);
   outline: none; 
 }
 
 a:focus {
   border-bottom: none; 
-  color: hsl(var(--false-hs), 45%); 
-  outline: 2px solid hsl(var(--false-hs), 45%); 
+  color: hsl(var(--primary-hs), 20%); 
+  outline: 2px solid hsl(var(--primary-hs), 20%); 
   outline-offset: 2px;
 }
 
@@ -461,12 +463,12 @@ a:focus {
 #main-nav a.active:focus, 
 .secondary-nav button:focus,
 .secondary-nav button.active:focus {
-  background-color: hsl(var(--false-hs), 45%);
+  background-color: hsl(var(--primary-hs), 20%);
   outline: none; 
 }
 
 input:focus {
-  outline: 2px solid hsl(var(--false-hs), 45%);
+  outline: 2px solid var(--darker);
   outline-offset: -1px;
 }
 
@@ -560,7 +562,7 @@ input:focus {
   }
   
   #main-nav a.active {
-    background-color: transparent; 
+    background-color: var(--main); 
     position: relative; 
   }
 
