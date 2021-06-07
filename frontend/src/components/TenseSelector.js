@@ -21,7 +21,7 @@ function TenseSelector({ updateOptions, startGame }) {
                 <div>
                 {tenseNames.map(name => {
                     return( 
-                        <CheckBox name={name} updateOptions={updateOptions}/>
+                        <CheckBox key={name} name={name} updateOptions={updateOptions}/>
                     )
                 })}
                 </div>

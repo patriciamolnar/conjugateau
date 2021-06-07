@@ -30,6 +30,37 @@ export const filterData = (arr, key) => {
   return filtered; 
 }
 
+//changing the order of the verbs in array to always be je > tu > il/elle etc.
+export const changeOrder = (arr) => {
+    let temp = []; 
+    for(let i = 0; i < arr.length; i++) {
+        switch(arr[i]['pronoun']) {
+            case "je": 
+                temp[0] = arr[i];
+                break;
+            case "tu": 
+                temp[1] = arr[i];
+                break;
+            case "il/elle/on": 
+                temp[2] = arr[i];
+                break;
+            case "nous": 
+                temp[3] = arr[i];
+                break;
+            case "vous": 
+                temp[4] = arr[i];
+                break;
+            case "ils/elles": 
+                temp[5] = arr[i];
+                break; 
+            default: 
+                temp = [...arr]; 
+        }
+    }
+
+    return temp; 
+}
+
 export const getStyle = (arr, id) => {
   let isIncluded = arr.find(o => o._id === id); 
     

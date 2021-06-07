@@ -1,4 +1,4 @@
-import { filterData } from '../lib/functions';
+import { filterData, changeOrder } from '../lib/functions';
 import Loading from '../components/Loading';
 import StarIcon from './StarIcon';
 
@@ -17,9 +17,10 @@ function Verb({data, login, starred, setStarred}) {
             
             <div className="conjugation-grid">
                 {tenses.map((arr, i) => {
+                    let temp = changeOrder(arr); 
                     return (
                         <div className="conjugation-card" key={i.toString()}>
-                            {arr.map((ele, i) => {
+                            {temp.map((ele, i) => {
                                 return (
                                     <div className="conjugation-card-verb" key={ele._id}>
                                         <p className="tense">{(i === 0) ? ele.tense : null}</p>
