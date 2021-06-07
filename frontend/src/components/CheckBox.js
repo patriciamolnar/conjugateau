@@ -4,7 +4,7 @@ function CheckBox({name, updateOptions}) {
   const [checked, setChecked] = useState(false); 
   
   return(
-    <label htmlFor={name} key={name}>
+    <label htmlFor={name}>
       <input 
         id={name} 
         name={name} 
