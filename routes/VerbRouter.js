@@ -46,7 +46,7 @@ verbRouter.get('/search/:infinitive', async (req, res, next) => {
             }
             return res.json(document);
         });
-        return next(new Error('FaiAn error occurred.'));
+        return next(new Error('An error occurred.'));
     } catch(err) {
         return next(err);
     }
