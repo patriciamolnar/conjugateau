@@ -34,27 +34,19 @@ export const filterData = (arr, key) => {
 export const changeOrder = (arr) => {
     let temp = []; 
     for(let i = 0; i < arr.length; i++) {
-        switch(arr[i]['pronoun']) {
-            case "je": 
-                temp[0] = arr[i];
-                break;
-            case "tu": 
-                temp[1] = arr[i];
-                break;
-            case "il/elle/on": 
-                temp[2] = arr[i];
-                break;
-            case "nous": 
-                temp[3] = arr[i];
-                break;
-            case "vous": 
-                temp[4] = arr[i];
-                break;
-            case "ils/elles": 
-                temp[5] = arr[i];
-                break; 
-            default: 
-                temp = [...arr]; 
+        let pronoun = arr[i]['pronoun'];
+        if(pronoun === 'je') {
+            temp[0] = arr[i];
+        } else if (pronoun === 'tu') {
+            temp[1] = arr[i];
+        } else if (pronoun === 'il/elle/on') {
+            temp[2] = arr[i];
+        } else if (pronoun === 'nous') {
+            temp[3] = arr[i];
+        } else if (pronoun === 'vous') {
+            temp[4] = arr[i];
+        } else if (pronoun === 'ils/elles') {
+            temp[5] = arr[i];
         }
     }
 
