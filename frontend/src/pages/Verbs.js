@@ -61,7 +61,7 @@ function Verbs({ login, starred, setStarred }) {
 
                     {searchResult.length === 0 ? 
                     <p className="center">Could not find infinitive you are looking for in our database.</p>:
-                    <Verb data={searchResult} login={login} starred={starred} setStarred={setStarred}/>
+                    searchResult.map((arr, i) => <Verb key={i.toString()} data={arr} login={login} starred={starred} setStarred={setStarred}/>)
                     }
                 </div> : 
 

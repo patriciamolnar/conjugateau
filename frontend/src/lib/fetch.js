@@ -1,4 +1,4 @@
-import { shuffle } from './functions';
+import { shuffle, filterData } from './functions';
 
 //get all the verbs in the DB
 export const getAll = (callback) => {
@@ -17,6 +17,8 @@ export const getByTense = (query, callback) => {
 export const getByInfinitive = (query, callback) => {
   fetch('/verbs/search/' + query.trim().toLowerCase())
   .then(res => res.json())
+  .then(data => filterData(data, 'infinitive'))
+  // .then(filtered => console.log(filtered))
   .then(data => callback(data));
 }
 
