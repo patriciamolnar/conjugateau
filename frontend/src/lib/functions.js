@@ -35,17 +35,17 @@ export const changeOrder = (arr) => {
     let temp = []; 
     for(let i = 0; i < arr.length; i++) {
         let pronoun = arr[i]['pronoun'];
-        if(pronoun === 'je') {
+        if(pronoun === 'je' || pronoun === 'j\'' || pronoun === 'que  j\'' || pronoun === 'que  je' || pronoun === 'que je') {
             temp[0] = arr[i];
-        } else if (pronoun === 'tu') {
+        } else if (pronoun === 'tu' || pronoun === 'que  tu' || pronoun === 'que tu') {
             temp[1] = arr[i];
-        } else if (pronoun === 'il/elle/on') {
+        } else if (pronoun === 'il/elle/on' || pronoun === 'qu\'  il/elle/on' || pronoun === 'qu\' il/elle/on') {
             temp[2] = arr[i];
-        } else if (pronoun === 'nous') {
+        } else if (pronoun === 'nous' || pronoun === 'que  nous' || pronoun === 'que nous') {
             temp[3] = arr[i];
-        } else if (pronoun === 'vous') {
+        } else if (pronoun === 'vous' || pronoun === 'que  vous' || pronoun === 'que vous') {
             temp[4] = arr[i];
-        } else if (pronoun === 'ils/elles') {
+        } else if (pronoun === 'ils/elles' || pronoun === 'qu\'  ils/elles' || pronoun === 'qu\' ils/elles') {
             temp[5] = arr[i];
         }
     }
